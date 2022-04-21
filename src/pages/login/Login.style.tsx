@@ -6,14 +6,14 @@ export const ContainerLogin = styled.div`
   flex-direction: column;
   width: 40%;
   background-color: ${Theme.color.neutralLight};
-
-  // borda pra visualizar o container (remover depois)
-  border: 1px solid #000;
+  border: 1px solid ${Theme.color.neutralDark};
+  border-radius: 8px;
 `;
 
-export const DivInput = styled.div`
+export const DivLogin = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 10px;
 `;
 
 export const LabelLogin = styled.label``;

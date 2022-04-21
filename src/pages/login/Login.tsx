@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
+import { Link} from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { ContainerLogin, DivInput, LabelLogin } from './Login.style';
-import Logo from '../../components/logo/Logo';
+import { ContainerLogin, DivLogin, LabelLogin } from './Login.style';
 import { ContainerMain } from '../../global.styles';
+import Logo from '../../components/logo/Logo';
 
 const FORM_INITIAL_VALUES = {
   email: '',
@@ -26,17 +27,23 @@ const Login = () => {
           onSubmit={() => console.log('logou')}
         >
           <Form>
-            <DivInput>
+            <DivLogin>
               <LabelLogin htmlFor="email">E-mail</LabelLogin>
               <Field name="email" placeholder="usuario@dbccompany.com.br" />
               <ErrorMessage name="email" />
-            </DivInput>
-            <DivInput>
+            </DivLogin>
+            <DivLogin>
               <LabelLogin htmlFor="password">Senha</LabelLogin>
               <Field name="password" placeholder="Senha" type="password" />
               <ErrorMessage name="password" />
-            </DivInput>
-            <button type="submit">Entrar</button>
+            </DivLogin>
+            <DivLogin>
+              <button type="submit">Entrar</button>
+            </DivLogin>
+            <DivLogin>
+              <p>Não possue cadastro?</p>
+              <Link to='/signup'>Cadastre-se!</Link>
+            </DivLogin>
           </Form>
         </Formik>
       </ContainerLogin>
