@@ -15,6 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${Theme.color.neutralPure};
   }
+
+  #root{
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const ContainerMain = styled.div`
@@ -25,6 +30,12 @@ export const ContainerMain = styled.div`
   width: 1100px;
   height: 100vh;
 `;
+
+export const InputDefault = styled.input`
+  border: 1px solid ${Theme.color.neutralDark};
+  border-radius: 8px;
+  padding: 10px;
+`
 
 export const ButtonDefault = styled.button`
   border: none;
@@ -38,6 +49,10 @@ export const ButtonDefault = styled.button`
   :hover {
     opacity: 0.8;
   }
+
+
+
+
 `;
 
 export const GeneralDiv = styled.div`
