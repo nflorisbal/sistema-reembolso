@@ -14,11 +14,15 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: ${Theme.color.neutralPure};
+    
   }
 
   #root{
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vh;
   }
 `;
 
@@ -54,4 +58,27 @@ export const ButtonDefault = styled.button`
   :hover {
     opacity: 0.8;
   }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5a9bb37ef76f9d51dab92f1f8e53d8f259889a19
 `;
+
+export const GeneralDiv = styled.div`
+    
+`
+
+export const DivFlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+`
+
+export const StyledLabel = styled.label`
+    
+`
+
+export const StyledForm = styled.form`
+    
+`

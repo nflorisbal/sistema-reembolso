@@ -40,3 +40,7 @@ export const LabelError = styled.label`
   color: ${Theme.color.highlightPure};
 `;
 
+export const TextNewUser = styled.p`
+  padding-right: 5px;
+`
+
