@@ -76,3 +76,5 @@ export const DivFlexLink = styled.div`
   padding: 10px;
   position: relative;
 `;
+
+export const PageTitle = styled.h1``;

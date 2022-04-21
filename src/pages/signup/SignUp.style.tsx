@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Link } from "react-router-dom"
 
 export const LinkEyePassword = styled.a`
   position: absolute;
@@ -8,6 +9,16 @@ export const LinkEyePassword = styled.a`
   top: 44px;
   right: 25px;
   text-decoration: none;
+`;
+
+export const LinkBack = styled(Link)`
+  position: absolute;
+  z-index: 0;
+  top: 23px;
+  left: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
 `;
 
 export const LinkEyeConfirmPassword = styled.a`
@@ -23,6 +34,7 @@ export const ContainerSignUp = styled.div`
   height: 650px;
   padding: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: ${Theme.color.neutralLight};
@@ -31,6 +43,7 @@ export const ContainerSignUp = styled.div`
   * > {
     padding: 10px;
   }
+  position: relative;
 `;
 
 export const DivButton = styled.div`
@@ -48,3 +61,5 @@ export const StyledSelect = styled.select`
 
 export const StyledAiOutlineEye = styled(AiOutlineEye)``;
 export const StyledAiOutlineEyeInvisible = styled(AiOutlineEye)``;
+
+
