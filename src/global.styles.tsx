@@ -34,8 +34,13 @@ export const ContainerMain = styled.div`
 export const InputDefault = styled.input`
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: 8px;
+  outline: none;
   padding: 10px;
-`
+
+  :hover, :focus {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%)
+  }
+`;
 
 export const ButtonDefault = styled.button`
   border: none;
@@ -49,8 +54,4 @@ export const ButtonDefault = styled.button`
   :hover {
     opacity: 0.8;
   }
-
-
-
-
 `;
