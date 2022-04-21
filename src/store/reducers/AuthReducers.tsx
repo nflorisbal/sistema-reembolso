@@ -2,7 +2,7 @@ import { AuthDTO } from '../../models/AuthDTO';
 
 export const INITIAL_STATE = {
   auth: {
-    username: '',
+    email: '',
     password: '',
   },
 };

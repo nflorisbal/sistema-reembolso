@@ -1,6 +1,6 @@
 export interface AuthDTO {
   auth: {
-    username: string;
+    email: string;
     password: string;
   };
 }
