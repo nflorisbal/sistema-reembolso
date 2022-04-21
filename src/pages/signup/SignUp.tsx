@@ -112,7 +112,7 @@ const SignUp = () => {
             </LinkEyePassword>
           </DivFlexLink>
 
-          <DivFlexColumn>
+          <DivFlexLink>
             <StyledLabel htmlFor="confirmPassword">Confirmação de senha:</StyledLabel>
             <InputDefault
               id="confirmPassword"
@@ -129,7 +129,7 @@ const SignUp = () => {
               {invisibleConfirmPassword && <AiOutlineEye />}
               {!invisibleConfirmPassword && <AiOutlineEyeInvisible />}
             </LinkEyeConfirmPassword>
-          </DivFlexColumn>
+          </DivFlexLink>
 
           <DivFlexColumn>
             <StyledLabel htmlFor="image">Foto:</StyledLabel>

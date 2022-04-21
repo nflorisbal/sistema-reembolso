@@ -13,8 +13,8 @@ export const LinkEyePassword = styled.a`
 export const LinkEyeConfirmPassword = styled.a`
   position: absolute;
   z-index: 0;
-  top: 375px;
-  right: 620px;
+  top: 44px;
+  right: 25px;
   text-decoration: none;
 `;
 
