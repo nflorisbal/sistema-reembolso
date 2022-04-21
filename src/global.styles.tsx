@@ -15,6 +15,11 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: ${Theme.color.neutralPure};
   }
+
+  #root{
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const ContainerMain = styled.div`
