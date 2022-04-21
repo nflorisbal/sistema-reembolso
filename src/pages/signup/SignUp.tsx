@@ -1,5 +1,5 @@
 import { Formik, Form, FormikHelpers, Field } from 'formik';
-import { SignUpDTO } from '../../models/SignUp';
+import { SignUpDTO } from '../../models/SignUpDTO';
 import { useState } from 'react';
 import { LinkEyePassword } from './SignUp.style';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
