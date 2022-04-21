@@ -39,3 +39,7 @@ export const ButtonDefault = styled.button`
     opacity: 0.8;
   }
 `;
+
+export const GeneralDiv = styled.div`
+    
+`

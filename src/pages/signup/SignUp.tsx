@@ -1,9 +1,10 @@
 import { useFormik, FormikHelpers } from 'formik';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { useState } from 'react';
-import { LinkEyePassword } from './SignUp.style';
+import { LinkEyePassword, ContainerSignUp } from './SignUp.style';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import * as Yup from 'yup';
+import { GeneralDiv } from '../../global.styles';
 
 const SignUp = () => {
   const [invisiblePassword, setInvisiblePassword] = useState(true);
@@ -69,59 +70,70 @@ const SignUp = () => {
   });
 
   return (
+    <ContainerSignUp>
     <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="name">Nome:</label>
-      <input
-        id="name"
-        name="name"
-        placeholder="Digite seu nome completo"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-      />
+      <GeneralDiv>
+        <label htmlFor="name">Nome:</label>
+        <input
+          id="name"
+          name="name"
+          placeholder="Digite seu nome completo"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+        />
+      </GeneralDiv>
 
-      <label htmlFor="email">Email</label>
-      <input
-        id="email"
-        name="email"
-        placeholder="john@acme.com"
-        type="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-      />
+      <GeneralDiv>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          name="email"
+          placeholder="john@acme.com"
+          type="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+        />
+      </GeneralDiv>
 
-      <label htmlFor="password">Senha:</label>
-      <input
-        id="password"
-        name="password"
-        type={typePassword}
-        placeholder="Digite sua senha"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-      />
-      <LinkEyePassword href="#" onClick={() => changeTypePassword()}>
-        {invisiblePassword && <AiOutlineEye />}
-        {!invisiblePassword && <AiOutlineEyeInvisible />}
-      </LinkEyePassword>
+      <GeneralDiv>
+        <label htmlFor="password">Senha:</label>
+        <input
+          id="password"
+          name="password"
+          type={typePassword}
+          placeholder="Digite sua senha"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+        />
+        <LinkEyePassword href="#" onClick={() => changeTypePassword()}>
+          {invisiblePassword && <AiOutlineEye />}
+          {!invisiblePassword && <AiOutlineEyeInvisible />}
+        </LinkEyePassword>
+      </GeneralDiv>
 
-      <label htmlFor="confirmPassword">Confirmação de senha:</label>
-      <input
-        id="confirmPassword"
-        name="confirmPassword"
-        type={typeConfirmPassword}
-        placeholder="Confirme sua senha"
-        value={formik.values.confirmPassword}
-        onChange={formik.handleChange}
-      />
-      <LinkEyePassword href="#" onClick={() => changeTypeConfirmPassword()}>
-        {invisiblePassword && <AiOutlineEye />}
-        {!invisiblePassword && <AiOutlineEyeInvisible />}
-      </LinkEyePassword>
+      <GeneralDiv>
+        <label htmlFor="confirmPassword">Confirmação de senha:</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type={typeConfirmPassword}
+          placeholder="Confirme sua senha"
+          value={formik.values.confirmPassword}
+          onChange={formik.handleChange}
+        />
+        <LinkEyePassword href="#" onClick={() => changeTypeConfirmPassword()}>
+          {invisiblePassword && <AiOutlineEye />}
+          {!invisiblePassword && <AiOutlineEyeInvisible />}
+        </LinkEyePassword>
+      </GeneralDiv>
 
-      <label htmlFor="image">Foto:</label>
-      <input name="image" type="file" onChange={formik.handleChange} />
+      <GeneralDiv>
+        <label htmlFor="image">Foto:</label>
+        <input name="image" type="file" onChange={formik.handleChange} />
+      </GeneralDiv>
 
       {admin && (
-        <div>
+        <GeneralDiv>
           <label htmlFor="role">Selecione o tipo de usuário</label>
           <select
             id="role"
@@ -134,11 +146,12 @@ const SignUp = () => {
             <option value="financeiro">Financeiro</option>
             <option value="administrador">Administrador</option>
           </select>
-        </div>
+        </GeneralDiv>
       )}
 
       <button type="submit">Cadastrar</button>
     </form>
+    </ContainerSignUp>
   );
 };
 export default SignUp;
