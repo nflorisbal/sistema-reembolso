@@ -4,7 +4,7 @@ import Router from './router';
 import store from './store';
 import { Provider } from 'react-redux';
 
-import './index.css';
+import { GlobalStyle } from './global.styles';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,6 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <GlobalStyle />
       <Router />
     </Provider>
   </React.StrictMode>

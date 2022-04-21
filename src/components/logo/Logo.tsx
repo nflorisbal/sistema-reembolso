@@ -1,6 +1,9 @@
+import ImgLogo from '../../images/logo_azul.png'
+import { ImageLogo } from './Logo.style'
+
 const Logo = () => {
   return (
-    <div>Logo</div>
+    <ImageLogo src={ImgLogo} />
   )
 }
 export default Logo
