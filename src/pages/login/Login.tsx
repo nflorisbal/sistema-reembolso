@@ -1,5 +1,7 @@
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ContainerLogin, DivInput, LabelLogin } from './Login.style';
+import Logo from '../../components/logo/Logo';
 
 const FORM_INITIAL_VALUES = {
   email: '',
@@ -13,13 +15,29 @@ const loginSchema = Yup.object().shape({
 
 const Login = () => {
   return (
-    <Formik
-      initialValues={FORM_INITIAL_VALUES}
-      validationSchema={loginSchema}
-      onSubmit={() => console.log('logou')}
-    >
-      
-    </Formik>
+    <ContainerLogin>
+      <Logo />
+      <Formik
+        initialValues={FORM_INITIAL_VALUES}
+        validationSchema={loginSchema}
+        enableReinitialize={true}
+        onSubmit={() => console.log('logou')}
+      >
+        <Form>
+          <DivInput>
+            <LabelLogin htmlFor="email">E-mail</LabelLogin>
+            <Field name="email" placeholder="usuario@dbccompany.com.br" />
+            <ErrorMessage name="email" />
+          </DivInput>
+          <DivInput>
+            <LabelLogin htmlFor="password">Senha</LabelLogin>
+            <Field name="password" placeholder="Senha" type="password" />
+            <ErrorMessage name="password" />
+          </DivInput>
+          <button type='submit'>Entrar</button>
+        </Form>
+      </Formik>
+    </ContainerLogin>
   );
 };
 export default Login;
