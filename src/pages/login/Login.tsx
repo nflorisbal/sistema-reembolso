@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import {
   ContainerLogin,
-  DivFormLogin,
+  DivBtnLogin,
+  DivInputLogin,
   LabelError,
   LabelLogin,
   TextNewUser,
   Title,
 } from './Login.style';
-import { ButtonDefault, ContainerMain, InputDefault } from '../../global.styles';
+import {
+  ButtonDefault,
+  ContainerMain,
+  InputDefault,
+} from '../../global.styles';
 import Logo from '../../components/logo/Logo';
 
 const FORM_INITIAL_VALUES = {
@@ -18,7 +23,7 @@ const FORM_INITIAL_VALUES = {
 };
 
 const loginSchema = Yup.object().shape({
-  login: Yup.string().required('Campo obrigatório.'),
+  login: Yup.string().email('E-mail inválido.').required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });
 
@@ -35,23 +40,32 @@ const Login = () => {
           onSubmit={(values) => console.log('logou')}
         >
           <Form>
-            <DivFormLogin>
+            <DivInputLogin>
               <LabelLogin htmlFor="login">E-mail</LabelLogin>
-              <Field name="login" placeholder="usuario@dbccompany.com.br" as={InputDefault} />
+              <Field
+                name="login"
+                placeholder="usuario@dbccompany.com.br"
+                as={InputDefault}
+              />
               <ErrorMessage name="login" component={LabelError} />
-            </DivFormLogin>
-            <DivFormLogin>
+            </DivInputLogin>
+            <DivInputLogin>
               <LabelLogin htmlFor="password">Senha</LabelLogin>
-              <Field name="password" placeholder="Senha" type="password" as={InputDefault} />
+              <Field
+                name="password"
+                placeholder="Senha"
+                type="password"
+                as={InputDefault}
+              />
               <ErrorMessage name="password" component={LabelError} />
-            </DivFormLogin>
-            <DivFormLogin>
+            </DivInputLogin>
+            <DivBtnLogin>
               <ButtonDefault type="submit">Entrar</ButtonDefault>
-            </DivFormLogin>
-            <DivFormLogin>
+            </DivBtnLogin>
+            <DivBtnLogin>
               <TextNewUser>Não possue cadastro?</TextNewUser>
               <Link to="/signup">Cadastre-se!</Link>
-            </DivFormLogin>
+            </DivBtnLogin>
           </Form>
         </Formik>
       </ContainerLogin>
