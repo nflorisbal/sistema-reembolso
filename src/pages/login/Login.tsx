@@ -8,7 +8,7 @@ import {
   LabelLogin,
   Title,
 } from './Login.style';
-import { ButtonDefault, ContainerMain } from '../../global.styles';
+import { ButtonDefault, ContainerMain, InputDefault } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
 
 const FORM_INITIAL_VALUES = {
@@ -17,7 +17,7 @@ const FORM_INITIAL_VALUES = {
 };
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().required('Campo obrigatório.'),
+  login: Yup.string().required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });
 
@@ -36,12 +36,12 @@ const Login = () => {
           <Form>
             <DivFormLogin>
               <LabelLogin htmlFor="login">E-mail</LabelLogin>
-              <Field name="login" placeholder="usuario@dbccompany.com.br" />
+              <Field name="login" placeholder="usuario@dbccompany.com.br" as={InputDefault} />
               <ErrorMessage name="login" component={LabelError} />
             </DivFormLogin>
             <DivFormLogin>
               <LabelLogin htmlFor="password">Senha</LabelLogin>
-              <Field name="password" placeholder="Senha" type="password" />
+              <Field name="password" placeholder="Senha" type="password" as={InputDefault} />
               <ErrorMessage name="password" component={LabelError} />
             </DivFormLogin>
             <DivFormLogin>

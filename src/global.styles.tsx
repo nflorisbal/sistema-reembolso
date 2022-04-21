@@ -31,6 +31,12 @@ export const ContainerMain = styled.div`
   height: 100vh;
 `;
 
+export const InputDefault = styled.input`
+  border: 1px solid ${Theme.color.neutralDark};
+  border-radius: 8px;
+  padding: 10px;
+`
+
 export const ButtonDefault = styled.button`
   border: none;
   border-radius: 8px;
@@ -43,4 +49,8 @@ export const ButtonDefault = styled.button`
   :hover {
     opacity: 0.8;
   }
+
+
+
+
 `;
