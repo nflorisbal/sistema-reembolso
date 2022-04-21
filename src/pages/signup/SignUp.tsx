@@ -47,6 +47,7 @@ const SignUp = () => {
     confirmPassword: Yup.string().required('Campo obrigatório.'),
   });
 
+  // const do useformik
   const formik = useFormik({
     initialValues: {
       name: '',
