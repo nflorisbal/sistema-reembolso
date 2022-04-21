@@ -2,21 +2,17 @@ import {
   useFormik,
   FormikHelpers,
   FieldArray,
-  ArrayHelpers,
-  Field,
   FormikProvider,
 } from 'formik';
 import { TicketDTO } from '../../models/TicketDTO';
 import * as Yup from 'yup';
+import { StyledForm, ButtonDefault, ContainerMain, StyledLabel, InputDefault } from '../../global.styles'
 
 const AddTicket = () => {
   const addTicketSchema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório.'),
-    name: Yup.string().required('Campo obrigatório.'),
     date: Yup.string().required('Campo obrigatório.'),
     totalSum: Yup.string().required('Campo obrigatório.'),
-    sum: Yup.string().required('Campo obrigatório.'),
-    nameItem: Yup.string().required('Campo obrigatório.'),
   });
   const formik = useFormik({
     initialValues: {
@@ -46,10 +42,10 @@ const AddTicket = () => {
     validationSchema: addTicketSchema,
   });
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="date">Título:</label>
-        <input
+    <ContainerMain>
+      <StyledForm onSubmit={formik.handleSubmit}>
+        <StyledLabel htmlFor="date">Título:</StyledLabel>
+        <InputDefault
           id="title"
           name="title"
           placeholder="Digite seu título completo"
@@ -57,8 +53,8 @@ const AddTicket = () => {
           onChange={formik.handleChange}
         />
 
-        <label htmlFor="date">Data:</label>
-        <input
+        <StyledLabel htmlFor="date">Data:</StyledLabel>
+        <InputDefault
           id="date"
           name="date"
           placeholder="Digite seu título completo"
@@ -66,8 +62,8 @@ const AddTicket = () => {
           onChange={formik.handleChange}
         />
 
-        <label htmlFor="totalSum">Total:</label>
-        <input
+        <StyledLabel htmlFor="totalSum">Total:</StyledLabel>
+        <InputDefault
           id="totalSum"
           name="totalSum"
           placeholder="Digite seu título completo"
@@ -82,24 +78,24 @@ const AddTicket = () => {
               <div>
                 {formik.values.items.map((item, index) => (
                   <div key={index}>
-                    <input
+                    <InputDefault
                       name={`items[${index}.nameItem]`}
                       id={`items[${index}.nameItem]`}
                       value={item.nameItem}
                       onChange={formik.handleChange}
                     />
-                    <input
+                    <InputDefault
                       name={`items[${index}.dateItem]`}
                       id={`items[${index}.dateItem]`}
                       value={item.dateItem}
                       onChange={formik.handleChange}
                     />
-                    <input
+                    <InputDefault
                       name={`items[${index}.sum]`}
                       value={item.sum}
                       onChange={formik.handleChange}
                     />
-                    <input
+                    <InputDefault
                       name={`items[${index}.attachment]`}
                       value={item.attachment}
                       onChange={formik.handleChange}
@@ -129,9 +125,9 @@ const AddTicket = () => {
             )}
           ></FieldArray>
         </FormikProvider>
-        <button type="submit">oi</button>
-      </form>
-    </div>
+        <ButtonDefault type="submit">Enviar</ButtonDefault>
+      </StyledForm>
+    </ContainerMain>
   );
 };
 

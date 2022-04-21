@@ -58,11 +58,8 @@ export const ButtonDefault = styled.button`
   :hover {
     opacity: 0.8;
   }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 5a9bb37ef76f9d51dab92f1f8e53d8f259889a19
 `;
 
 export const GeneralDiv = styled.div`
