@@ -74,3 +74,10 @@ export const StyledLabel = styled.label`
 export const StyledForm = styled.form`
     
 `
+
+export const DivFlexLink = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    position: relative
+`

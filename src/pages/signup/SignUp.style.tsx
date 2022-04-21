@@ -5,8 +5,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 export const LinkEyePassword = styled.a`
   position: absolute;
   z-index: 0;
-  top: 290px;
-  right: 620px;
+  top: 44px;
+  right: 25px;
   text-decoration: none;
 `;
 
