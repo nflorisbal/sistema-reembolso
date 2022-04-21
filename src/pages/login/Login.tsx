@@ -6,6 +6,7 @@ import {
   DivFormLogin,
   LabelError,
   LabelLogin,
+  TextNewUser,
   Title,
 } from './Login.style';
 import { ButtonDefault, ContainerMain, InputDefault } from '../../global.styles';
@@ -48,7 +49,7 @@ const Login = () => {
               <ButtonDefault type="submit">Entrar</ButtonDefault>
             </DivFormLogin>
             <DivFormLogin>
-              <p>Não possue cadastro?</p>
+              <TextNewUser>Não possue cadastro?</TextNewUser>
               <Link to="/signup">Cadastre-se!</Link>
             </DivFormLogin>
           </Form>
