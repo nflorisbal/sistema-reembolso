@@ -1,13 +1,18 @@
 export const Theme = {
   color: {
-    primaryLight: '#F392C4',
-    primaryPure: '#E62589',
-    primaryDark: '#921154',
-    secondaryLight: '#BA95DE',
-    secondaryPure: '#752CBC',
-    secondaryDark: '#471B73',
-    highlightLight: '#A9E0F3',
-    highlightPure: '#53C1E8',
-    highlightDark: '#156C8B',
+    primaryLight: '#b5ddff',
+    primaryPure: '#1a75c1',
+    primaryDark: '#001f6d',
+    secondaryLight: '#a3e49d',
+    secondaryPure: '#54b14c',
+    secondaryDark: '#2f702a',
+    highlightLight: '#d679ac',
+    highlightPure: '#c02f7f',
+    highlightDark: '#5c0a37',
+    neutralLight: '#ffffff',
+    neutralPure: '#f2f2f2',
+    neutralDark: '#e0e0e0',
   },
+
+  defaultFontSize: '16px',
 };
