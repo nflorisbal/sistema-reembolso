@@ -1,10 +1,31 @@
 import { useFormik, FormikHelpers } from 'formik';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { useState } from 'react';
-import { LinkEyePassword, ContainerSignUp, DivButton, StyledSelect, StyledAiOutlineEye, LinkEyeConfirmPassword } from './SignUp.style';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import {
+  LinkEyePassword,
+  ContainerSignUp,
+  DivButton,
+  StyledSelect,
+  StyledAiOutlineEye,
+  LinkEyeConfirmPassword,
+  LinkBack,
+} from './SignUp.style';
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import * as Yup from 'yup';
-import { ContainerMain, DivFlexColumn, InputDefault, ButtonDefault, StyledLabel, StyledForm, DivFlexLink } from '../../global.styles';
+import {
+  ContainerMain,
+  DivFlexColumn,
+  InputDefault,
+  ButtonDefault,
+  StyledLabel,
+  StyledForm,
+  DivFlexLink,
+  PageTitle,
+} from '../../global.styles';
 
 const SignUp = () => {
   const [invisiblePassword, setInvisiblePassword] = useState(true);
@@ -72,6 +93,8 @@ const SignUp = () => {
   return (
     <ContainerMain>
       <ContainerSignUp>
+      <LinkBack to="/"><AiOutlineArrowLeft /></LinkBack>
+        <PageTitle>Cadastrar Usuário</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexColumn>
             <StyledLabel htmlFor="name">Nome:</StyledLabel>
@@ -113,7 +136,9 @@ const SignUp = () => {
           </DivFlexLink>
 
           <DivFlexLink>
-            <StyledLabel htmlFor="confirmPassword">Confirmação de senha:</StyledLabel>
+            <StyledLabel htmlFor="confirmPassword">
+              Confirmação de senha:
+            </StyledLabel>
             <InputDefault
               id="confirmPassword"
               name="confirmPassword"
@@ -133,12 +158,18 @@ const SignUp = () => {
 
           <DivFlexColumn>
             <StyledLabel htmlFor="image">Foto:</StyledLabel>
-            <InputDefault name="image" type="file" onChange={formik.handleChange} />
+            <InputDefault
+              name="image"
+              type="file"
+              onChange={formik.handleChange}
+            />
           </DivFlexColumn>
 
           {admin && (
             <DivFlexColumn>
-              <StyledLabel htmlFor="role">Selecione o tipo de usuário</StyledLabel>
+              <StyledLabel htmlFor="role">
+                Selecione o tipo de usuário
+              </StyledLabel>
               <StyledSelect
                 id="role"
                 name="role"
@@ -153,7 +184,7 @@ const SignUp = () => {
             </DivFlexColumn>
           )}
           <DivButton>
-          <ButtonDefault type="submit">Cadastrar</ButtonDefault>
+            <ButtonDefault type="submit">Cadastrar</ButtonDefault>
           </DivButton>
         </StyledForm>
       </ContainerSignUp>
