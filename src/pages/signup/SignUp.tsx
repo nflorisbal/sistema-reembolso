@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LinkEyePassword, ContainerSignUp, DivButton, StyledSelect, StyledAiOutlineEye, LinkEyeConfirmPassword } from './SignUp.style';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import * as Yup from 'yup';
-import { ContainerMain, DivFlexColumn, InputDefault, ButtonDefault, StyledLabel, StyledForm } from '../../global.styles';
+import { ContainerMain, DivFlexColumn, InputDefault, ButtonDefault, StyledLabel, StyledForm, DivFlexLink } from '../../global.styles';
 
 const SignUp = () => {
   const [invisiblePassword, setInvisiblePassword] = useState(true);
@@ -96,7 +96,7 @@ const SignUp = () => {
             />
           </DivFlexColumn>
 
-          <DivFlexColumn>
+          <DivFlexLink>
             <StyledLabel htmlFor="password">Senha:</StyledLabel>
             <InputDefault
               id="password"
@@ -110,7 +110,7 @@ const SignUp = () => {
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
-          </DivFlexColumn>
+          </DivFlexLink>
 
           <DivFlexColumn>
             <StyledLabel htmlFor="confirmPassword">Confirmação de senha:</StyledLabel>
