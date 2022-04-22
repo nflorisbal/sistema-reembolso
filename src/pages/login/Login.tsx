@@ -30,7 +30,7 @@ const FORM_INITIAL_VALUES = {
 const loginSchema = Yup.object().shape({
   login: Yup.string()
     .email('E-mail inválido.')
-    .matches(/[\w.]+@dbccompany\.com\.br/gi, 'Deve usar seu e-mail institucional.')
+    .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Deve usar seu e-mail institucional.')
     .required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });

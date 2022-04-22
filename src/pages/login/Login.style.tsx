@@ -23,7 +23,7 @@ export const DivInputLogin = styled.div`
   display: flex;
   flex-direction: column;
   width: 380px;
-  height: 100px;
+  height: 90px;
   margin-bottom: 20px;
 
   :last-child {
@@ -35,9 +35,11 @@ export const DivInputLogin = styled.div`
 export const DivBtnLogin = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 40px;
 
   :last-child {
     padding: 20px 0;
+    margin: 0;
   }
 `;
 
