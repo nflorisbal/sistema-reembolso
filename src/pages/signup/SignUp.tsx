@@ -113,7 +113,7 @@ const SignUp = () => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          console.log(values)
+          console.log(values);
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -122,27 +122,28 @@ const SignUp = () => {
     validationSchema: signupSchema,
   });
 
-  const uploadImage = async (event: any) =>{
-    const image = event.target.files[0]
-    const base64 = await convertBase64(image)
-    formik.setFieldValue("image", base64)
-  }
+  // sets image field
+  const uploadImage = async (event: any) => {
+    const image = event.target.files[0];
+    const base64 = await convertBase64(image);
+    formik.setFieldValue('image', base64);
+  };
 
-  const convertBase64 = (file: any) =>{
-
-    return new Promise((resolve, reject) =>{
+  // converts to base64
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
 
       fileReader.onload = () => {
         resolve(fileReader.result);
-      }
-      
+      };
+
       fileReader.onerror = (error) => {
-        reject(error)
-      }
-    })
-  }
+        reject(error);
+      };
+    });
+  };
 
   return (
     <ContainerMain>
@@ -191,7 +192,7 @@ const SignUp = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
-            <LinkEyePassword href="#" onClick={() => changeTypePassword()}>
+            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
@@ -220,7 +221,7 @@ const SignUp = () => {
               onChange={formik.handleChange}
             />
             <LinkEyeConfirmPassword
-              href="#"
+              href="#!"
               onClick={() => changeTypeConfirmPassword()}
             >
               {invisibleConfirmPassword && <AiOutlineEye />}
