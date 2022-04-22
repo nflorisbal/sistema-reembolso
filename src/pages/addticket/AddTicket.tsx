@@ -16,7 +16,6 @@ import {
 const AddTicket = () => {
   const addTicketSchema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório.'),
-    date: Yup.string().required('Campo obrigatório.'),
     totalSum: Yup.string().required('Campo obrigatório.'),
     items: Yup.array().of(Yup.object().shape({
       sum: Yup.string().required('Campo obrigatório.'),
@@ -28,7 +27,6 @@ const AddTicket = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
-      date: '',
       totalSum: '',
       situation: 'aberto',
       items: [
@@ -66,17 +64,6 @@ const AddTicket = () => {
           name="title"
           placeholder="Digite o título"
           value={formik.values.title}
-          onChange={formik.handleChange}
-        />
-        </DivFlexColumn>
-
-        <DivFlexColumn>
-        <StyledLabel htmlFor="date">Data:</StyledLabel>
-        <InputDefault
-          id="date"
-          name="date"
-          placeholder="Digite a data"
-          value={formik.values.date}
           onChange={formik.handleChange}
         />
         </DivFlexColumn>

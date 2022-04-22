@@ -7,6 +7,7 @@ export const ContainerAddTicket = styled.div`
   height: auto !important;
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   padding: 20px;

@@ -31,7 +31,7 @@ export const ContainerMain = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: 100%;
 `;
 
 export const InputDefault = styled.input`
@@ -66,6 +66,8 @@ export const DivFlexColumn = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
+  height: 100px;
+  width: 400px;
 `;
 
 export const StyledLabel = styled.label``;
@@ -95,3 +97,11 @@ export const LinkBack = styled(Link)`
   font-size: 20px;
   color: black;
 `;
+
+export const DivError = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${Theme.color.highlightPure};
+  padding-left: 5px;
+  margin-top: 5px;
+`

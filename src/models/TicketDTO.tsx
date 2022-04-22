@@ -1,6 +1,5 @@
 export interface TicketDTO {
   title: string;
-  date: string;
   totalSum: string;
   situation: string;
   items: [

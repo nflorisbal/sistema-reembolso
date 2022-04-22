@@ -1,6 +1,7 @@
 import { AppDispatch } from '..';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
+import { hasToken } from '../../utils';
 
 export const handleLogin = async (
   credentials: AuthDTO,
