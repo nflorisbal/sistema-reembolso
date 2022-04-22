@@ -10,25 +10,27 @@ export const handleLogin = async (
 ) => {
   //usuario para teste, substituir por credentials futuramente
   const user = {
-    usuario: 'admin',
-    senha: '123',
+    login: 'admin',
+    password: 'admin',
   };
 
   await api
     .post('/auth', user)
     .then((response) => {
       const { data } = response;
+      console.log(data);
+
       const userAuthenticated = {
         type: 'SET_LOGIN',
-        // fullname: data.fullname,
-        username: credentials.username,
-        token: data,
-        // role: data.role,
+        name: data.name,
+        username: credentials.login,
+        token: data.token,
+        role: data.role,
         isLogged: true,
       };
 
-      api.defaults.headers.common['Authorization'] = data;
-      localStorage.setItem('token', JSON.stringify(data));
+      api.defaults.headers.common['Authorization'] = data.token;
+      localStorage.setItem('token', JSON.stringify(data.token));
       dispatch(userAuthenticated);
       navigate('/');
     })
@@ -37,8 +39,4 @@ export const handleLogin = async (
     });
 };
 
-// export const setToken = () =>{
-//   if
-// }
-
-export const handleLogout = () => {};
+export const handleLogout = (dispatch: AppDispatch) => {};
