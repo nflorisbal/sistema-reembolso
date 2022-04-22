@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import { handleLogin } from '../../store/actions/AuthActions';
 
 import {
   ContainerLogin,
@@ -18,9 +19,7 @@ import {
   ContainerMain,
   InputDefault,
 } from '../../global.styles';
-
 import Logo from '../../components/logo/Logo';
-import { handleLogin } from '../../store/actions/AuthActions';
 
 const FORM_INITIAL_VALUES = {
   login: '',
@@ -36,6 +35,8 @@ const loginSchema = Yup.object().shape({
 });
 
 const Login = ({ dispatch }: AnyAction) => {
+  const navigate = useNavigate();
+
   return (
     <ContainerMain>
       <ContainerLogin>
@@ -45,7 +46,7 @@ const Login = ({ dispatch }: AnyAction) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(values) => handleLogin(values, dispatch)}
+          onSubmit={(values) => handleLogin(values, dispatch, navigate)}
         >
           <Form>
             <DivInputLogin>
@@ -61,7 +62,7 @@ const Login = ({ dispatch }: AnyAction) => {
               <LabelLogin htmlFor="password">Senha</LabelLogin>
               <Field
                 name="password"
-                placeholder="Senha"
+                placeholder="Digite sua senha"
                 type="password"
                 as={InputDefault}
               />
