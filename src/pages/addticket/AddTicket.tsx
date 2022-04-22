@@ -50,6 +50,28 @@ const AddTicket = () => {
     },
     validationSchema: addTicketSchema,
   });
+
+  const uploadFile = async (event: any, index: number) =>{
+    const file = event.target.files[0]
+    const base64 = await convertBase64(file)
+    formik.setFieldValue(`items[${index}.attachment]`, base64)
+  }
+
+  const convertBase64 = (file: any) =>{
+
+    return new Promise((resolve, reject) =>{
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
+  }
   return (
     <ContainerMain>
       <LinkBack to="/"><AiOutlineArrowLeft /></LinkBack>
@@ -113,8 +135,7 @@ const AddTicket = () => {
                     </DivFlex>
                     <InputDefault
                       name={`items[${index}.attachment]`}
-                      value={item.attachment}
-                      onChange={formik.handleChange}
+                      onChange={(event: any) => uploadFile(event, index)}
                       type="file"
                     />
                     <DivButton>

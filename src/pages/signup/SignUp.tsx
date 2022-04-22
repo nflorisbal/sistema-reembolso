@@ -122,6 +122,28 @@ const SignUp = () => {
     validationSchema: signupSchema,
   });
 
+  const uploadImage = async (event: any) =>{
+    const image = event.target.files[0]
+    const base64 = await convertBase64(image)
+    formik.setFieldValue("image", base64)
+  }
+
+  const convertBase64 = (file: any) =>{
+
+    return new Promise((resolve, reject) =>{
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
+  }
+
   return (
     <ContainerMain>
       <ContainerSignUp>
@@ -214,7 +236,7 @@ const SignUp = () => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) => formik.setFieldValue("image", event.target.files)}
+              onChange={(event) => uploadImage(event)}
             />
           </DivFlexColumn>
 
