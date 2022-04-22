@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { handleLogin } from '../../store/actions/AuthActions';
 
 import {
@@ -20,14 +21,13 @@ import {
   InputDefault,
 } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
+import { hasToken } from '../../utils';
 
-// const for initial values of form inputs
 const FORM_INITIAL_VALUES = {
   username: '',
   password: '',
 };
 
-// scheme with rules for form validation
 const loginSchema = Yup.object().shape({
   username: Yup.string()
     .email('E-mail inválido.')
@@ -39,6 +39,14 @@ const loginSchema = Yup.object().shape({
 const Login = ({ dispatch }: AnyAction) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (hasToken()) {
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  }, []);
+  
   return (
     <ContainerMain>
       <ContainerLogin>

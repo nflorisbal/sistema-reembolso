@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../../components/header/Header';
+import { hasToken } from '../../utils';
 
 const Home = () => {
   const navigate = useNavigate();
-  const haveToken = localStorage.getItem('token');
 
   useEffect(() => {
-    if (haveToken) {
+    if (hasToken()) {
       console.log('logado');
     } else {
       navigate('/login');
     }
   }, []);
 
-  return <div>Home</div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 export default Home;

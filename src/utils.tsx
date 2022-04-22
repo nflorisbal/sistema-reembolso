@@ -1,5 +1,3 @@
-import { useState } from "react";
-
-export const changeType = () => {
-    
-  };
+export const hasToken = () => {
+  return localStorage.getItem('token');
+}
