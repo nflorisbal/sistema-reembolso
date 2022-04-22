@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
+
 import {
   ContainerLogin,
   DivBtnLogin,
@@ -15,7 +18,9 @@ import {
   ContainerMain,
   InputDefault,
 } from '../../global.styles';
+
 import Logo from '../../components/logo/Logo';
+import { handleLogin } from '../../store/actions/AuthActions';
 
 const FORM_INITIAL_VALUES = {
   login: '',
@@ -23,11 +28,14 @@ const FORM_INITIAL_VALUES = {
 };
 
 const loginSchema = Yup.object().shape({
-  login: Yup.string().email('E-mail inválido.').required('Campo obrigatório.'),
+  login: Yup.string()
+    .email('E-mail inválido.')
+    .matches(/[\w.]+@dbccompany\.com\.br/gi, 'Deve usar seu e-mail institucional.')
+    .required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });
 
-const Login = () => {
+const Login = ({ dispatch }: AnyAction) => {
   return (
     <ContainerMain>
       <ContainerLogin>
@@ -37,7 +45,7 @@ const Login = () => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(values) => console.log('logou')}
+          onSubmit={(values) => handleLogin(values, dispatch)}
         >
           <Form>
             <DivInputLogin>
@@ -72,4 +80,5 @@ const Login = () => {
     </ContainerMain>
   );
 };
-export default Login;
+
+export default connect()(Login);
