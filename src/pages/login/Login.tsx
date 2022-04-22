@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { handleLogin } from '../../store/actions/AuthActions';
 
 import {
@@ -20,24 +21,32 @@ import {
   InputDefault,
 } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
+import { hasToken } from '../../utils';
 
-// const for initial values of form inputs
 const FORM_INITIAL_VALUES = {
   username: '',
   password: '',
 };
 
-// scheme with rules for form validation
 const loginSchema = Yup.object().shape({
   username: Yup.string()
     .email('E-mail inválido.')
-    .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Deve usar seu e-mail institucional.')
+    .matches(
+      /[\w.]+@dbccompany\.com\.br$/gi,
+      'Deve usar seu e-mail institucional.'
+    )
     .required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });
 
 const Login = ({ dispatch }: AnyAction) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (hasToken()) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <ContainerMain>
@@ -48,7 +57,9 @@ const Login = ({ dispatch }: AnyAction) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(credentials) => handleLogin(credentials, dispatch, navigate)}
+          onSubmit={(credentials) =>
+            handleLogin(credentials, dispatch, navigate)
+          }
         >
           <Form>
             <DivInputLogin>
