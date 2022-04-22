@@ -22,6 +22,7 @@ import {
 } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
 import { hasToken } from '../../utils';
+import { CredentialDTO } from '../../models/AuthDTO';
 
 const FORM_INITIAL_VALUES = {
   username: '',
@@ -31,7 +32,10 @@ const FORM_INITIAL_VALUES = {
 const loginSchema = Yup.object().shape({
   username: Yup.string()
     .email('E-mail inválido.')
-    .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Deve usar seu e-mail institucional.')
+    .matches(
+      /[\w.]+@dbccompany\.com\.br$/gi,
+      'Deve usar seu e-mail institucional.'
+    )
     .required('Campo obrigatório.'),
   password: Yup.string().required('Campo obrigatório.'),
 });
@@ -46,7 +50,7 @@ const Login = ({ dispatch }: AnyAction) => {
       navigate('/login');
     }
   }, []);
-  
+
   return (
     <ContainerMain>
       <ContainerLogin>
@@ -56,7 +60,9 @@ const Login = ({ dispatch }: AnyAction) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(credentials) => handleLogin(credentials, dispatch, navigate)}
+          onSubmit={(credentials) =>
+            handleLogin(credentials, dispatch, navigate)
+          }
         >
           <Form>
             <DivInputLogin>
