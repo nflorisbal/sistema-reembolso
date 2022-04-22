@@ -21,13 +21,15 @@ import {
 } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
 
+// const for initial values of form inputs
 const FORM_INITIAL_VALUES = {
-  login: '',
+  username: '',
   password: '',
 };
 
+// scheme with rules for form validation
 const loginSchema = Yup.object().shape({
-  login: Yup.string()
+  username: Yup.string()
     .email('E-mail inválido.')
     .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Deve usar seu e-mail institucional.')
     .required('Campo obrigatório.'),
@@ -46,17 +48,17 @@ const Login = ({ dispatch }: AnyAction) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(values) => handleLogin(values, dispatch, navigate)}
+          onSubmit={(credentials) => handleLogin(credentials, dispatch, navigate)}
         >
           <Form>
             <DivInputLogin>
-              <LabelLogin htmlFor="login">E-mail</LabelLogin>
+              <LabelLogin htmlFor="username">E-mail</LabelLogin>
               <Field
-                name="login"
+                name="username"
                 placeholder="usuario@dbccompany.com.br"
                 as={InputDefault}
               />
-              <ErrorMessage name="login" component={LabelError} />
+              <ErrorMessage name="username" component={LabelError} />
             </DivInputLogin>
             <DivInputLogin>
               <LabelLogin htmlFor="password">Senha</LabelLogin>

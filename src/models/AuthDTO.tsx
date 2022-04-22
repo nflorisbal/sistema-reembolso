@@ -1,4 +1,12 @@
 export interface AuthDTO {
-  login: string;
+  username: string;
   password: string;
+}
+
+export interface CredentialDTO {
+  // fullname: string;
+  username: string;
+  token: string;
+  // role: string;
+  isLogged: boolean;
 }

@@ -1,17 +1,27 @@
 import { AnyAction } from 'redux';
-import { AuthDTO } from '../../models/AuthDTO';
+import { CredentialDTO } from '../../models/AuthDTO';
 
 export const INITIAL_STATE = {
-  login: '',
-  password: '',
+  fullname: '',
+  username: '',
+  token: '',
+  role: '',
+  isLogged: false,
 };
 
-const authReducer = (state: AuthDTO = INITIAL_STATE, action: AnyAction) => {
+const authReducer = (
+  state: CredentialDTO = INITIAL_STATE,
+  action: AnyAction
+) => {
   switch (action.type) {
     case 'SET_LOGIN':
       return {
         ...state,
-        login: action.login,
+        // fullname: action.fullname,
+        username: action.username,
+        token: action.token,
+        // role: action.role,
+        isLogged: action.isLogged,
       };
     case 'SET_LOGOUT':
       state = INITIAL_STATE;

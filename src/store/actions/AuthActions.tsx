@@ -3,22 +3,32 @@ import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
 
 export const handleLogin = async (
-  values: AuthDTO,
+  credentials: AuthDTO,
   dispatch: AppDispatch,
   navigate: Function
 ) => {
-  //usuario para teste, substituir por values futuramente
+  //usuario para teste, substituir por credentials futuramente
   const user = {
     usuario: 'admin',
     senha: '123',
   };
 
-  console.log(navigate);
-
   await api
     .post('/auth', user)
     .then((response) => {
       const { data } = response;
+      const userAuthenticated = {
+        type: 'SET_LOGIN',
+        // fullname: data.fullname,
+        username: credentials.username,
+        token: data,
+        // role: data.role,
+        isLogged: true,
+      };
+
+      api.defaults.headers.common['Authorization'] = data;
+      localStorage.setItem('token', JSON.stringify(data));
+      dispatch(userAuthenticated);
       navigate('/');
     })
     .catch((error) => {

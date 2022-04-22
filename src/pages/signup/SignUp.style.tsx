@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
 import { Link } from "react-router-dom"
 
 export const LinkEyePassword = styled.a`
