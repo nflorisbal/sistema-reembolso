@@ -9,10 +9,10 @@ import Menu from '../menu/Menu';
 import User from '../user/User';
 import { ContainerHeader } from './Header.style';
 
-const Header = ({ user, dispatch }: CredentialDTO & AnyAction) => {
+const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
   return (
     <>
-      {(user?.isLogged || hasToken()) && (
+      {(isLogged || hasToken()) && (
         <ContainerHeader>
           <div>
             <Logo />
@@ -29,7 +29,7 @@ const Header = ({ user, dispatch }: CredentialDTO & AnyAction) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.authReducer,
+  isLogged: state.authReducer.isLogged,
 });
 
 export default connect(mapStateToProps)(Header);

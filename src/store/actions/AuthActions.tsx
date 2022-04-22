@@ -39,4 +39,9 @@ export const handleLogin = async (
     });
 };
 
-export const handleLogout = (dispatch: AppDispatch) => {};
+export const handleLogout = (dispatch: AppDispatch) => {
+  const userAuthenticated = {
+    type: 'SET_LOGOUT',
+  };
+  dispatch(userAuthenticated);
+};
