@@ -84,6 +84,7 @@ export const PageTitle = styled.h1``;
 export const DivFlex = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 `
 export const LinkBack = styled(Link)`
   position: absolute;

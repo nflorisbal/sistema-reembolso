@@ -26,6 +26,7 @@ import {
   PageTitle,
   LinkBack,
 } from '../../global.styles';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const SignUp = () => {
   const [invisiblePassword, setInvisiblePassword] = useState(true);
@@ -34,6 +35,7 @@ const SignUp = () => {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(true);
+  const [score, setScore] = useState(0)
 
   // deixa ou não visível o password
   const changeTypePassword = () => {
@@ -69,6 +71,7 @@ const SignUp = () => {
     confirmPassword: Yup.string().required('Campo obrigatório.'),
   });
 
+
   // const do useformik
   const formik = useFormik({
     initialValues: {
@@ -82,13 +85,20 @@ const SignUp = () => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
+      if(score >= 2){
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         setSubmitting(false);
       }, 500);
+    }else{
+      alert("Senha muito fraca.")
+    }
     },
     validationSchema: signupSchema,
   });
+
+  const passwordFeedback = ['Muito fraco', 'Fraco', 'Satisfatório', 'Bom', 'Ótimo']
+  const passwordTooShort = ["Muito fraco"]
 
   return (
     <ContainerMain>
@@ -133,6 +143,11 @@ const SignUp = () => {
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
+            <PasswordStrengthBar password={formik.values.password}
+            minLength={8}
+            scoreWords={passwordFeedback}
+            shortScoreWord={passwordTooShort}
+            onChangeScore={(score)=> setScore(score)} />
           </DivFlexLink>
 
           <DivFlexLink>
