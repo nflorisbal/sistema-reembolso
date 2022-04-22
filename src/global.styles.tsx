@@ -30,8 +30,8 @@ export const ContainerMain = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 1100px;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - 100px);
 `;
 
 export const InputDefault = styled.input`

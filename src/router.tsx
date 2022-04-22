@@ -9,7 +9,7 @@ import SignUp from './pages/signup/SignUp';
 const Router = () => {
   return (
     <BrowserRouter>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />

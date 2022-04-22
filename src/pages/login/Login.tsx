@@ -22,7 +22,6 @@ import {
 } from '../../global.styles';
 import Logo from '../../components/logo/Logo';
 import { hasToken } from '../../utils';
-import { CredentialDTO } from '../../models/AuthDTO';
 
 const FORM_INITIAL_VALUES = {
   username: '',
@@ -46,8 +45,6 @@ const Login = ({ dispatch }: AnyAction) => {
   useEffect(() => {
     if (hasToken()) {
       navigate('/');
-    } else {
-      navigate('/login');
     }
   }, []);
 
