@@ -25,17 +25,27 @@ import {
   DivFlexLink,
   PageTitle,
   LinkBack,
+  DivError,
 } from '../../global.styles';
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const SignUp = () => {
+  const passwordFeedback = [
+    'Muito fraco',
+    'Fraco',
+    'Satisfatório',
+    'Bom',
+    'Ótimo',
+  ];
+  const passwordTooShort = ['Muito fraco'];
+
   const [invisiblePassword, setInvisiblePassword] = useState(true);
   const [invisibleConfirmPassword, setInvisibleConfirmPassword] =
     useState(true);
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(true);
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0);
 
   // deixa ou não visível o password
   const changeTypePassword = () => {
@@ -65,12 +75,26 @@ const SignUp = () => {
 
   // validação do yup
   const signupSchema = Yup.object().shape({
-    email: Yup.string().required('Campo obrigatório.'),
-    name: Yup.string().required('Campo obrigatório.'),
-    password: Yup.string().required('Campo obrigatório.'),
-    confirmPassword: Yup.string().required('Campo obrigatório.'),
+    email: Yup.string()
+      .required('Campo obrigatório.')
+      .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Use seu e-mail institucional.')
+      .max(50, 'Máximo de 50 caracteres.'),
+    name: Yup.string()
+      .required('Campo obrigatório.')
+      .min(8, 'Por favor, escreva seu nome completo.')
+      .max(50, 'Máximo de 50 caracteres.'),
+    password: Yup.string()
+      .required('Campo obrigatório.')
+      .min(8, 'Mínimo de 8 caracteres.')
+      .max(20, 'Máximo de 20 caracteres.'),
+    confirmPassword: Yup.string().test(
+      'Passwords',
+      'Senhas fornecidas não são iguais',
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
   });
-
 
   // const do useformik
   const formik = useFormik({
@@ -85,25 +109,25 @@ const SignUp = () => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      if(score >= 2){
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }, 500);
-    }else{
-      alert("Senha muito fraca.")
-    }
+      if (score >= 2) {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+          console.log(values)
+        }, 500);
+      } else {
+        alert('Senha muito fraca.');
+      }
     },
     validationSchema: signupSchema,
   });
 
-  const passwordFeedback = ['Muito fraco', 'Fraco', 'Satisfatório', 'Bom', 'Ótimo']
-  const passwordTooShort = ["Muito fraco"]
-
   return (
     <ContainerMain>
       <ContainerSignUp>
-      <LinkBack to="/"><AiOutlineArrowLeft /></LinkBack>
+        <LinkBack to="/">
+          <AiOutlineArrowLeft />
+        </LinkBack>
         <PageTitle>Cadastrar Usuário</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexColumn>
@@ -115,6 +139,9 @@ const SignUp = () => {
               value={formik.values.name}
               onChange={formik.handleChange}
             />
+            {formik.errors.name && formik.touched.name ? (
+              <DivError>{formik.errors.name}</DivError>
+            ) : null}
           </DivFlexColumn>
 
           <DivFlexColumn>
@@ -122,11 +149,14 @@ const SignUp = () => {
             <InputDefault
               id="email"
               name="email"
-              placeholder="john@acme.com"
+              placeholder="maria.santos@dbccompany.com.br"
               type="email"
               value={formik.values.email}
               onChange={formik.handleChange}
             />
+            {formik.errors.email && formik.touched.email ? (
+              <DivError>{formik.errors.email}</DivError>
+            ) : null}
           </DivFlexColumn>
 
           <DivFlexLink>
@@ -143,11 +173,16 @@ const SignUp = () => {
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
-            <PasswordStrengthBar password={formik.values.password}
-            minLength={8}
-            scoreWords={passwordFeedback}
-            shortScoreWord={passwordTooShort}
-            onChangeScore={(score)=> setScore(score)} />
+            <PasswordStrengthBar
+              password={formik.values.password}
+              minLength={8}
+              scoreWords={passwordFeedback}
+              shortScoreWord={passwordTooShort}
+              onChangeScore={(score) => setScore(score)}
+            />
+            {formik.errors.password && formik.touched.password ? (
+              <DivError>{formik.errors.password}</DivError>
+            ) : null}
           </DivFlexLink>
 
           <DivFlexLink>
@@ -169,6 +204,9 @@ const SignUp = () => {
               {invisibleConfirmPassword && <AiOutlineEye />}
               {!invisibleConfirmPassword && <AiOutlineEyeInvisible />}
             </LinkEyeConfirmPassword>
+            {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
+              <DivError>{formik.errors.confirmPassword}</DivError>
+            ) : null}
           </DivFlexLink>
 
           <DivFlexColumn>
@@ -176,7 +214,7 @@ const SignUp = () => {
             <InputDefault
               name="image"
               type="file"
-              onChange={formik.handleChange}
+              onChange={(event) => formik.setFieldValue("image", event.target.files)}
             />
           </DivFlexColumn>
 

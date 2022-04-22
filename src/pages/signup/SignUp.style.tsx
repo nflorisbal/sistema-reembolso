@@ -11,8 +11,6 @@ export const LinkEyePassword = styled.a`
   text-decoration: none;
 `;
 
-
-
 export const LinkEyeConfirmPassword = styled.a`
   position: absolute;
   z-index: 0;
@@ -23,7 +21,7 @@ export const LinkEyeConfirmPassword = styled.a`
 
 export const ContainerSignUp = styled.div`
   width: 440px;
-  height: 650px;
+  /* height: 650px; */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -32,9 +30,8 @@ export const ContainerSignUp = styled.div`
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: 8px;
-  * > {
-    padding: 10px;
-  }
+  margin: 20px;
+ 
 `;
 
 export const DivButton = styled.div`
