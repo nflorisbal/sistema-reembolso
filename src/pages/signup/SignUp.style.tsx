@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
 import { AiOutlineEye } from 'react-icons/ai';
-import { Link } from "react-router-dom"
+
 
 export const LinkEyePassword = styled.a`
   position: absolute;
@@ -11,15 +11,7 @@ export const LinkEyePassword = styled.a`
   text-decoration: none;
 `;
 
-export const LinkBack = styled(Link)`
-  position: absolute;
-  z-index: 0;
-  top: 23px;
-  left: 15px;
-  text-decoration: none;
-  font-size: 20px;
-  color: black;
-`;
+
 
 export const LinkEyeConfirmPassword = styled.a`
   position: absolute;
@@ -43,7 +35,6 @@ export const ContainerSignUp = styled.div`
   * > {
     padding: 10px;
   }
-  position: relative;
 `;
 
 export const DivButton = styled.div`

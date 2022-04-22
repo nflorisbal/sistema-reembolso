@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Theme } from './theme';
+import { Link } from "react-router-dom"
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -78,3 +79,17 @@ export const DivFlexLink = styled.div`
 `;
 
 export const PageTitle = styled.h1``;
+
+export const DivFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+export const LinkBack = styled(Link)`
+  position: absolute;
+  z-index: 0;
+  top: 23px;
+  left: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+`;

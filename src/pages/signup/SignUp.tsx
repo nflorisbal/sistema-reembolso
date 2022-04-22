@@ -8,7 +8,6 @@ import {
   StyledSelect,
   StyledAiOutlineEye,
   LinkEyeConfirmPassword,
-  LinkBack,
 } from './SignUp.style';
 import {
   AiOutlineEye,
@@ -25,6 +24,7 @@ import {
   StyledForm,
   DivFlexLink,
   PageTitle,
+  LinkBack,
 } from '../../global.styles';
 
 const SignUp = () => {
