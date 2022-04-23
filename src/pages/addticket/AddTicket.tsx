@@ -1,6 +1,16 @@
-import { useFormik, FormikHelpers, FieldArray, FormikProvider } from 'formik';
-import { TicketDTO } from '../../models/TicketDTO';
 import * as Yup from 'yup';
+import { useFormik, FormikHelpers, FieldArray, FormikProvider } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import {
+  ContainerAddTicket,
+  DivFlexItem,
+  AnotherItem,
+} from './AddTicket.style';
+import { DivButton } from '../signup/SignUp.style';
+import { TicketDTO } from '../../models/TicketDTO';
+import { hasToken } from '../../utils';
 import {
   StyledForm,
   ButtonDefault,
@@ -12,14 +22,6 @@ import {
   PageTitle,
   LinkBack,
 } from '../../global.styles';
-import {
-  ContainerAddTicket,
-  DivFlexItem,
-  AnotherItem,
-} from './AddTicket.style';
-import { DivButton } from '../signup/SignUp.style';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
-import { min } from 'moment';
 
 const AddTicket = () => {
   const addTicketSchema = Yup.object().shape({
@@ -54,6 +56,8 @@ const AddTicket = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
+      totalSum: '',
+      situation: 'aberto',
       items: [
         {
           nameItem: '',
@@ -96,6 +100,15 @@ const AddTicket = () => {
       };
     });
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!hasToken()) {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <ContainerMain>
       <LinkBack to="/">

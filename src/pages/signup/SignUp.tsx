@@ -131,7 +131,6 @@ const SignUp = (state:RootState & AnyAction) => {
   });
 
   // setups createuser
-
   const setupCreateUser = (values: SignUpDTO) =>{
     const user = { 
       name: values.name,
