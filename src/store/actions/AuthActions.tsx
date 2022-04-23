@@ -9,14 +9,15 @@ export const handleLogin = async (
   navigate: Function
 ) => {
   //usuario para teste, substituir por credentials futuramente
-  const user = {
-    login: 'financeiro@dbccompany.com.br',
-    password: 'financeiro',
-  };
+  // const user = {
+  //   login: 'financeiro@dbccompany.com.br',
+  //   password: 'financeiro',
+  // };
 
   try {
-    const { data } = await api.post('/auth', user);
-
+    const { data } = await api.post('/auth', credentials);
+    console.log(data.roles[0].role, 'data')
+    console.log(data)
     const userAuthenticated = {
       type: 'SET_LOGIN',
       name: data.name,
@@ -29,6 +30,7 @@ export const handleLogin = async (
 
     api.defaults.headers.common['Authorization'] = data.token;
     localStorage.setItem('token', JSON.stringify(data.token));
+    localStorage.setItem('role', data.roles[0].role)
     dispatch(userAuthenticated);
     navigate('/');
   } catch (error) {

@@ -1,7 +1,7 @@
 export interface TicketDTO {
   title: string;
-  totalSum: string;
-  situation: string;
+  totalSum?: string;
+  situation?: string;
   items: [
     {
       nameItem: string;

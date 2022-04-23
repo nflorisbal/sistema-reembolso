@@ -111,7 +111,6 @@ const SignUp = (state:RootState & AnyAction) => {
       password: '',
       confirmPassword: '',
       role: 'colaborador',
-      image: "",
     },
     onSubmit: (
       values: SignUpDTO,

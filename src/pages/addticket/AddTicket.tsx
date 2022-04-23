@@ -12,6 +12,7 @@ import { DivButton } from '../signup/SignUp.style';
 import {
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
+import { min } from 'moment';
 
 const AddTicket = () => {
   const addTicketSchema = Yup.object().shape({
@@ -20,14 +21,12 @@ const AddTicket = () => {
       sum: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
       nameItem: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
       dateItem: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
-      attachment: Yup.string().required('Campo obrigatório.'),
+      attachment: Yup.string().required('Campo obrigatório.').min(1, "Mímino de um item").max(1, 'Máximo de um item'),
     })).min(1, "Informe ao menos um item.").max(10, "Máximo de 10 items.")
   });
   const formik = useFormik({
     initialValues: {
       title: '',
-      totalSum: '',
-      situation: 'aberto',
       items: [
         {
           nameItem: '',
@@ -88,18 +87,6 @@ const AddTicket = () => {
           onChange={formik.handleChange}
         />
         </DivFlexColumn>
-
-        <DivFlexColumn>
-        <StyledLabel htmlFor="totalSum">Total:</StyledLabel>
-        <InputDefault
-          id="totalSum"
-          name="totalSum"
-          placeholder="Digite o valor completo"
-          value={formik.values.totalSum}
-          onChange={formik.handleChange}
-        />
-        </DivFlexColumn>
-
         
         <FormikProvider value={formik}>
         
