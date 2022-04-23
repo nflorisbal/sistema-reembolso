@@ -19,8 +19,8 @@ import {
   ContainerMain,
   InputDefault,
 } from '../../global.styles';
-import Logo from '../../components/logo/Logo';
 import { hasToken } from '../../utils';
+import { ImageLogo } from '../../components/logo/Logo.style';
 
 const FORM_INITIAL_VALUES = {
   login: '',
@@ -50,7 +50,7 @@ const Login = ({ dispatch }: DispatchProp) => {
   return (
     <ContainerMain>
       <ContainerLogin>
-        <Logo />
+        <ImageLogo />
         <Title>Sistema de Reembolso</Title>
         <Formik
           initialValues={FORM_INITIAL_VALUES}

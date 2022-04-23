@@ -8,14 +8,9 @@ export const handleLogin = async (
   dispatch: AppDispatch,
   navigate: Function
 ) => {
-  //usuario para teste, substituir por credentials futuramente
-  const user = {
-    login: 'financeiro@dbccompany.com.br',
-    password: 'financeiro',
-  };
 
   try {
-    const { data } = await api.post('/auth', user);
+    const { data } = await api.post('/auth', credentials);
 
     const userAuthenticated = {
       type: 'SET_LOGIN',
