@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
@@ -10,6 +11,8 @@ import User from '../user/User';
 import { ContainerHeader } from './Header.style';
 
 const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
+  const navigate = useNavigate();
+  
   return (
     <>
       {(isLogged || hasToken()) && (
@@ -20,7 +23,7 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
           </div>
           <div>
             <User />
-            <button onClick={() => handleLogout(dispatch)}>Logout</button>
+            <button onClick={() => handleLogout(dispatch, navigate)}>Logout</button>
           </div>
         </ContainerHeader>
       )}

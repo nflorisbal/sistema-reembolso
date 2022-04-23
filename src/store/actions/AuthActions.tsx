@@ -1,7 +1,7 @@
 import { AppDispatch } from '..';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
-import { hasToken } from '../../utils';
+import { AxiosError } from 'axios';
 
 export const handleLogin = async (
   credentials: AuthDTO,
@@ -10,38 +10,38 @@ export const handleLogin = async (
 ) => {
   //usuario para teste, substituir por credentials futuramente
   const user = {
-    login: 'admin',
-    password: 'admin',
+    login: 'financeiro@dbccompany.com.br',
+    password: 'financeiro',
   };
 
-  await api
-    .post('/auth', user)
-    .then((response) => {
-      const { data } = response;
-      console.log(data);
+  try {
+    const { data } = await api.post('/auth', user);
 
-      const userAuthenticated = {
-        type: 'SET_LOGIN',
-        name: data.name,
-        username: credentials.login,
-        token: data.token,
-        role: data.role,
-        isLogged: true,
-      };
+    const userAuthenticated = {
+      type: 'SET_LOGIN',
+      name: data.name,
+      username: credentials.login,
+      image: data.image,
+      token: data.token,
+      role: data.role,
+      isLogged: true,
+    };
 
-      api.defaults.headers.common['Authorization'] = data.token;
-      localStorage.setItem('token', JSON.stringify(data.token));
-      dispatch(userAuthenticated);
-      navigate('/');
-    })
-    .catch((error) => {
-      console.log(error.response.status);
-    });
+    api.defaults.headers.common['Authorization'] = data.token;
+    localStorage.setItem('token', JSON.stringify(data.token));
+    dispatch(userAuthenticated);
+    navigate('/');
+  } catch (error) {
+    const { response } = error as AxiosError;
+    console.log(response);
+  }
 };
 
-export const handleLogout = (dispatch: AppDispatch) => {
+export const handleLogout = (dispatch: AppDispatch, navigate: Function) => {
   const userAuthenticated = {
     type: 'SET_LOGOUT',
   };
+  localStorage.removeItem('token');
   dispatch(userAuthenticated);
+  navigate('/login');
 };
