@@ -21,6 +21,7 @@ const authReducer = (
         login: action.login,
         token: action.token,
         role: action.role,
+        image: action.image,
         isLogged: action.isLogged,
       };
     case 'SET_LOGOUT':

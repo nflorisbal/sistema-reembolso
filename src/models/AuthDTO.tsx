@@ -7,6 +7,7 @@ export interface CredentialDTO {
   name: string;
   login: string;
   token: string;
+  image?: string;
   role: string;
   isLogged: boolean;
 }

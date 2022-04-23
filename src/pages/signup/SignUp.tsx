@@ -28,8 +28,14 @@ import {
   DivError,
 } from '../../global.styles';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { createUser } from '../../store/actions/SignUpActions';
+import { RootState } from '../../store';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 
-const SignUp = () => {
+const SignUp = (state:RootState & AnyAction) => {
+  const {dispatch} = state;
+
   const passwordFeedback = [
     'Muito fraco',
     'Fraco',
@@ -114,6 +120,7 @@ const SignUp = () => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           console.log(values);
+          setupCreateUser(values)
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -121,6 +128,18 @@ const SignUp = () => {
     },
     validationSchema: signupSchema,
   });
+
+  // setups createuser
+
+  const setupCreateUser = (values: SignUpDTO) =>{
+    const user = { 
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      image: values.image
+    }
+    createUser(user, dispatch)
+  }
 
   // sets image field
   const uploadImage = async (event: any) => {
@@ -267,4 +286,11 @@ const SignUp = () => {
     </ContainerMain>
   );
 };
-export default SignUp;
+
+const mapStateToProps = (state: RootState) => ({
+  name: state.authReducer.name,
+  image: state.authReducer.image
+});
+
+
+export default connect(mapStateToProps)(SignUp);

@@ -9,13 +9,13 @@ export const handleLogin = async (
   navigate: Function
 ) => {
   //usuario para teste, substituir por credentials futuramente
-  const user = {
-    login: 'admin',
-    password: 'admin',
-  };
+  // const user = {
+  //   login: 'admin',
+  //   password: 'admin',
+  // };
 
   await api
-    .post('/auth', user)
+    .post('/auth', credentials)
     .then((response) => {
       const { data } = response;
       console.log(data);
@@ -26,6 +26,7 @@ export const handleLogin = async (
         username: credentials.login,
         token: data.token,
         role: data.role,
+        image: data.image,
         isLogged: true,
       };
 
