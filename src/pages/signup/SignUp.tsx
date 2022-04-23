@@ -32,10 +32,11 @@ import { createUser } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = (state:RootState & AnyAction) => {
   const {dispatch} = state;
-
+  const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
     'Fraco',
@@ -137,7 +138,7 @@ const SignUp = (state:RootState & AnyAction) => {
       password: values.password,
       image: values.image
     }
-    createUser(user, dispatch)
+    createUser(user, dispatch, navigate)
   }
 
   // sets image field

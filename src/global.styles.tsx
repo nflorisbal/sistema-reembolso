@@ -90,7 +90,7 @@ export const DivFlex = styled.div`
   gap: 10px;
 `;
 export const LinkBack = styled(Link)`
-  position: absolute;
+  /* position: absolute; */
   z-index: 0;
   top: 23px;
   left: 15px;
