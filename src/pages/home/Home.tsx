@@ -10,6 +10,7 @@ const Home = () => {
     if (!hasToken()) {
       navigate('/login');
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

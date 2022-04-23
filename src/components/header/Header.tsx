@@ -5,7 +5,6 @@ import { ContainerHeader, ContainerMenu } from './Header.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import { handleLogout } from '../../store/actions/AuthActions';
-import { hasToken } from '../../utils';
 import Menu from '../menu/Menu';
 import User from '../user/User';
 import { ImageLogo } from '../logo/Logo.style';
@@ -16,7 +15,7 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
 
   return (
     <>
-      {(isLogged) && (
+      {isLogged ? (
         <ContainerHeader>
           <ContainerMenu>
             <ImageLogo width="150px" />
@@ -29,7 +28,7 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
             </ButtonDefault>
           </ContainerMenu>
         </ContainerHeader>
-      )}
+      ) : null}
     </>
   );
 };

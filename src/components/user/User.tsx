@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
+import { ImgProfile } from './User.style';
 
-const User = (state?: CredentialDTO) => {
-  console.log(state);
-  
+const User = (state?: CredentialDTO) => {  
   return (
     <>
-      <img src={state?.image} />
+      <ImgProfile src={state?.image} alt=''/>
       <p>{state?.name}</p>
     </>
   );

@@ -45,6 +45,7 @@ const Login = ({ dispatch }: DispatchProp) => {
     if (hasToken()) {
       navigate('/');
     }
+  // eslint-disable-next-line
   }, []);
 
   return (

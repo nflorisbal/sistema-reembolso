@@ -18,11 +18,8 @@ export const GlobalStyle = createGlobalStyle`
     background: url(${Pattern}) ${Theme.color.primaryPure};
   }
 
-  #root{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+  a {
+    color: ${Theme.color.highlightPure}
   }
 `;
 
@@ -30,7 +27,6 @@ export const ContainerMain = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
 `;
