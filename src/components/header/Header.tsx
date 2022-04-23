@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
@@ -11,8 +12,6 @@ import User from '../user/User';
 import { ContainerHeader } from './Header.style';
 
 const Header = (state: CredentialDTO & AnyAction) => {
-  console.log(state)
-  console.log(state.image)
   const [hasImage, setHasImage] = useState(false)
 
   useEffect(()=>{
@@ -35,7 +34,7 @@ const Header = (state: CredentialDTO & AnyAction) => {
           </div>
           <div>
             <User />
-            <button onClick={() => handleLogout(dispatch)}>Logout</button>
+            <button onClick={() => handleLogout(dispatch, navigate)}>Logout</button>
           </div>
         </ContainerHeader>
       )} */}

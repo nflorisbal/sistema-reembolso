@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Theme } from './theme';
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
+import Pattern from './images/pattern_bg.png';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -14,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: ${Theme.color.neutralPure};
+    background: url(${Pattern}) ${Theme.color.neutralGrayLight};
   }
 
   #root{
@@ -87,7 +88,7 @@ export const DivFlex = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 10px;
-`
+`;
 export const LinkBack = styled(Link)`
   position: absolute;
   z-index: 0;
@@ -104,4 +105,4 @@ export const DivError = styled.div`
   color: ${Theme.color.highlightPure};
   padding-left: 5px;
   margin-top: 5px;
-`
+`;

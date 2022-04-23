@@ -54,7 +54,7 @@ const Login = ({ dispatch }: DispatchProp) => {
         <Title>Sistema de Reembolso</Title>
         <Formik
           initialValues={FORM_INITIAL_VALUES}
-          // validationSchema={loginSchema}
+          validationSchema={loginSchema}
           enableReinitialize={true}
           onSubmit={(credentials) =>
             handleLogin(credentials, dispatch, navigate)
