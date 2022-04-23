@@ -85,6 +85,7 @@ const AddTicket = () => {
           placeholder="Digite o título"
           value={formik.values.title}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         </DivFlexColumn>
         
@@ -102,6 +103,7 @@ const AddTicket = () => {
                       id={`items[${index}.nameItem]`}
                       value={item.nameItem}
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur }
                       placeholder="Item:"
                     />
                     <DivFlex>
@@ -110,12 +112,14 @@ const AddTicket = () => {
                       id={`items[${index}.dateItem]`}
                       value={item.dateItem}
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur }
                       placeholder="Data:"
                     />
                     <InputDefault
                       name={`items[${index}.sum]`}
                       value={item.sum}
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur }
                       placeholder="Valor:"
                     />
                     </DivFlex>

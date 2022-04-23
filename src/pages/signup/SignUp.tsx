@@ -181,6 +181,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Digite seu nome completo"
               value={formik.values.name}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur }
             />
             {formik.errors.name && formik.touched.name ? (
               <DivError>{formik.errors.name}</DivError>
@@ -195,6 +196,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="maria.santos@dbccompany.com.br"
               type="email"
               value={formik.values.email}
+              onBlur={formik.handleBlur }
               onChange={formik.handleChange}
             />
             {formik.errors.email && formik.touched.email ? (
@@ -211,6 +213,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Digite sua senha"
               value={formik.values.password}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur }
             />
             <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
               {invisiblePassword && <StyledAiOutlineEye />}
@@ -239,6 +242,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Confirme sua senha"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur }
             />
             <LinkEyeConfirmPassword
               href="#!"
