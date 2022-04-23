@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Theme } from './theme';
 import { Link } from 'react-router-dom';
+import Pattern from './images/pattern_bg.png';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -14,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: ${Theme.color.neutralPure};
+    background: url(${Pattern}) ${Theme.color.neutralGrayLight};
   }
 
   #root{

@@ -12,6 +12,8 @@ export const Theme = {
     neutralLight: '#ffffff',
     neutralPure: '#f2f2f2',
     neutralDark: '#e0e0e0',
+    neutralGrayLight: '#a6a6a6',
+    neutralGrayDark:'#595959',
   },
 
   defaultFontSize: '16px',
