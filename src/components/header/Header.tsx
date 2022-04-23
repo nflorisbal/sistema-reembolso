@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AnyAction } from 'redux';
@@ -10,12 +11,22 @@ import Menu from '../menu/Menu';
 import User from '../user/User';
 import { ContainerHeader } from './Header.style';
 
-const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
-  const navigate = useNavigate();
-  
+const Header = (state: CredentialDTO & AnyAction) => {
+  const [hasImage, setHasImage] = useState(false)
+
+  useEffect(()=>{
+    {setTimeout(() =>{
+      setHasImage(true);
+    }, 5000)
+
+  }},[state.image])
+
   return (
     <>
-      {(isLogged || hasToken()) && (
+    {hasImage && 
+    <img src={state.image} />}
+    
+      {/* {(isLogged || hasToken()) && (
         <ContainerHeader>
           <div>
             <Logo />
@@ -26,13 +37,14 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
             <button onClick={() => handleLogout(dispatch, navigate)}>Logout</button>
           </div>
         </ContainerHeader>
-      )}
+      )} */}
     </>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
   isLogged: state.authReducer.isLogged,
+  image: state.authReducer.image
 });
 
 export default connect(mapStateToProps)(Header);

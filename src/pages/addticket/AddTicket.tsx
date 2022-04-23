@@ -15,14 +15,13 @@ import {
 
 const AddTicket = () => {
   const addTicketSchema = Yup.object().shape({
-    title: Yup.string().required('Campo obrigatório.'),
-    totalSum: Yup.string().required('Campo obrigatório.'),
+    title: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres.").max(30, "Máximo de 30 caracteres."),
     items: Yup.array().of(Yup.object().shape({
-      sum: Yup.string().required('Campo obrigatório.'),
-      nameItem: Yup.string().required('Campo obrigatório.'),
-      dateItem: Yup.string().required('Campo obrigatório.'),
+      sum: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
+      nameItem: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
+      dateItem: Yup.string().required('Campo obrigatório.').min(3, "Mínimo de 3 caracteres").max(10, "máximo de 10 caracteres"),
       attachment: Yup.string().required('Campo obrigatório.'),
-    })).min(1, "Informe ao menos um item.")
+    })).min(1, "Informe ao menos um item.").max(10, "Máximo de 10 items.")
   });
   const formik = useFormik({
     initialValues: {
@@ -50,6 +49,28 @@ const AddTicket = () => {
     },
     validationSchema: addTicketSchema,
   });
+
+  const uploadFile = async (event: any, index: number) =>{
+    const file = event.target.files[0]
+    const base64 = await convertBase64(file)
+    formik.setFieldValue(`items[${index}.attachment]`, base64)
+  }
+
+  const convertBase64 = (file: any) =>{
+
+    return new Promise((resolve, reject) =>{
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
+  }
   return (
     <ContainerMain>
       <LinkBack to="/"><AiOutlineArrowLeft /></LinkBack>
@@ -113,8 +134,7 @@ const AddTicket = () => {
                     </DivFlex>
                     <InputDefault
                       name={`items[${index}.attachment]`}
-                      value={item.attachment}
-                      onChange={formik.handleChange}
+                      onChange={(event: any) => uploadFile(event, index)}
                       type="file"
                     />
                     <DivButton>
@@ -129,7 +149,7 @@ const AddTicket = () => {
                 ))}
                 <DivButton>
                 <AnotherItem
-                href='#'
+                href='#!'
                   onClick={() =>
                     ArrayHelpers.push({
                       nameItem: '',

@@ -1,7 +1,9 @@
 export interface SignUpDTO{
     name: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
     email: string;
-    role: string;
+    role?: string;
+    image?: string;
+    action?: string
 }

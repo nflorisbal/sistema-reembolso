@@ -4,10 +4,10 @@ export interface AuthDTO {
 }
 
 export interface CredentialDTO {
-  name: string;
-  login: string;
-  token: string;
+  email: string;
   image?: string;
-  role: string;
+  name: string;
+  role: Array<object>;
+  token: string;
   isLogged: boolean;
 }

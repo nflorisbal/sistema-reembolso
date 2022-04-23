@@ -2,11 +2,11 @@ import { AnyAction } from 'redux';
 import { CredentialDTO } from '../../models/AuthDTO';
 
 export const INITIAL_STATE = {
-  name: '',
-  login: '',
-  token: '',
+  email: '',
   image: '',
-  role: '',
+  name: '',
+  token: '',
+  role: [{}],
   isLogged: false,
 };
 
@@ -18,11 +18,11 @@ const authReducer = (
     case 'SET_LOGIN':
       return {
         ...state,
-        name: action.name,
-        login: action.login,
-        token: action.token,
+        email: action.login,
         image: action.image,
+        name: action.name,
         role: action.role,
+        token: action.token,
         isLogged: action.isLogged,
       };
     case 'SET_LOGOUT':

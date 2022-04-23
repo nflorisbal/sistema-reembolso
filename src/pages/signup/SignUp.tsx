@@ -28,8 +28,14 @@ import {
   DivError,
 } from '../../global.styles';
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { createUser } from '../../store/actions/SignUpActions';
+import { RootState } from '../../store';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 
-const SignUp = () => {
+const SignUp = (state:RootState & AnyAction) => {
+  const {dispatch} = state;
+
   const passwordFeedback = [
     'Muito fraco',
     'Fraco',
@@ -113,7 +119,8 @@ const SignUp = () => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
-          console.log(values)
+          console.log(values);
+          setupCreateUser(values)
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -121,6 +128,41 @@ const SignUp = () => {
     },
     validationSchema: signupSchema,
   });
+
+  // setups createuser
+
+  const setupCreateUser = (values: SignUpDTO) =>{
+    const user = { 
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      image: values.image
+    }
+    createUser(user, dispatch)
+  }
+
+  // sets image field
+  const uploadImage = async (event: any) => {
+    const image = event.target.files[0];
+    const base64 = await convertBase64(image);
+    formik.setFieldValue('image', base64);
+  };
+
+  // converts to base64
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   return (
     <ContainerMain>
@@ -169,7 +211,7 @@ const SignUp = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
-            <LinkEyePassword href="#" onClick={() => changeTypePassword()}>
+            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
@@ -198,7 +240,7 @@ const SignUp = () => {
               onChange={formik.handleChange}
             />
             <LinkEyeConfirmPassword
-              href="#"
+              href="#!"
               onClick={() => changeTypeConfirmPassword()}
             >
               {invisibleConfirmPassword && <AiOutlineEye />}
@@ -214,7 +256,7 @@ const SignUp = () => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) => formik.setFieldValue("image", event.target.files)}
+              onChange={(event) => uploadImage(event)}
             />
           </DivFlexColumn>
 
@@ -244,4 +286,11 @@ const SignUp = () => {
     </ContainerMain>
   );
 };
-export default SignUp;
+
+const mapStateToProps = (state: RootState) => ({
+  name: state.authReducer.name,
+  image: state.authReducer.image
+});
+
+
+export default connect(mapStateToProps)(SignUp);
