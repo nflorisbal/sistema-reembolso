@@ -1,20 +1,12 @@
-import { Link } from 'react-router-dom';
+import { ContainerNavbar, LinkMenu } from './Menu.style';
 
 const Menu = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/addticket">Tickets</Link>
-        </li>
-        <li>
-          <Link to="/signup">Usuários</Link>
-        </li>
-      </ul>
-    </nav>
+    <ContainerNavbar>
+      <LinkMenu to="/">Home</LinkMenu>
+      <LinkMenu to="/addticket">Tickets</LinkMenu>
+      <LinkMenu to="/signup">Usuários</LinkMenu>
+    </ContainerNavbar>
   );
 };
 export default Menu;

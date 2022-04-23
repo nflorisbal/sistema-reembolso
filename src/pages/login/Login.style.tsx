@@ -8,7 +8,6 @@ export const ContainerLogin = styled.div`
   width: 440px;
   height: 580px;
   padding: ${Theme.padding};
-  margin-top: calc((100vh / 2) - 290px);
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: ${Theme.borderRadius};
