@@ -16,7 +16,7 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
 
   return (
     <>
-      {(isLogged || hasToken()) && (
+      {(isLogged) && (
         <ContainerHeader>
           <ContainerMenu>
             <ImageLogo width="150px" />
