@@ -6,19 +6,12 @@ import { AnyAction } from 'redux';
 
 const ListAllUsers = (state:RootState & AnyAction) => {
   console.log(state, "state")
-  const {dispatch, users, loading} = state
-  const [hasList, setHasList] = useState(false)
-  
+  const {dispatch, users, loading, token} = state
   
   useEffect(() => {
     if (users.length === 1){
-    listAllUsers(users, dispatch);
+    listAllUsers(users, dispatch, token);
     }
-    // if (users.length > 1){
-    //   setHasList(true)
-    //   setLoading(false)
-    //   console.log('entrou')
-    // }
   }, [users]);
 
 
@@ -40,6 +33,7 @@ const ListAllUsers = (state:RootState & AnyAction) => {
 const mapStateToProps = (state: RootState) => ({
   users: state.list.users,
   loading: state.list.loading,
+  token: state.auth.token
 });
 
 export default connect(mapStateToProps)(ListAllUsers);
