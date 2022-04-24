@@ -4,7 +4,6 @@ import { connect, DispatchProp } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { handleLogin } from '../../store/actions/AuthActions';
-
 import {
   ContainerLogin,
   DivBtnLogin,
@@ -45,7 +44,7 @@ const Login = ({ dispatch }: DispatchProp) => {
     if (hasToken()) {
       navigate('/');
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -57,9 +56,9 @@ const Login = ({ dispatch }: DispatchProp) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(credentials) =>
-            handleLogin(credentials, dispatch, navigate)
-          }
+          onSubmit={(credentials) => {
+            handleLogin(credentials, dispatch, navigate);
+          }}
         >
           <Form>
             <DivInputLogin>

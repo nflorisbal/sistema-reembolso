@@ -1,14 +1,13 @@
 import { AppDispatch } from '..';
+import { AxiosError } from 'axios';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
-import { AxiosError } from 'axios';
 
 export const handleLogin = async (
   credentials: AuthDTO,
   dispatch: AppDispatch,
   navigate: Function
 ) => {
-
   try {
     const { data } = await api.post('/auth', credentials);
 
@@ -28,7 +27,6 @@ export const handleLogin = async (
     navigate('/');
   } catch (error) {
     const { response } = error as AxiosError;
-    console.log(response);
   }
 };
 
