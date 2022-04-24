@@ -1,14 +1,13 @@
 import { AppDispatch } from '..';
+import { AxiosError } from 'axios';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
-import { AxiosError } from 'axios';
 
 export const handleLogin = async (
   credentials: AuthDTO,
   dispatch: AppDispatch,
   navigate: Function
 ) => {
-
   try {
     const { data } = await api.post('/auth', credentials);
 
@@ -24,12 +23,11 @@ export const handleLogin = async (
 
     api.defaults.headers.common['Authorization'] = data.token;
     localStorage.setItem('token', JSON.stringify(data.token));
-    localStorage.setItem('role', data.roles[0].role)
+    localStorage.setItem('role', data.roles[0].role);
     dispatch(userAuthenticated);
     navigate('/');
   } catch (error) {
     const { response } = error as AxiosError;
-    console.log(response);
   }
 };
 
