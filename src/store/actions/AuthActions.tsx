@@ -22,6 +22,8 @@ export const handleLogin = async (
       isLogged: true,
     };
 
+    console.log(data.token, "token")
+
     api.defaults.headers.common['Authorization'] = data.token;
     localStorage.setItem('token', data.token);
     dispatch(userAuthenticated);

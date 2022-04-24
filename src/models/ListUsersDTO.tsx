@@ -1,5 +1,6 @@
 export interface ListUsersDTO {
-  users: {
+    loading: boolean,
+    users: {
     name: string;
     idUser: number;
     email: string;
