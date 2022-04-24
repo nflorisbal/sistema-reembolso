@@ -23,12 +23,6 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
           </ContainerMenu>
           <ContainerMenu>
             <User />
-            <ButtonDefault
-              type="button"
-              onClick={() => handleLogout(dispatch, navigate)}
-            >
-              Logout
-            </ButtonDefault>
           </ContainerMenu>
         </ContainerHeader>
       ) : null}

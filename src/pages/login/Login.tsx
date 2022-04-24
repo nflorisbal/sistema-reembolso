@@ -62,6 +62,7 @@ const Login = ({ dispatch }: DispatchProp) => {
         >
           {({ status }) => (
             <Form>
+              <LabelError>{status}</LabelError>
               <DivInputLogin>
                 <LabelLogin htmlFor="login">E-mail</LabelLogin>
                 <Field

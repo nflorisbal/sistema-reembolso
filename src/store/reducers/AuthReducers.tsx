@@ -18,7 +18,7 @@ const authReducer = (
     case 'SET_LOGIN':
       return {
         ...state,
-        email: action.login,
+        email: action.email,
         image: action.image,
         name: action.name,
         role: action.role,

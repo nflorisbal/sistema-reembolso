@@ -11,18 +11,18 @@ export const handleLogin = async (
 ) => {
   try {
     const { data } = await api.post('/auth', credentials);
-
+    console.log(data);
+    
+    
     const userAuthenticated = {
       type: 'SET_LOGIN',
       name: data.name,
-      username: credentials.login,
+      email: data.email,
       image: data.image,
       token: data.token,
       role: data.role,
       isLogged: true,
     };
-
-    console.log(data.token, "token")
 
     api.defaults.headers.common['Authorization'] = data.token;
     localStorage.setItem('token', data.token);
@@ -31,7 +31,7 @@ export const handleLogin = async (
   } catch (error) {
     const { response } = error as AxiosError;
     if (response?.status === 403) {
-      setStatus('Usuário ou senha inválida.');
+      setStatus('Usuário ou senha inválido.');
     }
   }
 };

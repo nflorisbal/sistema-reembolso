@@ -30,7 +30,7 @@ export const ContainerMain = styled.div`
   justify-content: center;
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100px);
 `;
 
 export const InputDefault = styled.input`
