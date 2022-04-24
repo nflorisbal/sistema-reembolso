@@ -34,7 +34,7 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  isLogged: state.authReducer.isLogged,
+  isLogged: state.auth.isLogged,
 });
 
 export default connect(mapStateToProps)(Header);

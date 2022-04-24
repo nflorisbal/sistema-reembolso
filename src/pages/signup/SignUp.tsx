@@ -100,8 +100,8 @@ const SignUp = (state:RootState & AnyAction) => {
       function (value) {
         return this.parent.password === value;
       }),
-      image: Yup.string()
-      .min(1, 'Mímino de um item')
+      // image: Yup.string()
+      // .min(1, 'Mímino de um item')
   });
 
   // const do useformik
@@ -294,8 +294,8 @@ const SignUp = (state:RootState & AnyAction) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  name: state.authReducer.name,
-  image: state.authReducer.image
+  name: state.auth.name,
+  image: state.auth.image
 });
 
 

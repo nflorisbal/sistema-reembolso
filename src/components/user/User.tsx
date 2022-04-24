@@ -13,8 +13,8 @@ const User = (state?: CredentialDTO) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  name: state.authReducer.name,
-  image: state.authReducer.image,
+  name: state.auth.name,
+  image: state.auth.image,
 });
 
 export default connect(mapStateToProps)(User);
