@@ -11,6 +11,8 @@ const ListAllUsers = (state:RootState & AnyAction) => {
   useEffect(() => {
     listAllUsers(users, dispatch);
   }, []);
+
+  
   console.log(users, "user")
   return (
     <div><h1>Lista de usuários</h1>
