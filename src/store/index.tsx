@@ -12,10 +12,6 @@ const persistConfig = {
   storage: storage,
 };
 
-interface Ipersist {
-  key: string,
-  storage: object,
-}
 
 const pReducer = persistReducer(persistConfig, rootReducer);
 

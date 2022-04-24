@@ -24,7 +24,6 @@ export const handleLogin = async (
 
     api.defaults.headers.common['Authorization'] = data.token;
     localStorage.setItem('token', JSON.stringify(data.token));
-    localStorage.setItem('role', data.roles[0].role)
     dispatch(userAuthenticated);
     navigate('/');
   } catch (error) {

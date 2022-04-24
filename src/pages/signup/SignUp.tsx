@@ -99,8 +99,9 @@ const SignUp = (state:RootState & AnyAction) => {
       'Senhas fornecidas não são iguais',
       function (value) {
         return this.parent.password === value;
-      }
-    ),
+      }),
+      image: Yup.string()
+      .min(1, 'Mímino de um item')
   });
 
   // const do useformik
@@ -111,6 +112,7 @@ const SignUp = (state:RootState & AnyAction) => {
       password: '',
       confirmPassword: '',
       role: 'colaborador',
+      image: null
     },
     onSubmit: (
       values: SignUpDTO,
@@ -214,7 +216,7 @@ const SignUp = (state:RootState & AnyAction) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur }
             />
-            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
+            <LinkEyePassword href="#!" onClick={() => changeTypePassword()} >
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
