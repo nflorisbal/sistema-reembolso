@@ -1,8 +1,6 @@
 import { AppDispatch } from '..';
 import { ListUsersDTO } from '../../models/ListUsersDTO';
 import api from '../../api';
-import { CredentialDTO } from '../../models/AuthDTO';
-
 
 export const listAllUsers = async ( users: ListUsersDTO, dispatch: AppDispatch, token: any) =>{
     console.log(users, "user dentro da action")

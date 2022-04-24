@@ -56,8 +56,6 @@ const AddTicket = () => {
   const formik = useFormik({
     initialValues: {
       title: '',
-      totalSum: '',
-      situation: 'aberto',
       items: [
         {
           nameItem: '',
