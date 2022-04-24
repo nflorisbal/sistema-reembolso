@@ -22,7 +22,7 @@ export const handleLogin = async (
     };
 
     api.defaults.headers.common['Authorization'] = data.token;
-    localStorage.setItem('token', JSON.stringify(data.token));
+    localStorage.setItem('token', data.token);
     dispatch(userAuthenticated);
     navigate('/');
   } catch (error) {

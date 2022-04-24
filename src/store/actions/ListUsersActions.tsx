@@ -3,11 +3,12 @@ import { ListUsersDTO } from '../../models/ListUsersDTO';
 import api from '../../api';
 
 
-export const listAllUsers = async ( state: ListUsersDTO, dispatch: AppDispatch ) =>{
+export const listAllUsers = async ( users: ListUsersDTO, dispatch: AppDispatch ) =>{
+    console.log(users, "user dentro da action")
     try {
         const {data} = await api.get('/user/listAllUser')
         console.log(data)
-        const list = {...data, type: 'LIST_USERS'}
+        const list = {users: [data], type: 'LIST_USERS'}
         console.log(list, "lista")
         dispatch (list)
     } catch (error) {

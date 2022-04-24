@@ -4,7 +4,7 @@ import api from '../../api';
 import { handleLogin } from './AuthActions';
 
 export const createUser = async ( newUser: SignUpDTO, dispatch:AppDispatch, navigate: Function) =>{
-    console.log(newUser, "dentro do actions")
+    console.log(newUser, "dentro do actions do create")
     try {
         await api.post('/user/saveUser', newUser)
         const stateNewUser = {...newUser, type: 'CREATE_USER' }

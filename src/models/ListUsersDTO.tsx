@@ -1,5 +1,5 @@
 export interface ListUsersDTO {
-  user: {
+  users: {
     name: string;
     idUser: number;
     email: string;
@@ -7,5 +7,5 @@ export interface ListUsersDTO {
     roleEntities?: {
       idRole: number;
     }[];
-  };
+  }[];
 }

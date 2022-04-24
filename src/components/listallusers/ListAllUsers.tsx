@@ -6,21 +6,24 @@ import { AnyAction } from 'redux';
 
 const ListAllUsers = (state:RootState & AnyAction) => {
   console.log(state, "state")
-  const {dispatch, user} = state
+  const {dispatch, users} = state
   
   useEffect(() => {
-    listAllUsers(user, dispatch);
+    listAllUsers(users, dispatch);
   }, []);
-  console.log(user, "user")
+  console.log(users, "user")
   return (
     <div><h1>Lista de usuários</h1>
-    {}
+    {users.map((user:any)=>(
+      <p key={user.idUser}>{user.name}</p>
+    ))}
+    <h2>oi</h2>
     </div>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
-  user: state.list.user,
+  users: state.list.users,
   
 });
 
