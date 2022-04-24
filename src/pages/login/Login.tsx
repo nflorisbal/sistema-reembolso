@@ -56,41 +56,41 @@ const Login = ({ dispatch }: DispatchProp) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(credentials, {setStatus}) => {
+          onSubmit={(credentials, { setStatus }) => {
             handleLogin(credentials, dispatch, navigate, setStatus);
           }}
         >
-          {({status}) => 
-          <Form>
-            {status && <div>{status}</div>}
-            <DivInputLogin>
-              <LabelLogin htmlFor="login">E-mail</LabelLogin>
-              <Field
-                name="login"
-                placeholder="usuario@dbccompany.com.br"
-                as={InputDefault}
-              />
-              <ErrorMessage name="login" component={LabelError} />
-            </DivInputLogin>
-            <DivInputLogin>
-              <LabelLogin htmlFor="password">Senha</LabelLogin>
-              <Field
-                name="password"
-                placeholder="Digite sua senha"
-                type="password"
-                as={InputDefault}
-              />
-              <ErrorMessage name="password" component={LabelError} />
-            </DivInputLogin>
-            <DivBtnLogin>
-              <ButtonDefault type="submit">Entrar</ButtonDefault>
-            </DivBtnLogin>
-            <DivBtnLogin>
-              <TextNewUser>Não possue cadastro?</TextNewUser>
-              <Link to="/signup">Cadastre-se!</Link>
-            </DivBtnLogin>
-          </Form>
-  }
+          {({ status }) => (
+            <Form>
+              <LabelError>{status}</LabelError>
+              <DivInputLogin>
+                <LabelLogin htmlFor="login">E-mail</LabelLogin>
+                <Field
+                  name="login"
+                  placeholder="usuario@dbccompany.com.br"
+                  as={InputDefault}
+                />
+                <ErrorMessage name="login" component={LabelError} />
+              </DivInputLogin>
+              <DivInputLogin>
+                <LabelLogin htmlFor="password">Senha</LabelLogin>
+                <Field
+                  name="password"
+                  placeholder="Digite sua senha"
+                  type="password"
+                  as={InputDefault}
+                />
+                <ErrorMessage name="password" component={LabelError} />
+              </DivInputLogin>
+              <DivBtnLogin>
+                <ButtonDefault type="submit">Entrar</ButtonDefault>
+              </DivBtnLogin>
+              <DivBtnLogin>
+                <TextNewUser>Não possue cadastro?</TextNewUser>
+                <Link to="/signup">Cadastre-se!</Link>
+              </DivBtnLogin>
+            </Form>
+          )}
         </Formik>
       </ContainerLogin>
     </ContainerMain>

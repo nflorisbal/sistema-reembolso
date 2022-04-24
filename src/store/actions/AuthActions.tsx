@@ -7,7 +7,7 @@ export const handleLogin = async (
   credentials: AuthDTO,
   dispatch: AppDispatch,
   navigate: Function,
-  setStatus: Function,
+  setStatus: Function
 ) => {
   try {
     const { data } = await api.post('/auth', credentials);
@@ -28,7 +28,9 @@ export const handleLogin = async (
     navigate('/');
   } catch (error) {
     const { response } = error as AxiosError;
-    setStatus('Usuário ou senha inválida.');
+    if (response?.status === 403) {
+      setStatus('Usuário ou senha inválida.');
+    }
   }
 };
 
