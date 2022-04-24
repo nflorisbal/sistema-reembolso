@@ -18,12 +18,15 @@ const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
       {isLogged ? (
         <ContainerHeader>
           <ContainerMenu>
-            <ImageLogo width="150px" />
+            <ImageLogo width="170px" />
             <Menu />
           </ContainerMenu>
           <ContainerMenu>
             <User />
-            <ButtonDefault onClick={() => handleLogout(dispatch, navigate)}>
+            <ButtonDefault
+              type="button"
+              onClick={() => handleLogout(dispatch, navigate)}
+            >
               Logout
             </ButtonDefault>
           </ContainerMenu>

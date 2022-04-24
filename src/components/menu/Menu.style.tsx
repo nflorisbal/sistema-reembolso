@@ -7,5 +7,11 @@ export const ContainerNavbar = styled.nav`
 `;
 
 export const LinkMenu = styled(Link)`
-  padding-left: ${Theme.padding};
+  padding: ${Theme.padding};
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  :hover {
+    background-color: ${Theme.color.neutralPure};
+  }
 `;
