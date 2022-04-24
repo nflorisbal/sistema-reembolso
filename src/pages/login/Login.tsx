@@ -56,11 +56,13 @@ const Login = ({ dispatch }: DispatchProp) => {
           initialValues={FORM_INITIAL_VALUES}
           validationSchema={loginSchema}
           enableReinitialize={true}
-          onSubmit={(credentials) => {
-            handleLogin(credentials, dispatch, navigate);
+          onSubmit={(credentials, {setStatus}) => {
+            handleLogin(credentials, dispatch, navigate, setStatus);
           }}
         >
+          {({status}) => 
           <Form>
+            {status && <div>{status}</div>}
             <DivInputLogin>
               <LabelLogin htmlFor="login">E-mail</LabelLogin>
               <Field
@@ -88,6 +90,7 @@ const Login = ({ dispatch }: DispatchProp) => {
               <Link to="/signup">Cadastre-se!</Link>
             </DivBtnLogin>
           </Form>
+  }
         </Formik>
       </ContainerLogin>
     </ContainerMain>
