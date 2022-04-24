@@ -20,5 +20,5 @@ const setupLoginAfterPost = (user: SignUpDTO, dispatch: AppDispatch, navigate: F
         login: user.email,
         password: user.password,
     }
-    handleLogin(loginNewUser, dispatch, navigate)
+    // handleLogin(loginNewUser, dispatch, navigate)
 }
