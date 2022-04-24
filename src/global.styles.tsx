@@ -18,11 +18,8 @@ export const GlobalStyle = createGlobalStyle`
     background: url(${Pattern}) ${Theme.color.primaryPure};
   }
 
-  #root{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+  a {
+    color: ${Theme.color.highlightPure}
   }
 `;
 
@@ -31,13 +28,14 @@ export const ContainerMain = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: absolute;
   width: 100%;
   height: 100%;
 `;
 
 export const InputDefault = styled.input`
   border: 1px solid ${Theme.color.neutralDark};
-  border-radius: 8px;
+  border-radius: ${Theme.borderRadius};
   outline: none;
   padding: 10px;
   background-color: ${Theme.color.neutralPure};
@@ -49,7 +47,7 @@ export const InputDefault = styled.input`
 
 export const ButtonDefault = styled.button`
   border: none;
-  border-radius: 8px;
+  border-radius: ${Theme.borderRadius};
   height: 40px;
   width: 150px;
   font-size: ${Theme.defaultFontSize};
@@ -57,7 +55,7 @@ export const ButtonDefault = styled.button`
   background-color: ${Theme.color.highlightPure};
 
   :hover {
-    opacity: 0.8;
+    background-color: ${Theme.color.highlightLight};
   }
 `;
 

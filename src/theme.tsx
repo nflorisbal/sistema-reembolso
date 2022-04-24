@@ -17,4 +17,6 @@ export const Theme = {
   },
 
   defaultFontSize: '16px',
+  padding: '20px',
+  borderRadius: '8px',
 };

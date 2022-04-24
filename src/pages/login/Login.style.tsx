@@ -6,17 +6,17 @@ export const ContainerLogin = styled.div`
   flex-direction: column;
   align-items: center;
   width: 440px;
-  min-height: 530px;
-  padding: 20px;
+  height: 580px;
+  padding: ${Theme.padding};
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
-  border-radius: 8px;
+  border-radius: ${Theme.borderRadius};
   box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
 `;
 
 export const Title = styled.h4`
   text-align: center;
-  padding: 20px 0;
+  padding: ${Theme.padding} 0;
 `;
 
 export const DivInputLogin = styled.div`
