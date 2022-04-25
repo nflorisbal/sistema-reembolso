@@ -10,6 +10,7 @@ import {
   DivInputLogin,
   LabelError,
   LabelLogin,
+  ServerError,
   TextNewUser,
   Title,
 } from './Login.style';
@@ -62,7 +63,9 @@ const Login = ({ dispatch }: DispatchProp) => {
         >
           {({ status }) => (
             <Form>
-              <LabelError>{status}</LabelError>
+              <ServerError>
+                <LabelError>{status}</LabelError>
+              </ServerError>
               <DivInputLogin>
                 <LabelLogin htmlFor="login">E-mail</LabelLogin>
                 <Field

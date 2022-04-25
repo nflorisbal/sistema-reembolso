@@ -49,6 +49,11 @@ export const LabelLogin = styled.label`
   padding-left: 5px;
 `;
 
+export const ServerError = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const LabelError = styled.label`
   font-size: 12px;
   font-weight: bold;
