@@ -42,7 +42,6 @@ export const ContainerSmall = styled.div`
   box-shadow: ${Theme.boxShadow};
 `;
 
-
 export const InputDefault = styled.input`
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: ${Theme.borderRadius};

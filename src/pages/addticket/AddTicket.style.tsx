@@ -2,18 +2,15 @@ import styled from 'styled-components';
 import { Theme } from '../../theme';
 
 export const ContainerAddTicket = styled.div`
-  width: 440px;
-  min-height: 700px;
-  height: auto !important;
-  background-color: ${Theme.color.neutralLight};
-  border: 1px solid ${Theme.color.neutralDark};
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  justify-content: center;
-  margin: 20px;
   align-items: center;
+  background-color: ${Theme.color.neutralLight};
+  border: 1px solid ${Theme.color.neutralDark};
+  border-radius: ${Theme.borderRadius};
+  box-shadow: ${Theme.boxShadow};
+  padding: ${Theme.padding};
+  margin: ${Theme.margin};  
 `;
 
 export const DivFlexItem = styled.div`

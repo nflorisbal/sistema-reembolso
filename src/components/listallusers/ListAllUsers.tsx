@@ -1,10 +1,23 @@
 import { listAllUsers } from '../../store/actions/ListUsersActions';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RootState } from '../../store';
 import { AnyAction } from 'redux';
+import { connect } from 'react-redux';
+import { Loading } from 'notiflix';
+import { RootState } from '../../store';
 import { ContainerMain, PageTitle } from '../../global.styles';
-import { ContainerListUsers, ImgList, StyledTbody, StyledThead, Table, Td, Th, Tr, ThImage, TdImage, TdNome } from './ListAllUsers.style';
+import {
+  ContainerListUsers,
+  ImgList,
+  StyledTbody,
+  StyledThead,
+  Table,
+  Td,
+  Th,
+  Tr,
+  ThImage,
+  TdImage,
+  TdNome,
+} from './ListAllUsers.style';
 import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
 
@@ -17,10 +30,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     }
   }, [users]);
 
-  console.log(users)
+  console.log(users);
 
   if (loading) {
-    return <div>Loading</div>;
+    return <>{Loading.arrows()}</>;
   }
 
   return (
@@ -29,22 +42,24 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         <PageTitle>Lista de usuários</PageTitle>
         <Table>
           <StyledThead>
-          <Tr>
-            <ThImage>Foto</ThImage>
-            <Th>Nome</Th>
-            <Th>Email</Th>
-            <Th>Cargo</Th>
-          </Tr>
+            <Tr>
+              <ThImage>Foto</ThImage>
+              <Th>Nome</Th>
+              <Th>Email</Th>
+              <Th>Cargo</Th>
+            </Tr>
           </StyledThead>
           <StyledTbody>
-          {users.map((user: any) => (
-            <Tr key={user.idUser}>
-              <TdImage><ImgList src={user.image ? user.image : DefaultProfileImg} /></TdImage>
-              <TdNome>{user.name}</TdNome>
-              <Td>{user.email}</Td>
-              <Td>{switchRole(user.idUser)}</Td>
-            </Tr>
-          ))}
+            {users.map((user: any) => (
+              <Tr key={user.idUser}>
+                <TdImage>
+                  <ImgList src={user.image ? user.image : DefaultProfileImg} />
+                </TdImage>
+                <TdNome>{user.name}</TdNome>
+                <Td>{user.email}</Td>
+                <Td>{switchRole(user.idUser)}</Td>
+              </Tr>
+            ))}
           </StyledTbody>
         </Table>
       </ContainerListUsers>
