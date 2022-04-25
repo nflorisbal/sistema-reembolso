@@ -24,6 +24,9 @@ import DefaultProfileImg from '../../images/profile_default.png';
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, loading, token } = state;
 
+  console.log(users.content);
+  
+
   useEffect(() => {
     if (users.length === 1) {
       listAllUsers(users, dispatch, token);
@@ -48,7 +51,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             </Tr>
           </StyledThead>
           <StyledTbody>
-            {users.map((user: any) => (
+            {users.content?.map((user: any) => (
               <Tr key={user.idUser}>
                 <TdImage>
                   <ImgList src={user.image ? user.image : DefaultProfileImg} />

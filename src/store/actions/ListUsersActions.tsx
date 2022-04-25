@@ -10,7 +10,7 @@ export const listAllUsers = async (
 ) => {
   try {
     const { data } = await api.get(
-      '/user/listAllUser',
+      '/user/listAllUserOrderById?requestPage=0&sizePage=10',
       (api.defaults.headers.common['Authorization'] = token)
     );
     const list = { users: data, type: 'LIST_USERS' };
