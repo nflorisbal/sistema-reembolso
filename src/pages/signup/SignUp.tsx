@@ -1,6 +1,6 @@
 import { useFormik, FormikHelpers } from 'formik';
 import { SignUpDTO } from '../../models/SignUpDTO';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   LinkEyePassword,
   ContainerSignUp,
@@ -33,9 +33,10 @@ import { RootState } from '../../store';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
+import { CredentialDTO, IRole } from '../../models/AuthDTO';
 
 const SignUp = (state:RootState & AnyAction) => {
-  const {dispatch} = state;
+  const {dispatch, roles} = state;
   const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
@@ -51,8 +52,14 @@ const SignUp = (state:RootState & AnyAction) => {
     useState(true);
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
-  const [admin, setAdmin] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
+
+  useEffect(()=>{
+    checkAdmin()
+  },[])
+
+  console.log(roles, "cargos")
 
   // deixa ou não visível o password
   const changeTypePassword = () => {
@@ -79,6 +86,14 @@ const SignUp = (state:RootState & AnyAction) => {
       setInvisibleConfirmPassword(true);
     }
   };
+
+  const checkAdmin = () =>{
+    roles.map((cargo: any) =>{
+      if(cargo.idRole === 1){
+        setAdmin(true)
+      }
+    })
+  }
 
   // validação do yup
   const signupSchema = Yup.object().shape({
@@ -296,7 +311,8 @@ const SignUp = (state:RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   name: state.auth.name,
-  image: state.auth.image
+  image: state.auth.image,
+  roles: state.auth.roles
 });
 
 

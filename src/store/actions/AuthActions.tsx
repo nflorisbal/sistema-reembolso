@@ -20,7 +20,7 @@ export const handleLogin = async (
       email: data.email,
       image: data.image,
       token: data.token,
-      role: data.role,
+      roles: data.roles,
       isLogged: true,
     };
 
