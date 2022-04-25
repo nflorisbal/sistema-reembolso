@@ -30,10 +30,8 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     }
   }, [users]);
 
-  console.log(users);
-
   if (loading) {
-    return <>{Loading.arrows()}</>;
+    // return <>{Loading.arrows()}</>;
   }
 
   return (

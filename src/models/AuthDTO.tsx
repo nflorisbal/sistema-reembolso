@@ -1,5 +1,3 @@
-import { HeadersDefaults } from 'axios';
-
 export interface AuthDTO {
   login: string;
   password: string;

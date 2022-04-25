@@ -10,9 +10,7 @@ export const handleLogin = async (
   setStatus: Function
 ) => {
   try {
-    const { data } = await api.post('/auth', credentials);
-    console.log(data);
-    
+    const { data } = await api.post('/auth', credentials); 
     
     const userAuthenticated = {
       type: 'SET_LOGIN',

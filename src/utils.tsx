@@ -1,21 +1,18 @@
 export const hasToken = () => {
   return localStorage.getItem('token');
-}
+};
 
-export const switchRole = (idRole:number) =>{
-  switch (idRole){
+export const switchRole = (idRole: number) => {
+  switch (idRole) {
     case 1:
-      return "Administrador"
-    
+      return 'Administrador';
     case 2:
-      return "Financeiro"
-    
+      return 'Financeiro';
     case 3:
-      return "Gestor"
-    
+      return 'Gestor';
     case 4:
-      return "Colaborador"
+      return 'Colaborador';
     default:
-    return "Funcionário"
+      return 'Funcionário';
   }
-}
+};
