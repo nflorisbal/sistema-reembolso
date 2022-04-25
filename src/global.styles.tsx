@@ -54,7 +54,7 @@ export const ButtonDefault = styled.button`
   background-color: ${Theme.color.highlightPure};
 
   :hover {
-    background-color: ${Theme.color.highlightLight};
+    background-color: ${Theme.color.highlightDark};
   }
 `;
 

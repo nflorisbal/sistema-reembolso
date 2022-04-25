@@ -22,7 +22,10 @@ const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {
           Sair
         </a>
       </InfoProfile>
-      <ImgProfile src={image? image : DefaultProfileImg} alt="" />
+      <ImgProfile
+        src={image ? image : DefaultProfileImg}
+        alt="foto do usuario"
+      />
     </>
   );
 };
