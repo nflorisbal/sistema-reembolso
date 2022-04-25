@@ -21,14 +21,16 @@ export const GlobalStyle = createGlobalStyle`
   a {
     color: ${Theme.color.highlightPure}
   }
+  #root {
+    height: 100vh;
+  }
 `;
 
 export const ContainerMain = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  position: absolute;
+  /* justify-content: center; */
   width: 100%;
   height: calc(100% - 100px);
 `;

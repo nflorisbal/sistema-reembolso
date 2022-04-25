@@ -11,7 +11,6 @@ const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {
 
   return (
     <>
-      <ImgProfile src={image} alt="" />
       <InfoProfile>
         <p>
           <strong>{name}</strong>
@@ -21,6 +20,7 @@ const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {
           Sair
         </a>
       </InfoProfile>
+      <ImgProfile src={image} alt="" />
     </>
   );
 };
