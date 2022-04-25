@@ -88,7 +88,8 @@ const SignUp = (state:RootState & AnyAction) => {
   };
 
   const checkAdmin = () =>{
-    roles.map((cargo: any) =>{
+    console.log(roles)
+    roles.map((cargo: IRole) =>{
       if(cargo.idRole === 1){
         setAdmin(true)
       }

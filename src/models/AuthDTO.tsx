@@ -1,3 +1,5 @@
+import { HeadersDefaults } from 'axios';
+
 export interface AuthDTO {
   login: string;
   password: string;
@@ -12,10 +14,11 @@ export interface CredentialDTO {
   isLogged: boolean;
 }
 
-export interface IRole{
-  roles:
-    {
-      idRole: number
-    }[]
-  
+export interface IRole {
+  idRole: number;
 }
+[];
+
+// export interface IToken extends HeadersDefaults{
+//   Authorization: string
+// } não funciona

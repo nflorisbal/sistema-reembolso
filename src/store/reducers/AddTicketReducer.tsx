@@ -5,10 +5,10 @@ export const INITIAL_STATE_TICKET = {
   title: '',
   items: [
     {
-      nameItem: '',
+      name: '',
       dateItem: '',
-      sum: '',
-      attachment: '',
+      value: '',
+      image: '',
     },
   ],
 };

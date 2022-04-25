@@ -22,8 +22,15 @@ import {
   PageTitle,
   LinkBack,
 } from '../../global.styles';
+import { RootState } from '../../store';
+import { AnyAction } from 'redux';
+import { sendNewTicket } from '../../store/actions/AddTicketActions'
+import { connect } from 'react-redux';
 
-const AddTicket = () => {
+const AddTicket = (state: RootState & AnyAction) => {
+
+  const {token, dispatch} = state;
+
   const addTicketSchema = Yup.object().shape({
     title: Yup.string()
       .required('Campo obrigatório.')
@@ -32,11 +39,11 @@ const AddTicket = () => {
     items: Yup.array()
       .of(
         Yup.object().shape({
-          sum: Yup.string()
+          value: Yup.string()
             .required('Campo obrigatório.')
-            .min(3, 'Mínimo de 3 caracteres')
+            .min(2, 'Mínimo de 3 caracteres')
             .max(10, 'máximo de 10 caracteres'),
-          nameItem: Yup.string()
+          name: Yup.string()
             .required('Campo obrigatório.')
             .min(3, 'Mínimo de 3 caracteres')
             .max(10, 'máximo de 10 caracteres'),
@@ -51,17 +58,17 @@ const AddTicket = () => {
         })
       )
       .min(1, 'Informe ao menos um item.')
-      .max(10, 'Máximo de 10 items.'),
+      
   });
   const formik = useFormik({
     initialValues: {
       title: '',
       items: [
         {
-          nameItem: '',
+          name: '',
           dateItem: '',
-          sum: '',
-          attachment: '',
+          value: '',
+          image: '',
         },
       ],
     },
@@ -71,17 +78,18 @@ const AddTicket = () => {
     ) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
+        sendNewTicket(values, dispatch, token)
         console.log(values);
         setSubmitting(false);
       }, 500);
     },
-    validationSchema: addTicketSchema,
+    // validationSchema: addTicketSchema,
   });
 
   const uploadFile = async (event: any, index: number) => {
     const file = event.target.files[0];
     const base64 = await convertBase64(file);
-    formik.setFieldValue(`items[${index}.attachment]`, base64);
+    formik.setFieldValue(`items[${index}.image]`, base64);
   };
 
   const convertBase64 = (file: any) => {
@@ -139,9 +147,9 @@ const AddTicket = () => {
                         Dados do pedido de reembolso:
                       </StyledLabel>
                       <InputDefault
-                        name={`items[${index}.nameItem]`}
-                        id={`items[${index}.nameItem]`}
-                        value={item.nameItem}
+                        name={`items[${index}.name]`}
+                        id={`items[${index}.name]`}
+                        value={item.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         placeholder="Item:"
@@ -156,15 +164,15 @@ const AddTicket = () => {
                           placeholder="Data:"
                         />
                         <InputDefault
-                          name={`items[${index}.sum]`}
-                          value={item.sum}
+                          name={`items[${index}.value]`}
+                          value={item.value}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           placeholder="Valor:"
                         />
                       </DivFlex>
                       <InputDefault
-                        name={`items[${index}.attachment]`}
+                        name={`items[${index}.image]`}
                         onChange={(event: any) => uploadFile(event, index)}
                         type="file"
                       />
@@ -183,10 +191,10 @@ const AddTicket = () => {
                       href="#!"
                       onClick={() =>
                         ArrayHelpers.push({
-                          nameItem: '',
+                          name: '',
                           dateItem: '',
-                          sum: '',
-                          attachment: '',
+                          value: '',
+                          image: '',
                         })
                       }
                     >
@@ -206,4 +214,8 @@ const AddTicket = () => {
   );
 };
 
-export default AddTicket;
+const mapStateToProps = (state: RootState) => ({
+  token: state.auth.token
+});
+
+export default connect(mapStateToProps)(AddTicket);
