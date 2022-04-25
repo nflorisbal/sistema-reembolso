@@ -1,4 +1,4 @@
-import { useFormik, FormikHelpers } from 'formik';
+import { useFormik, FormikHelpers, Form, Formik, Field } from 'formik';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { useEffect, useState } from 'react';
 import {
@@ -33,7 +33,7 @@ import { RootState } from '../../store';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
-import { CredentialDTO, IRole } from '../../models/AuthDTO';
+import { IRole } from '../../models/AuthDTO';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles } = state;
@@ -56,11 +56,18 @@ const SignUp = (state: RootState & AnyAction) => {
   const [score, setScore] = useState(0);
   const [validImage, setValidImage] = useState(false);
 
+  const FORM_INITIAL_VALUES = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: 'colaborador',
+    image: null,
+  };
+
   useEffect(() => {
     checkAdmin();
   }, []);
-
-  console.log(roles, 'cargos');
 
   // deixa ou não visível o password
   const changeTypePassword = () => {
@@ -119,8 +126,6 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    // image: Yup.string()
-    // .min(1, 'Mímino de um item')
   });
 
   // const do useformik
@@ -144,8 +149,7 @@ const SignUp = (state: RootState & AnyAction) => {
           console.log(values);
           if (validImage) {
             setupCreateUser(values);
-          }else{
-            
+          } else {
           }
         }, 500);
       } else {
@@ -202,7 +206,6 @@ const SignUp = (state: RootState & AnyAction) => {
     if (image.type.includes('image')) {
       return true;
     } else {
-      alert('tipo de arquivo errado');
     }
   };
 
@@ -221,6 +224,18 @@ const SignUp = (state: RootState & AnyAction) => {
           <AiOutlineArrowLeft />
         </LinkBack>
         <PageTitle>Cadastrar Usuário</PageTitle>
+        {/* <Formik initialValues={FORM_INITIAL_VALUES} onSubmit={(values) => {}}>
+          <Form>
+            <StyledLabel htmlFor="name">Nome:</StyledLabel>
+            <Field
+              id="name"
+              name="name"
+              placeholder="Digite seu nome completo"
+              as={InputDefault}
+            />
+          </Form>
+        </Formik> */}
+
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexColumn>
             <StyledLabel htmlFor="name">Nome:</StyledLabel>

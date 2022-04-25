@@ -6,12 +6,12 @@ export const ContainerLogin = styled.div`
   flex-direction: column;
   align-items: center;
   width: 440px;
-  height: 580px;
   padding: ${Theme.padding};
+  margin-top: 25vh;
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: ${Theme.borderRadius};
-  box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+  box-shadow: ${Theme.boxShadow};
 `;
 
 export const Title = styled.h4`

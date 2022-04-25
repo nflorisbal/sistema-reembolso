@@ -20,4 +20,5 @@ export const Theme = {
   padding: '20px',
   margin: '20px',
   borderRadius: '8px',
+  boxShadow: '0 1px 6px rgb(32 33 36 / 30%)',
 };

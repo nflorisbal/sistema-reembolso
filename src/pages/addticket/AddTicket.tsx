@@ -24,12 +24,11 @@ import {
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
-import { sendNewTicket } from '../../store/actions/AddTicketActions'
+import { sendNewTicket } from '../../store/actions/AddTicketActions';
 import { connect } from 'react-redux';
 
 const AddTicket = (state: RootState & AnyAction) => {
-
-  const {token, dispatch} = state;
+  const { token, dispatch } = state;
 
   const addTicketSchema = Yup.object().shape({
     title: Yup.string()
@@ -57,8 +56,7 @@ const AddTicket = (state: RootState & AnyAction) => {
             .max(1, 'Máximo de um item'),
         })
       )
-      .min(1, 'Informe ao menos um item.')
-      
+      .min(1, 'Informe ao menos um item.'),
   });
   const formik = useFormik({
     initialValues: {
@@ -78,7 +76,7 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
-        sendNewTicket(values, dispatch, token)
+        sendNewTicket(values, dispatch, token);
         console.log(values);
         setSubmitting(false);
       }, 500);
@@ -118,10 +116,10 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <LinkBack to="/">
-        <AiOutlineArrowLeft />
-      </LinkBack>
       <ContainerAddTicket>
+        <LinkBack to="/">
+          <AiOutlineArrowLeft />
+        </LinkBack>
         <PageTitle>Pedido de reembolso</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexColumn>
@@ -215,7 +213,7 @@ const AddTicket = (state: RootState & AnyAction) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  token: state.auth.token
+  token: state.auth.token,
 });
 
 export default connect(mapStateToProps)(AddTicket);

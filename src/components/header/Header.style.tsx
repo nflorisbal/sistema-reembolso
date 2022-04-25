@@ -9,6 +9,7 @@ export const ContainerHeader = styled.header`
   width: 100%;
   height: 100px;
   background-color: ${Theme.color.neutralLight};
+  box-shadow: ${Theme.boxShadow};
 `;
 
 export const ContainerMenu = styled.div`

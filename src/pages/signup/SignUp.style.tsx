@@ -20,18 +20,17 @@ export const LinkEyeConfirmPassword = styled.a`
 `;
 
 export const ContainerSignUp = styled.div`
-  width: 440px;
-  /* height: 650px; */
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  width: 440px;
+  padding: ${Theme.padding};
+  margin-top: calc(25vh - 100px);
+  margin-bottom: 50px;
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
-  border-radius: 8px;
-  margin: 20px;
- 
+  border-radius: ${Theme.borderRadius};
+  box-shadow: ${Theme.boxShadow};
 `;
 
 export const DivButton = styled.div`
