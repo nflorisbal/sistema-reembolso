@@ -27,7 +27,7 @@ const FORM_INITIAL_VALUES = {
   password: '',
 };
 
-const loginSchema = Yup.object().shape({
+const LOGIN_SCHEMA = Yup.object().shape({
   login: Yup.string()
     .email('E-mail inválido.')
     .matches(
@@ -55,7 +55,7 @@ const Login = ({ dispatch }: DispatchProp) => {
         <Title>Sistema de Reembolso</Title>
         <Formik
           initialValues={FORM_INITIAL_VALUES}
-          validationSchema={loginSchema}
+          validationSchema={LOGIN_SCHEMA}
           enableReinitialize={true}
           onSubmit={(credentials, { setStatus }) => {
             handleLogin(credentials, dispatch, navigate, setStatus);

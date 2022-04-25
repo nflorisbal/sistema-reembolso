@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
 import { AiOutlineEye } from 'react-icons/ai';
+import { ContainerSmall } from '../../global.styles';
 
 
 export const LinkEyePassword = styled.a`
@@ -19,18 +20,9 @@ export const LinkEyeConfirmPassword = styled.a`
   text-decoration: none;
 `;
 
-export const ContainerSignUp = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 440px;
-  padding: ${Theme.padding};
+export const ContainerSignUp = styled(ContainerSmall)`
   margin-top: calc(25vh - 100px);
   margin-bottom: 50px;
-  background-color: ${Theme.color.neutralLight};
-  border: 1px solid ${Theme.color.neutralDark};
-  border-radius: ${Theme.borderRadius};
-  box-shadow: ${Theme.boxShadow};
 `;
 
 export const DivButton = styled.div`

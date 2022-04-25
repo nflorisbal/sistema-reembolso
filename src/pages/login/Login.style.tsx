@@ -1,17 +1,9 @@
 import styled from 'styled-components';
+import { ContainerSmall } from '../../global.styles';
 import { Theme } from '../../theme';
 
-export const ContainerLogin = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 440px;
-  padding: ${Theme.padding};
+export const ContainerLogin = styled(ContainerSmall)`
   margin-top: 25vh;
-  background-color: ${Theme.color.neutralLight};
-  border: 1px solid ${Theme.color.neutralDark};
-  border-radius: ${Theme.borderRadius};
-  box-shadow: ${Theme.boxShadow};
 `;
 
 export const Title = styled.h4`
