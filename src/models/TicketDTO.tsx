@@ -1,12 +1,12 @@
 export interface TicketDTO {
   title: string;
-  totalSum?: string;
+  totalValue?: string;
   situation?: string;
   items: 
     {
-      nameItem: string;
+      name: string;
       dateItem: string;
-      sum: string;
-      attachment: string;
+      value: string;
+      image: string;
     }[]
 }
