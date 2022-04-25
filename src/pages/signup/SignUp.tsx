@@ -60,8 +60,6 @@ const SignUp = (state: RootState & AnyAction) => {
     checkAdmin();
   }, []);
 
-  console.log(roles, 'cargos');
-
   // deixa ou não visível o password
   const changeTypePassword = () => {
     if (invisiblePassword) {
@@ -89,7 +87,6 @@ const SignUp = (state: RootState & AnyAction) => {
   };
 
   const checkAdmin = () => {
-    console.log(roles);
     roles.map((cargo: IRole) => {
       if (cargo.idRole === 1) {
         setAdmin(true);
@@ -121,10 +118,16 @@ const SignUp = (state: RootState & AnyAction) => {
     ),
     image: Yup.mixed()
       .test('fileSize', 'O tamanho máximo de arquivo é 800kb', (value) => {
-        return value[0].size <= 800000;
+        if (value?.length) {
+          return value[0].size <= 800000;
+        }
+        return false;
       })
       .test('fileType', 'Extensões suportas são png e jpeg', (value) => {
-        return value[0].type.includes('image');
+        if (value?.length) {
+          return value[0].type.includes('image');
+        }
+        return false;
       }),
   });
 
