@@ -88,6 +88,7 @@ const SignUp = (state:RootState & AnyAction) => {
       .max(50, 'Máximo de 50 caracteres.'),
     name: Yup.string()
       .required('Campo obrigatório.')
+      .matches(/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/, 'Deve conter apenas letras.')
       .min(8, 'Por favor, escreva seu nome completo.')
       .max(50, 'Máximo de 50 caracteres.'),
     password: Yup.string()
