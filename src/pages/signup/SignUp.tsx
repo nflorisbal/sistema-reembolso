@@ -120,11 +120,12 @@ const SignUp = (state: RootState & AnyAction) => {
       }
     ),
     image: Yup.mixed()
-    .test("fileSize", "O tamanho máximo de arquivo é 800kb", (value) =>{
-      return value[0].size <= 800000
-    }).test("fileType", "Extensões suportas são png e jpeg", (value) =>{
-      return value[0].type.includes("image")
-    })
+      .test('fileSize', 'O tamanho máximo de arquivo é 800kb', (value) => {
+        return value[0].size <= 800000;
+      })
+      .test('fileType', 'Extensões suportas são png e jpeg', (value) => {
+        return value[0].type.includes('image');
+      }),
   });
 
   // const do useformik
@@ -135,7 +136,7 @@ const SignUp = (state: RootState & AnyAction) => {
       password: '',
       confirmPassword: '',
       role: 'colaborador',
-      image: null,
+      image: '',
     },
     onSubmit: (
       values: SignUpDTO,
@@ -143,14 +144,12 @@ const SignUp = (state: RootState & AnyAction) => {
     ) => {
       if (score >= 2) {
         setTimeout(() => {
+          uploadImage(values.image);
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           console.log(values);
-          if (validImage) {
-            setupCreateUser(values);
-          }else{
 
-          }
+          setupCreateUser(values);
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -171,8 +170,7 @@ const SignUp = (state: RootState & AnyAction) => {
   };
 
   // sets image field
-  const uploadImage = async (event: any) => {
-    const image = event.target.files[0];
+  const uploadImage = async (image: any) => {
     console.log(image, 'image no upload');
     setupImage(image);
     const base64 = await convertBase64(image);
@@ -199,11 +197,11 @@ const SignUp = (state: RootState & AnyAction) => {
   const setupImage = (image: File) => {
     let error;
     if (!image.type.includes('image')) {
-      error = "Por favor, escolha um arquivo jpg ou png."
-    }else if(image.size <= 700000){
-      error = "Tamanho máximo de arquivo é de 700kb."
+      error = 'Por favor, escolha um arquivo jpg ou png.';
+    } else if (image.size <= 700000) {
+      error = 'Tamanho máximo de arquivo é de 700kb.';
     }
-    return error
+    return error;
   };
 
   const imageType = (image: File) => {
@@ -221,8 +219,6 @@ const SignUp = (state: RootState & AnyAction) => {
       alert('arquivo muito grande');
     }
   };
-
-
 
   return (
     <ContainerMain>
@@ -320,12 +316,13 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) => uploadImage(event)}
+              onChange={(event) =>
+                formik.setFieldValue('image', event.target.files)
+              }
             />
             {formik.errors.image && formik.touched.image ? (
               <DivError>{formik.errors.image}</DivError>
             ) : null}
-            
           </DivFlexColumn>
 
           {admin && (

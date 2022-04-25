@@ -4,6 +4,6 @@ export interface SignUpDTO{
     confirmPassword?: string;
     email: string;
     role?: string;
-    image?: string | null;
+    image?: string | undefined;
     action?: string
 }
