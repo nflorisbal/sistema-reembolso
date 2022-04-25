@@ -6,7 +6,7 @@ export const INITIAL_STATE = {
   image: '',
   name: '',
   token: '',
-  role: [{}],
+  roles: [{}],
   isLogged: false,
 };
 
@@ -21,7 +21,7 @@ const authReducer = (
         email: action.email,
         image: action.image,
         name: action.name,
-        role: action.role,
+        roles: action.roles,
         token: action.token,
         isLogged: action.isLogged,
       };
