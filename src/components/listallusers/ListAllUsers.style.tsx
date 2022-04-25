@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
 
-export const ContainerListUsers = styled.div``;
+export const ContainerListUsers = styled.div`
+  background-color: ${Theme.color.neutralLight};
+  padding: ${Theme.padding};
+  border-radius: ${Theme.borderRadius};
+`;
 export const Table = styled.table`
   width: 100%;
   padding: 20px;
@@ -21,7 +25,7 @@ export const Th = styled.th`
 `;
 export const Td = styled.td`
   color: rgba(37, 39, 51, 1);
-  width: 300px;
+  width: 250px;
   padding: 10px;
   font-weight: 600px;
   border-bottom: 1px solid rgba(223, 224, 235, 1);
@@ -34,6 +38,7 @@ export const TdNome = styled.td`
   font-weight: 600px;
   border-bottom: 1px solid rgba(223, 224, 235, 1);
   height: 50px;
+  text-transform: capitalize;
 `;
 export const StyledThead = styled.thead``;
 export const StyledTbody = styled.tbody``;
@@ -43,4 +48,23 @@ export const ImgList = styled.img`
   border-radius: 100%;
   border: 3px solid ${Theme.color.neutralLight};
   outline: 3px solid ${Theme.color.neutralDark};
+`;
+
+export const ThImage = styled.th`
+  width: 90px;
+  color: rgba(159, 162, 180, 1);
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700px;
+  border-bottom: 1px solid rgba(223, 224, 235, 1);
+`;
+
+export const TdImage = styled.td`
+  width: 90px;
+  color: rgba(37, 39, 51, 1);
+  padding: 10px;
+  font-weight: 600px;
+  border-bottom: 1px solid rgba(223, 224, 235, 1);
+  height: 50px;
 `;

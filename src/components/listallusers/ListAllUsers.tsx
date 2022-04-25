@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
 import { ContainerMain, PageTitle } from '../../global.styles';
-import { ContainerListUsers, ImgList, StyledTbody, StyledThead, Table, Td, Th, Tr } from './ListAllUsers.style';
+import { ContainerListUsers, ImgList, StyledTbody, StyledThead, Table, Td, Th, Tr, ThImage, TdImage, TdNome } from './ListAllUsers.style';
 import { switchRole } from '../../utils';
+import DefaultProfileImg from '../../images/profile_default.png';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, loading, token } = state;
@@ -29,7 +30,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         <Table>
           <StyledThead>
           <Tr>
-            <Th>Foto</Th>
+            <ThImage>Foto</ThImage>
             <Th>Nome</Th>
             <Th>Email</Th>
             <Th>Cargo</Th>
@@ -38,8 +39,8 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           <StyledTbody>
           {users.map((user: any) => (
             <Tr key={user.idUser}>
-              <Td><ImgList src={user.image} /></Td>
-              <Td>{user.name}</Td>
+              <TdImage><ImgList src={user.image ? user.image : DefaultProfileImg} /></TdImage>
+              <TdNome>{user.name}</TdNome>
               <Td>{user.email}</Td>
               <Td>{switchRole(user.idUser)}</Td>
             </Tr>

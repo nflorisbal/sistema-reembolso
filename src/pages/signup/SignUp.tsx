@@ -35,8 +35,8 @@ import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { CredentialDTO, IRole } from '../../models/AuthDTO';
 
-const SignUp = (state:RootState & AnyAction) => {
-  const {dispatch, roles} = state;
+const SignUp = (state: RootState & AnyAction) => {
+  const { dispatch, roles } = state;
   const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
@@ -54,12 +54,13 @@ const SignUp = (state:RootState & AnyAction) => {
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
+  const [validImage, setValidImage] = useState(false);
 
-  useEffect(()=>{
-    checkAdmin()
-  },[])
+  useEffect(() => {
+    checkAdmin();
+  }, []);
 
-  console.log(roles, "cargos")
+  console.log(roles, 'cargos');
 
   // deixa ou não visível o password
   const changeTypePassword = () => {
@@ -87,14 +88,14 @@ const SignUp = (state:RootState & AnyAction) => {
     }
   };
 
-  const checkAdmin = () =>{
-    console.log(roles)
-    roles.map((cargo: IRole) =>{
-      if(cargo.idRole === 1){
-        setAdmin(true)
+  const checkAdmin = () => {
+    console.log(roles);
+    roles.map((cargo: IRole) => {
+      if (cargo.idRole === 1) {
+        setAdmin(true);
       }
-    })
-  }
+    });
+  };
 
   // validação do yup
   const signupSchema = Yup.object().shape({
@@ -116,9 +117,10 @@ const SignUp = (state:RootState & AnyAction) => {
       'Senhas fornecidas não são iguais',
       function (value) {
         return this.parent.password === value;
-      }),
-      // image: Yup.string()
-      // .min(1, 'Mímino de um item')
+      }
+    ),
+    // image: Yup.string()
+    // .min(1, 'Mímino de um item')
   });
 
   // const do useformik
@@ -129,7 +131,7 @@ const SignUp = (state:RootState & AnyAction) => {
       password: '',
       confirmPassword: '',
       role: 'colaborador',
-      image: null
+      image: null,
     },
     onSubmit: (
       values: SignUpDTO,
@@ -140,7 +142,11 @@ const SignUp = (state:RootState & AnyAction) => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           console.log(values);
-          setupCreateUser(values)
+          if (validImage) {
+            setupCreateUser(values);
+          }else{
+            
+          }
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -150,25 +156,28 @@ const SignUp = (state:RootState & AnyAction) => {
   });
 
   // setups createuser
-  const setupCreateUser = (values: SignUpDTO) =>{
-    const user = { 
+  const setupCreateUser = (values: SignUpDTO) => {
+    const user = {
       name: values.name,
       email: values.email,
       password: values.password,
-      image: values.image
-    }
-    createUser(user, dispatch, navigate)
-  }
+      image: values.image,
+    };
+    createUser(user, dispatch, navigate);
+  };
 
   // sets image field
   const uploadImage = async (event: any) => {
     const image = event.target.files[0];
+    console.log(image, 'image no upload');
+    setupImage(image);
     const base64 = await convertBase64(image);
     formik.setFieldValue('image', base64);
   };
 
   // converts to base64
   const convertBase64 = (file: any) => {
+    console.log(file, 'arquivo');
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
@@ -181,6 +190,28 @@ const SignUp = (state:RootState & AnyAction) => {
         reject(error);
       };
     });
+  };
+
+  const setupImage = (image: File) => {
+    if (imageType(image) && imageSize(image)) {
+      setValidImage(true);
+    }
+  };
+
+  const imageType = (image: File) => {
+    if (image.type.includes('image')) {
+      return true;
+    } else {
+      alert('tipo de arquivo errado');
+    }
+  };
+
+  const imageSize = (image: File) => {
+    if (image.size <= 700000) {
+      return true;
+    } else {
+      alert('arquivo muito grande');
+    }
   };
 
   return (
@@ -199,7 +230,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Digite seu nome completo"
               value={formik.values.name}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur }
+              onBlur={formik.handleBlur}
             />
             {formik.errors.name && formik.touched.name ? (
               <DivError>{formik.errors.name}</DivError>
@@ -214,7 +245,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="maria.santos@dbccompany.com.br"
               type="email"
               value={formik.values.email}
-              onBlur={formik.handleBlur }
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {formik.errors.email && formik.touched.email ? (
@@ -231,9 +262,9 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Digite sua senha"
               value={formik.values.password}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur }
+              onBlur={formik.handleBlur}
             />
-            <LinkEyePassword href="#!" onClick={() => changeTypePassword()} >
+            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
               {invisiblePassword && <StyledAiOutlineEye />}
               {!invisiblePassword && <AiOutlineEyeInvisible />}
             </LinkEyePassword>
@@ -260,7 +291,7 @@ const SignUp = (state:RootState & AnyAction) => {
               placeholder="Confirme sua senha"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur }
+              onBlur={formik.handleBlur}
             />
             <LinkEyeConfirmPassword
               href="#!"
@@ -313,8 +344,7 @@ const SignUp = (state:RootState & AnyAction) => {
 const mapStateToProps = (state: RootState) => ({
   name: state.auth.name,
   image: state.auth.image,
-  roles: state.auth.roles
+  roles: state.auth.roles,
 });
-
 
 export default connect(mapStateToProps)(SignUp);
