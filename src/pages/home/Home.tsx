@@ -5,12 +5,13 @@ import { hasToken } from '../../utils';
 import { ContainerMain } from '../../global.styles';
 import ListAllUsers from '../../components/listallusers/ListAllUsers';
 import { RootState } from '../../store';
-import { CredentialDTO } from '../../models/AuthDTO';
+import { CredentialDTO, IRole } from '../../models/AuthDTO';
+import { AnyAction } from 'redux';
 
-const Home = (state?: CredentialDTO) => {
+const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
-  
-  
+  const {roles} = state
+  console.log(roles[0].idRole, "state")
 
   useEffect(() => {
     if (!hasToken()) {
