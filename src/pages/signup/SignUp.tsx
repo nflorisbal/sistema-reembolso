@@ -119,8 +119,12 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    // image: Yup.string()
-    // .min(1, 'Mímino de um item')
+    image: Yup.mixed()
+    .test("fileSize", "O tamanho máximo de arquivo é 800kb", (value) =>{
+      return value[0].size <= 800000
+    }).test("fileType", "Extensões suportas são png e jpeg", (value) =>{
+      return value[0].type.includes("image")
+    })
   });
 
   // const do useformik
@@ -145,7 +149,7 @@ const SignUp = (state: RootState & AnyAction) => {
           if (validImage) {
             setupCreateUser(values);
           }else{
-            
+
           }
         }, 500);
       } else {
@@ -193,9 +197,13 @@ const SignUp = (state: RootState & AnyAction) => {
   };
 
   const setupImage = (image: File) => {
-    if (imageType(image) && imageSize(image)) {
-      setValidImage(true);
+    let error;
+    if (!image.type.includes('image')) {
+      error = "Por favor, escolha um arquivo jpg ou png."
+    }else if(image.size <= 700000){
+      error = "Tamanho máximo de arquivo é de 700kb."
     }
+    return error
   };
 
   const imageType = (image: File) => {
@@ -213,6 +221,8 @@ const SignUp = (state: RootState & AnyAction) => {
       alert('arquivo muito grande');
     }
   };
+
+
 
   return (
     <ContainerMain>
@@ -312,6 +322,10 @@ const SignUp = (state: RootState & AnyAction) => {
               type="file"
               onChange={(event) => uploadImage(event)}
             />
+            {formik.errors.image && formik.touched.image ? (
+              <DivError>{formik.errors.image}</DivError>
+            ) : null}
+            
           </DivFlexColumn>
 
           {admin && (
