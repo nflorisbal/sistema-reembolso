@@ -5,10 +5,8 @@ import api from '../../api';
 export const createUser = async (
   newUser: SignUpDTO,
   dispatch: AppDispatch,
-  navigate: Function,
-  token: any
+  navigate: Function
 ) => {
-
   try {
     await api.post('/user/saveUser', newUser);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };

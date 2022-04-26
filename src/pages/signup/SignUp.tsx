@@ -1,6 +1,16 @@
+import * as Yup from 'yup';
 import { useFormik, FormikHelpers } from 'formik';
-import { SignUpDTO } from '../../models/SignUpDTO';
 import { useEffect, useState } from 'react';
+import { AnyAction } from 'redux';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import PasswordStrengthBar from 'react-password-strength-bar';
+
+import { SignUpDTO } from '../../models/SignUpDTO';
+import { IRole } from '../../models/AuthDTO';
+import { createUser } from '../../store/actions/SignUpActions';
+import { RootState } from '../../store';
+
 import {
   LinkEyePassword,
   ContainerSignUp,
@@ -14,7 +24,6 @@ import {
   AiOutlineEyeInvisible,
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
-import * as Yup from 'yup';
 import {
   ContainerMain,
   DivFlexColumn,
@@ -27,13 +36,6 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
-import PasswordStrengthBar from 'react-password-strength-bar';
-import { createUser } from '../../store/actions/SignUpActions';
-import { RootState } from '../../store';
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
-import { useNavigate } from 'react-router-dom';
-import { IRole } from '../../models/AuthDTO';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -153,38 +155,31 @@ const SignUp = (state: RootState & AnyAction) => {
       const newValues = { ...values, image: image64 };
       setupCreateUser(newValues);
       setSubmitting(false);
-      console.log(values);
-
-      // } else {
-      //   alert('Senha muito fraca.');
     },
     validationSchema: signupSchema,
   });
 
   // setups createuser
   const setupCreateUser = (values: SignUpDTO) => {
-    console.log(values, 'setup');
     const user = {
       name: values.name,
       email: values.email,
       password: values.password,
       image: values.image,
     };
-    createUser(user, dispatch, navigate, token);
+    createUser(user, dispatch, navigate);
   };
 
   // sets image field
   const uploadImage = async (event: any) => {
     const image = event.target.files[0];
-    formik.setFieldValue('image', image);
     const base64: any = await convertBase64(image);
+    formik.setFieldValue('image', image);
     setImage64(base64);
-    console.log(base64, 'base64');
   };
 
   // converts to base64
   const convertBase64 = (file: any) => {
-    console.log(file, 'arquivo');
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
@@ -250,8 +245,11 @@ const SignUp = (state: RootState & AnyAction) => {
               onBlur={formik.handleBlur}
             />
             <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
-              {invisiblePassword && <StyledAiOutlineEye />}
-              {!invisiblePassword && <AiOutlineEyeInvisible />}
+              {invisiblePassword ? (
+                <StyledAiOutlineEye />
+              ) : (
+                <AiOutlineEyeInvisible />
+              )}
             </LinkEyePassword>
             <PasswordStrengthBar
               password={formik.values.password}
@@ -282,8 +280,11 @@ const SignUp = (state: RootState & AnyAction) => {
               href="#!"
               onClick={() => changeTypeConfirmPassword()}
             >
-              {invisibleConfirmPassword && <AiOutlineEye />}
-              {!invisibleConfirmPassword && <AiOutlineEyeInvisible />}
+              {invisibleConfirmPassword ? (
+                <AiOutlineEye />
+              ) : (
+                <AiOutlineEyeInvisible />
+              )}
             </LinkEyeConfirmPassword>
             {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
               <DivError>{formik.errors.confirmPassword}</DivError>
