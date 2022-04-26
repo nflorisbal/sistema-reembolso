@@ -9,14 +9,11 @@ import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
 import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
-
 import {
   LinkEyePassword,
   ContainerSignUp,
   DivButton,
   StyledSelect,
-  StyledAiOutlineEye,
-  LinkEyeConfirmPassword,
 } from './SignUp.style';
 import {
   AiOutlineEye,
@@ -47,46 +44,23 @@ const SignUp = (state: RootState & AnyAction) => {
     'Ótimo',
   ];
   const passwordTooShort = ['Muito fraco'];
-  const [invisiblePassword, setInvisiblePassword] = useState(true);
-  const [invisibleConfirmPassword, setInvisibleConfirmPassword] =
-    useState(true);
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
   const [image64, setImage64] = useState('');
 
-  useEffect(() => {
-    checkAdmin();
-  }, []);
-
   //#region password
-  // deixa ou não visível o password
-  const changeTypePassword = () => {
-    if (invisiblePassword) {
-      setTypePassword('text');
-      setInvisiblePassword(false);
-    }
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    if (!invisiblePassword) {
-      setTypePassword('password');
-      setInvisiblePassword(true);
-    }
+  const handleShowHidePassword = () => {
+    setShowPassword(!showPassword);
   };
 
-  // deixa ou não visível o confirm password
-  const changeTypeConfirmPassword = () => {
-    if (invisibleConfirmPassword) {
-      setTypeConfirmPassword('text');
-      setInvisibleConfirmPassword(false);
-    }
-
-    if (!invisibleConfirmPassword) {
-      setTypeConfirmPassword('password');
-      setInvisibleConfirmPassword(true);
-    }
+  const handleShowHideConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
-
   //#endregion password
 
   const checkAdmin = () => {
@@ -209,8 +183,12 @@ const SignUp = (state: RootState & AnyAction) => {
     });
   };
 
+  useEffect(() => {
+    checkAdmin();
+  }, []);
+
   return (
-    <ContainerMain height='100vh'>
+    <ContainerMain height="100vh">
       <ContainerSignUp>
         <LinkBack to="/">
           <AiOutlineArrowLeft />
@@ -253,18 +231,18 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               id="password"
               name="password"
-              type={typePassword}
+              type={showPassword ? 'text' : 'password'}
               placeholder="Digite sua senha"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
-              {invisiblePassword ? (
-                <StyledAiOutlineEye />
-              ) : (
-                <AiOutlineEyeInvisible />
-              )}
+            <LinkEyePassword
+              href="#!"
+              onClick={() => handleShowHidePassword()}
+              tabIndex={-1}
+            >
+              {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </LinkEyePassword>
             <PasswordStrengthBar
               password={formik.values.password}
@@ -285,22 +263,23 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               id="confirmPassword"
               name="confirmPassword"
-              type={typeConfirmPassword}
+              type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirme sua senha"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <LinkEyeConfirmPassword
+            <LinkEyePassword
               href="#!"
-              onClick={() => changeTypeConfirmPassword()}
+              onClick={() => handleShowHideConfirmPassword()}
+              tabIndex={-1}
             >
-              {invisibleConfirmPassword ? (
+              {!showConfirmPassword ? (
                 <AiOutlineEye />
               ) : (
                 <AiOutlineEyeInvisible />
               )}
-            </LinkEyeConfirmPassword>
+            </LinkEyePassword>
             {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
               <DivError>{formik.errors.confirmPassword}</DivError>
             ) : null}

@@ -56,7 +56,7 @@ const Login = ({ dispatch }: DispatchProp) => {
   }, []);
 
   return (
-    <ContainerMain height='100vh'>
+    <ContainerMain height="100vh">
       <ContainerLogin>
         <ImageLogo />
         <Title>Sistema de Reembolso</Title>

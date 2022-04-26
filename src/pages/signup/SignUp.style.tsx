@@ -5,18 +5,10 @@ import { ContainerSmall } from '../../global.styles';
 
 export const LinkEyePassword = styled.a`
   position: absolute;
-  z-index: 0;
-  top: 44px;
-  right: 25px;
-  text-decoration: none;
-`;
-
-export const LinkEyeConfirmPassword = styled.a`
-  position: absolute;
-  z-index: 0;
-  top: 44px;
-  right: 25px;
-  text-decoration: none;
+  right: 20px;
+  top: 45px;
+  font-size: 20px;
+  outline: none;
 `;
 
 export const ContainerSignUp = styled(ContainerSmall)`
@@ -35,6 +27,3 @@ export const StyledSelect = styled.select`
   border-radius: 8px;
   padding: 10px;
 `;
-
-export const StyledAiOutlineEye = styled(AiOutlineEye)``;
-export const StyledAiOutlineEyeInvisible = styled(AiOutlineEye)``;
