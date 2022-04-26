@@ -19,9 +19,11 @@ import {
 } from './ListAllUsers.style';
 import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
+import { Notify } from 'notiflix';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, loading, token } = state;
+  console.log(users, "users")
 
   useEffect(() => {
     if (users.length === 1) {

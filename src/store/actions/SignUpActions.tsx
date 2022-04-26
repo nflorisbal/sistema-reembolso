@@ -2,6 +2,7 @@ import { AppDispatch } from '..';
 import { SignUpDTO, IroleNumber } from '../../models/SignUpDTO';
 import api from '../../api';
 import { handleLogin } from './AuthActions';
+import { Notify } from 'notiflix';
 
 export const createUser = async (
   newUser: SignUpDTO,
@@ -9,18 +10,19 @@ export const createUser = async (
   navigate: Function,
   setStatus: Function
 ) => {
-
   try {
     await api.post('/user/saveUser', newUser);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
-    setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
+    Notify.success('Cadastro realizado com sucesso');
+    setTimeout(() => {
+      setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
+    }, 5000);
   } catch (error) {
     console.log(error);
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
-
-
 
 export const createUserAdmin = async (
   newUser: SignUpDTO,
@@ -38,9 +40,13 @@ export const createUserAdmin = async (
     );
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
-    navigate('/')
+    Notify.success('Cadastro realizado com sucesso');
+    setTimeout(() => {
+      navigate('/');
+    }, 5000);
   } catch (error) {
     console.log(error);
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
 
@@ -54,5 +60,5 @@ const setupLoginAfterPost = (
     login: user.email,
     password: user.password,
   };
-  handleLogin(loginNewUser, dispatch, navigate, setStatus)
+  handleLogin(loginNewUser, dispatch, navigate, setStatus);
 };
