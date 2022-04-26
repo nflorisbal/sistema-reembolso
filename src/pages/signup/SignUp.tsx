@@ -188,7 +188,7 @@ const SignUp = (state: RootState & AnyAction) => {
   }, []);
 
   return (
-    <ContainerMain height="100vh">
+    <ContainerMain height="90vh">
       <ContainerSignUp>
         <LinkBack to="/">
           <AiOutlineArrowLeft />

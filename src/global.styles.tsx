@@ -76,8 +76,6 @@ export const ButtonDefault = styled.button`
   }
 `;
 
-export const GeneralDiv = styled.div``;
-
 export const DivFlexColumn = styled.div`
   display: flex;
   flex-direction: column;

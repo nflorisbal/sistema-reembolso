@@ -4,12 +4,17 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
-import { ContainerListUsers, LineList } from './ListAllUsers.style';
+import {
+  ContainerListUsers,
+  DivColumnName,
+  DivPagButtons,
+  LineList,
+} from './ListAllUsers.style';
 import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
-  const { dispatch, users, loading, token } = state;
+  const { dispatch, users, token } = state;
 
   useEffect(() => {
     if (users.length === 1) {
@@ -30,11 +35,16 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         {users.content?.map((user: any) => (
           <LineList key={user.idUser}>
             <ImgProfile src={user.image ? user.image : DefaultProfileImg} />
-            <div>{user.name}</div>
+            <DivColumnName>{user.name}</DivColumnName>
             <div>{user.email}</div>
             <div>{switchRole(user.idUser)}</div>
           </LineList>
         ))}
+        {/* inserir logica de paginação */}
+        <DivPagButtons>
+          <button>Anterior</button>
+          <button>Próxima</button>
+        </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>
   );
