@@ -10,8 +10,8 @@ export const handleLogin = async (
   setStatus: Function
 ) => {
   try {
-    const { data } = await api.post('/auth', credentials); 
-    
+    const { data } = await api.post('/auth', credentials);
+
     const userAuthenticated = {
       type: 'SET_LOGIN',
       name: data.name,
