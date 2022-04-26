@@ -4,7 +4,8 @@ import { AnyAction } from 'redux';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import { handleLogout } from '../../store/actions/AuthActions';
-import { ImgProfile, InfoProfile } from './User.style';
+import { InfoProfile } from './User.style';
+import { ImgProfile } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 
 const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {

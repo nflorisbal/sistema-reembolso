@@ -8,15 +8,6 @@ export const ContainerListUsers = styled.div`
   min-width: 900px;
 `;
 
-export const ImgList = styled.img`
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 100%;
-  border: 3px solid ${Theme.color.neutralLight};
-  outline: 3px solid ${Theme.color.neutralDark};
-`;
-
 export const LineList = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 1fr 1.5fr 0.5fr;

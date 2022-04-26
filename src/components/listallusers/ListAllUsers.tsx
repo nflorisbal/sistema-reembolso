@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
-import { ContainerMain, PageTitle } from '../../global.styles';
-import { ContainerListUsers, ImgList, LineList } from './ListAllUsers.style';
+import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
+import { ContainerListUsers, LineList } from './ListAllUsers.style';
 import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
 
@@ -29,7 +29,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         </LineList>
         {users.content?.map((user: any) => (
           <LineList key={user.idUser}>
-            <ImgList src={user.image ? user.image : DefaultProfileImg} />
+            <ImgProfile src={user.image ? user.image : DefaultProfileImg} />
             <div>{user.name}</div>
             <div>{user.email}</div>
             <div>{switchRole(user.idUser)}</div>

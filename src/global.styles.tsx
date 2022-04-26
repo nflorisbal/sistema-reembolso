@@ -123,3 +123,12 @@ export const DivError = styled.div`
   padding-left: 5px;
   margin-top: 5px;
 `;
+
+export const ImgProfile = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 3px solid ${Theme.color.neutralLight};
+  outline: 3px solid ${Theme.color.neutralDark};
+`;
