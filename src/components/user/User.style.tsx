@@ -5,7 +5,9 @@ export const ImgProfile = styled.img`
   border-radius: 100%;
   border: 3px solid ${Theme.color.neutralLight};
   outline: 3px solid ${Theme.color.neutralDark};
-  width: 50px; 
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
 `;
 
 export const InfoProfile = styled.div`
@@ -14,4 +16,4 @@ export const InfoProfile = styled.div`
   font-size: 0.8rem;
   text-align: right;
   margin: ${Theme.margin};
-`
+`;

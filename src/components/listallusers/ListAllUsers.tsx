@@ -24,9 +24,6 @@ import DefaultProfileImg from '../../images/profile_default.png';
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, loading, token } = state;
 
-  console.log(users.content);
-  
-
   useEffect(() => {
     if (users.length === 1) {
       listAllUsers(users, dispatch, token);
