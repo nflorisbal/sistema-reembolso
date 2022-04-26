@@ -6,7 +6,7 @@ export const INITIAL_STATE_SIGNUP = {
   password: '',
   confirmPassword: '',
   email: '',
-  role: 0,
+  role: 4,
   image: '',
 };
 

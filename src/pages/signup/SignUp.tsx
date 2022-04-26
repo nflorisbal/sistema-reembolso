@@ -5,10 +5,9 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PasswordStrengthBar from 'react-password-strength-bar';
-
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
-import { createUser } from '../../store/actions/SignUpActions';
+import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 
 import {
@@ -153,11 +152,27 @@ const SignUp = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       const newValues = { ...values, image: image64 };
+      if (admin) {
+        setupCreateUserAdmin(newValues);
+      }
       setupCreateUser(newValues);
       setSubmitting(false);
     },
     validationSchema: signupSchema,
   });
+
+  // setups createuser for admin
+  const setupCreateUserAdmin = (values: SignUpDTO) => {
+    const user = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      image: values.image,
+    };
+    const roleNumber: IRoleNumber = { role: formik.values.role };
+
+    createUserAdmin(user, dispatch, navigate, token, roleNumber);
+  };
 
   // setups createuser
   const setupCreateUser = (values: SignUpDTO) => {

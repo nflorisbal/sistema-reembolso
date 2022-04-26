@@ -27,7 +27,7 @@ export const DivInputLogin = styled.div`
 export const DivBtnLogin = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 50px;
 
   :last-child {
     padding: 20px 0;
@@ -35,15 +35,19 @@ export const DivBtnLogin = styled.div`
   }
 `;
 
+export const DivServerError = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const DivShowPassword = styled.div`
+  padding: 3px 0 0 5px;
+`;
+
 export const LabelLogin = styled.label`
   font-size: ${Theme.defaultFontSize};
   margin-bottom: 5px;
   padding-left: 5px;
-`;
-
-export const ServerError = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 export const LabelError = styled.label`

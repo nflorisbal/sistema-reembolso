@@ -1,5 +1,5 @@
 import { AppDispatch } from '..';
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
 import api from '../../api';
 
 export const createUser = async (
@@ -21,12 +21,12 @@ export const createUserAdmin = async (
   newUser: SignUpDTO,
   dispatch: AppDispatch,
   navigate: Function,
-  token: any
+  token: any,
+  roleNumber: IRoleNumber
 ) => {
-  console.log(newUser, 'dentro do actions do create');
   try {
     await api.post(
-      '/user/saveAdmin?role=2',
+      `/user/saveAdmin?role=${roleNumber.role}`,
       newUser,
       (api.defaults.headers.common['Authorization'] = token)
     );

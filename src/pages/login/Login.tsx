@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -8,9 +8,10 @@ import {
   ContainerLogin,
   DivBtnLogin,
   DivInputLogin,
+  DivServerError,
+  DivShowPassword,
   LabelError,
   LabelLogin,
-  ServerError,
   TextNewUser,
   Title,
 } from './Login.style';
@@ -40,6 +41,11 @@ const LOGIN_SCHEMA = Yup.object().shape({
 
 const Login = ({ dispatch }: DispatchProp) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowHidePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   useEffect(() => {
     if (hasToken()) {
@@ -63,9 +69,9 @@ const Login = ({ dispatch }: DispatchProp) => {
         >
           {({ status }) => (
             <Form>
-              <ServerError>
+              <DivServerError>
                 <LabelError>{status}</LabelError>
-              </ServerError>
+              </DivServerError>
               <DivInputLogin>
                 <LabelLogin htmlFor="login">E-mail</LabelLogin>
                 <Field
@@ -80,9 +86,17 @@ const Login = ({ dispatch }: DispatchProp) => {
                 <Field
                   name="password"
                   placeholder="Digite sua senha"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   as={InputDefault}
                 />
+                <DivShowPassword>
+                  <input
+                    name="passwordCheck"
+                    type="checkbox"
+                    onClick={handleShowHidePassword}
+                  />
+                  <LabelLogin htmlFor="passwordCheck">Mostrar senha</LabelLogin>
+                </DivShowPassword>
                 <ErrorMessage name="password" component={LabelError} />
               </DivInputLogin>
               <DivBtnLogin>

@@ -52,6 +52,10 @@ export const InputDefault = styled.input`
   :focus {
     border: 1px solid ${Theme.color.highlightLight};
   }
+
+  ::-ms-reveal {
+    display: none;
+  }
 `;
 
 export const ButtonDefault = styled.button`
