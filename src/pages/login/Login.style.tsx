@@ -3,7 +3,7 @@ import { ContainerSmall } from '../../global.styles';
 import { Theme } from '../../theme';
 
 export const ContainerLogin = styled(ContainerSmall)`
-  margin-top: 25vh;
+  
 `;
 
 export const Title = styled.h4`

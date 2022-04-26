@@ -56,7 +56,7 @@ const Login = ({ dispatch }: DispatchProp) => {
   }, []);
 
   return (
-    <ContainerMain>
+    <ContainerMain height='100vh'>
       <ContainerLogin>
         <ImageLogo />
         <Title>Sistema de Reembolso</Title>
@@ -103,7 +103,7 @@ const Login = ({ dispatch }: DispatchProp) => {
                 <ButtonDefault type="submit">Entrar</ButtonDefault>
               </DivBtnLogin>
               <DivBtnLogin>
-                <TextNewUser>Não possue cadastro?</TextNewUser>
+                <TextNewUser>Não possui cadastro?</TextNewUser>
                 <Link to="/signup">Cadastre-se!</Link>
               </DivBtnLogin>
             </Form>

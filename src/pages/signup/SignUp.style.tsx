@@ -3,7 +3,6 @@ import { Theme } from '../../theme';
 import { AiOutlineEye } from 'react-icons/ai';
 import { ContainerSmall } from '../../global.styles';
 
-
 export const LinkEyePassword = styled.a`
   position: absolute;
   z-index: 0;
@@ -21,7 +20,6 @@ export const LinkEyeConfirmPassword = styled.a`
 `;
 
 export const ContainerSignUp = styled(ContainerSmall)`
-  margin-top: calc(25vh - 100px);
   margin-bottom: 50px;
 `;
 
@@ -40,5 +38,3 @@ export const StyledSelect = styled.select`
 
 export const StyledAiOutlineEye = styled(AiOutlineEye)``;
 export const StyledAiOutlineEyeInvisible = styled(AiOutlineEye)``;
-
-

@@ -23,11 +23,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ContainerMain = styled.div`
+export const ContainerMain = styled.div<{ height?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  height: ${(props) => props.height || '100%'};
 `;
 
 export const ContainerSmall = styled.div`
@@ -66,6 +68,7 @@ export const ButtonDefault = styled.button`
   font-size: ${Theme.defaultFontSize};
   color: ${Theme.color.neutralLight};
   background-color: ${Theme.color.highlightPure};
+  outline: none;
 
   :hover {
     background-color: ${Theme.color.highlightDark};
