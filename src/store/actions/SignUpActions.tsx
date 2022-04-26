@@ -10,7 +10,7 @@ export const createUser = async (
 ) => {
 
   try {
-    // await api.post('/user/saveUser', newUser);
+    await api.post('/user/saveUser', newUser);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
     setupLoginAfterPost(newUser, dispatch, navigate);

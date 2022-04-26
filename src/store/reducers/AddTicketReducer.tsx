@@ -28,3 +28,5 @@ const addTicketReducer = (
       return state;
   }
 };
+
+export default addTicketReducer

@@ -3,7 +3,7 @@ export interface SignUpDTO{
     password: string;
     confirmPassword?: string;
     email: string;
-    role?: string;
+    role?: number;
     image?: string | undefined;
     action?: string
 }
