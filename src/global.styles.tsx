@@ -28,7 +28,8 @@ export const ContainerMain = styled.div<{ height?: string }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  margin: 0 auto;
+  width: 1000px;
   height: ${(props) => props.height || '100%'};
 `;
 
@@ -96,7 +97,9 @@ export const DivFlexLink = styled.div`
   position: relative;
 `;
 
-export const PageTitle = styled.h1``;
+export const PageTitle = styled.h2`
+  padding: ${Theme.padding} 0;
+`;
 
 export const DivFlex = styled.div`
   display: flex;

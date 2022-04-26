@@ -5,7 +5,6 @@ import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import { handleLogout } from '../../store/actions/AuthActions';
 import { ImgProfile, InfoProfile } from './User.style';
-
 import DefaultProfileImg from '../../images/profile_default.png';
 
 const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {

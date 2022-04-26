@@ -4,26 +4,12 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import { ContainerMain, PageTitle } from '../../global.styles';
-import {
-  ContainerListUsers,
-  ImgList,
-  StyledTbody,
-  StyledThead,
-  Table,
-  Td,
-  Th,
-  Tr,
-  ThImage,
-  TdImage,
-  TdNome,
-} from './ListAllUsers.style';
+import { ContainerListUsers, ImgList, LineList } from './ListAllUsers.style';
 import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
-import { Notify } from 'notiflix';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, loading, token } = state;
-  console.log(users, "users")
 
   useEffect(() => {
     if (users.length === 1) {
@@ -31,36 +17,24 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     }
   }, [users]);
 
-  if (loading) {
-    // return <>{Loading.arrows()}</>;
-  }
-
   return (
     <ContainerMain>
       <ContainerListUsers>
         <PageTitle>Lista de usuários</PageTitle>
-        <Table>
-          <StyledThead>
-            <Tr>
-              <ThImage>Foto</ThImage>
-              <Th>Nome</Th>
-              <Th>Email</Th>
-              <Th>Cargo</Th>
-            </Tr>
-          </StyledThead>
-          <StyledTbody>
-            {users.content?.map((user: any) => (
-              <Tr key={user.idUser}>
-                <TdImage>
-                  <ImgList src={user.image ? user.image : DefaultProfileImg} />
-                </TdImage>
-                <TdNome>{user.name}</TdNome>
-                <Td>{user.email}</Td>
-                <Td>{switchRole(user.idUser)}</Td>
-              </Tr>
-            ))}
-          </StyledTbody>
-        </Table>
+        <LineList>
+          <p>Foto</p>
+          <p>Nome</p>
+          <p>E-mail</p>
+          <p>Cargo</p>
+        </LineList>
+        {users.content?.map((user: any) => (
+          <LineList key={user.idUser}>
+            <ImgList src={user.image ? user.image : DefaultProfileImg} />
+            <div>{user.name}</div>
+            <div>{user.email}</div>
+            <div>{switchRole(user.idUser)}</div>
+          </LineList>
+        ))}
       </ContainerListUsers>
     </ContainerMain>
   );
