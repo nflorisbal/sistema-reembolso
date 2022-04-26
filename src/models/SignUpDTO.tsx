@@ -7,3 +7,7 @@ export interface SignUpDTO{
     image?: string | undefined;
     action?: string
 }
+
+export interface IroleNumber{
+    role?: number
+  }

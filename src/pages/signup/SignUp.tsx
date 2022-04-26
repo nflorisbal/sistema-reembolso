@@ -1,5 +1,5 @@
 import { useFormik, FormikHelpers } from 'formik';
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { SignUpDTO, IroleNumber } from '../../models/SignUpDTO';
 import { useEffect, useState } from 'react';
 import {
   LinkEyePassword,
@@ -28,7 +28,7 @@ import {
   DivError,
 } from '../../global.styles';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { createUser } from '../../store/actions/SignUpActions';
+import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
@@ -151,15 +151,28 @@ const SignUp = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       const newValues = { ...values, image: image64 };
+      if(admin){
+        setupCreateUserAdmin(newValues)
+      }
       setupCreateUser(newValues)
       setSubmitting(false);
       console.log(values);
-
-      // } else {
-      //   alert('Senha muito fraca.');
     },
     validationSchema: signupSchema,
   });
+
+  // setups createuser for admin
+  const setupCreateUserAdmin = (values: SignUpDTO) =>{
+    const user = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      image: values.image,
+    }
+    const roleNumber : IroleNumber = { role: formik.values.role}
+
+    createUserAdmin(user, dispatch, navigate, token, roleNumber)
+  }
 
   // setups createuser
   const setupCreateUser = (values: SignUpDTO) => {
@@ -170,7 +183,7 @@ const SignUp = (state: RootState & AnyAction) => {
       password: values.password,
       image: values.image,
     };
-    createUser(user, dispatch, navigate, token);
+    createUser(user, dispatch, navigate);
   };
 
   // sets image field
