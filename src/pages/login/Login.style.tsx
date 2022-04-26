@@ -64,4 +64,5 @@ export const LinkEyePassword = styled.a`
   right: 10px;
   top: 40px;
   font-size: 20px;
+  outline: none;
 `;
