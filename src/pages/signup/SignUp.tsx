@@ -128,8 +128,8 @@ const SignUp = (state: RootState & AnyAction) => {
       'image',
       'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
       (value) => {
-        if (value?.length < 0) {
-          return value[0].size <= 800000 && value[0].type.includes('image');
+        if (value != undefined) {
+          return value.size <= 800000 && value.type.includes('image');
         }
         return true;
       }
