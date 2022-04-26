@@ -33,7 +33,7 @@ import { RootState } from '../../store';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
-import { CredentialDTO, IRole } from '../../models/AuthDTO';
+import { IRole } from '../../models/AuthDTO';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -124,19 +124,16 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    // image: Yup.mixed()
-    //   .test('fileSize', 'O tamanho máximo de arquivo é 800kb', (value) => {
-    //     if (value?.length) {
-    //       return value[0].size <= 800000;
-    //     }
-    //     return false;
-    //   })
-    //   .test('fileType', 'Extensões suportadas são png e jpeg', (value) => {
-    //     if (value?.length) {
-    //       return value[0].type.includes('image');
-    //     }
-    //     return false;
-    //   }),
+    image: Yup.mixed().test(
+      'image',
+      'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+      (value) => {
+        if (value?.length < 0) {
+          return value[0].size <= 800000 && value[0].type.includes('image');
+        }
+        return true;
+      }
+    ),
   });
   //#endregion validação do yup
 
@@ -154,7 +151,7 @@ const SignUp = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       const newValues = { ...values, image: image64 };
-      // setupCreateUser(newValues)
+      setupCreateUser(newValues)
       setSubmitting(false);
       console.log(values);
 
@@ -201,27 +198,6 @@ const SignUp = (state: RootState & AnyAction) => {
       };
     });
   };
-
-  // const setupImage = (event:any) => {
-  //   formik.setFieldValue('image', event.target.files[0])
-  //   uploadImage(event)
-  // };
-
-  // const imageType = (image: File) => {
-  //   if (image.type.includes('image')) {
-  //     return true;
-  //   } else {
-  //     alert('tipo de arquivo errado');
-  //   }
-  // };
-
-  // const imageSize = (image: File) => {
-  //   if (image.size <= 700000) {
-  //     return true;
-  //   } else {
-  //     alert('arquivo muito grande');
-  //   }
-  // };
 
   return (
     <ContainerMain>

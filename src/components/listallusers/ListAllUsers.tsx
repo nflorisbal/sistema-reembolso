@@ -2,7 +2,6 @@ import { listAllUsers } from '../../store/actions/ListUsersActions';
 import { useEffect } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { Loading } from 'notiflix';
 import { RootState } from '../../store';
 import { ContainerMain, PageTitle } from '../../global.styles';
 import {
