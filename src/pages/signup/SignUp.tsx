@@ -36,7 +36,7 @@ import { useNavigate } from 'react-router-dom';
 import { CredentialDTO, IRole } from '../../models/AuthDTO';
 
 const SignUp = (state: RootState & AnyAction) => {
-  const { dispatch, roles } = state;
+  const { dispatch, roles, token } = state;
   const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
@@ -55,11 +55,13 @@ const SignUp = (state: RootState & AnyAction) => {
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
   const [validImage, setValidImage] = useState(false);
+  const [image64, setImage64] = useState('');
 
   useEffect(() => {
     checkAdmin();
   }, []);
 
+  //#region password
   // deixa ou não visível o password
   const changeTypePassword = () => {
     if (invisiblePassword) {
@@ -86,6 +88,8 @@ const SignUp = (state: RootState & AnyAction) => {
     }
   };
 
+  //#endregion password
+
   const checkAdmin = () => {
     roles.map((cargo: IRole) => {
       if (cargo.idRole === 1) {
@@ -94,7 +98,7 @@ const SignUp = (state: RootState & AnyAction) => {
     });
   };
 
-  // validação do yup
+  //#region validação do yup
   const signupSchema = Yup.object().shape({
     email: Yup.string()
       .required('Campo obrigatório.')
@@ -123,13 +127,14 @@ const SignUp = (state: RootState & AnyAction) => {
         }
         return false;
       })
-      .test('fileType', 'Extensões suportas são png e jpeg', (value) => {
+      .test('fileType', 'Extensões suportadas são png e jpeg', (value) => {
         if (value?.length) {
           return value[0].type.includes('image');
         }
         return false;
       }),
   });
+  //#endregion validação do yup
 
   // const do useformik
   const formik = useFormik({
@@ -146,13 +151,17 @@ const SignUp = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       if (score >= 2) {
-        setTimeout(() => {
-          uploadImage(values.image);
+        setTimeout(async () => {
+          console.log(values.image, 'antes');
+          const newValues = { ...values, image: image64 };
+          console.log(newValues, 'depois');
+          if (values.image !== '') {
+          }
+          console.log(values, 'valores');
+          setupCreateUser(newValues);
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
           console.log(values);
-
-          setupCreateUser(values);
         }, 500);
       } else {
         alert('Senha muito fraca.');
@@ -169,15 +178,16 @@ const SignUp = (state: RootState & AnyAction) => {
       password: values.password,
       image: values.image,
     };
-    createUser(user, dispatch, navigate);
+    createUser(user, dispatch, navigate, token);
   };
 
   // sets image field
-  const uploadImage = async (image: any) => {
-    console.log(image, 'image no upload');
-    setupImage(image);
-    const base64 = await convertBase64(image);
-    formik.setFieldValue('image', base64);
+  const uploadImage = async (event: any) => {
+    const image = event.target.files[0];
+    formik.setFieldValue('image', image);
+    const base64: any = await convertBase64(image);
+    setImage64(base64);
+    console.log(base64, 'base64');
   };
 
   // converts to base64
@@ -197,31 +207,26 @@ const SignUp = (state: RootState & AnyAction) => {
     });
   };
 
-  const setupImage = (image: File) => {
-    let error;
-    if (!image.type.includes('image')) {
-      error = 'Por favor, escolha um arquivo jpg ou png.';
-    } else if (image.size <= 700000) {
-      error = 'Tamanho máximo de arquivo é de 700kb.';
-    }
-    return error;
-  };
+  // const setupImage = (event:any) => {
+  //   formik.setFieldValue('image', event.target.files[0])
+  //   uploadImage(event)
+  // };
 
-  const imageType = (image: File) => {
-    if (image.type.includes('image')) {
-      return true;
-    } else {
-      alert('tipo de arquivo errado');
-    }
-  };
+  // const imageType = (image: File) => {
+  //   if (image.type.includes('image')) {
+  //     return true;
+  //   } else {
+  //     alert('tipo de arquivo errado');
+  //   }
+  // };
 
-  const imageSize = (image: File) => {
-    if (image.size <= 700000) {
-      return true;
-    } else {
-      alert('arquivo muito grande');
-    }
-  };
+  // const imageSize = (image: File) => {
+  //   if (image.size <= 700000) {
+  //     return true;
+  //   } else {
+  //     alert('arquivo muito grande');
+  //   }
+  // };
 
   return (
     <ContainerMain>
@@ -319,9 +324,7 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) =>
-                formik.setFieldValue('image', event.target.files)
-              }
+              onChange={(event) => uploadImage(event)}
             />
             {formik.errors.image && formik.touched.image ? (
               <DivError>{formik.errors.image}</DivError>
@@ -359,6 +362,7 @@ const mapStateToProps = (state: RootState) => ({
   name: state.auth.name,
   image: state.auth.image,
   roles: state.auth.roles,
+  token: state.auth.token,
 });
 
 export default connect(mapStateToProps)(SignUp);
