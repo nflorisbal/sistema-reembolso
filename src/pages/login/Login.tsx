@@ -4,14 +4,15 @@ import { connect, DispatchProp } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { handleLogin } from '../../store/actions/AuthActions';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import {
   ContainerLogin,
   DivBtnLogin,
   DivInputLogin,
   DivServerError,
-  DivShowPassword,
   LabelError,
   LabelLogin,
+  LinkEyePassword,
   TextNewUser,
   Title,
 } from './Login.style';
@@ -89,14 +90,13 @@ const Login = ({ dispatch }: DispatchProp) => {
                   type={showPassword ? 'text' : 'password'}
                   as={InputDefault}
                 />
-                <DivShowPassword>
-                  <input
-                    name="passwordCheck"
-                    type="checkbox"
-                    onClick={handleShowHidePassword}
-                  />
-                  <LabelLogin htmlFor="passwordCheck">Mostrar senha</LabelLogin>
-                </DivShowPassword>
+                <LinkEyePassword
+                  href="#!"
+                  onClick={() => handleShowHidePassword()}
+                  tabIndex={-1}
+                >
+                  {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </LinkEyePassword>
                 <ErrorMessage name="password" component={LabelError} />
               </DivInputLogin>
               <DivBtnLogin>

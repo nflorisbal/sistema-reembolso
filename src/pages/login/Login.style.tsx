@@ -17,6 +17,7 @@ export const DivInputLogin = styled.div`
   width: 380px;
   height: 90px;
   margin-bottom: 20px;
+  position: relative;
 
   :last-child {
     flex-direction: row;
@@ -40,10 +41,6 @@ export const DivServerError = styled.div`
   justify-content: center;
 `;
 
-export const DivShowPassword = styled.div`
-  padding: 3px 0 0 5px;
-`;
-
 export const LabelLogin = styled.label`
   font-size: ${Theme.defaultFontSize};
   margin-bottom: 5px;
@@ -60,4 +57,11 @@ export const LabelError = styled.label`
 
 export const TextNewUser = styled.p`
   padding-right: 5px;
+`;
+
+export const LinkEyePassword = styled.a`
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  font-size: 20px;
 `;
