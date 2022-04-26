@@ -1,16 +1,18 @@
 import * as Yup from 'yup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { handleLogin } from '../../store/actions/AuthActions';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import {
   ContainerLogin,
   DivBtnLogin,
   DivInputLogin,
+  DivServerError,
   LabelError,
   LabelLogin,
-  ServerError,
+  LinkEyePassword,
   TextNewUser,
   Title,
 } from './Login.style';
@@ -40,6 +42,11 @@ const LOGIN_SCHEMA = Yup.object().shape({
 
 const Login = ({ dispatch }: DispatchProp) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowHidePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   useEffect(() => {
     if (hasToken()) {
@@ -49,7 +56,7 @@ const Login = ({ dispatch }: DispatchProp) => {
   }, []);
 
   return (
-    <ContainerMain>
+    <ContainerMain height="100vh">
       <ContainerLogin>
         <ImageLogo />
         <Title>Sistema de Reembolso</Title>
@@ -63,9 +70,9 @@ const Login = ({ dispatch }: DispatchProp) => {
         >
           {({ status }) => (
             <Form>
-              <ServerError>
+              <DivServerError>
                 <LabelError>{status}</LabelError>
-              </ServerError>
+              </DivServerError>
               <DivInputLogin>
                 <LabelLogin htmlFor="login">E-mail</LabelLogin>
                 <Field
@@ -80,16 +87,23 @@ const Login = ({ dispatch }: DispatchProp) => {
                 <Field
                   name="password"
                   placeholder="Digite sua senha"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   as={InputDefault}
                 />
+                <LinkEyePassword
+                  href="#!"
+                  onClick={() => handleShowHidePassword()}
+                  tabIndex={-1}
+                >
+                  {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </LinkEyePassword>
                 <ErrorMessage name="password" component={LabelError} />
               </DivInputLogin>
               <DivBtnLogin>
                 <ButtonDefault type="submit">Entrar</ButtonDefault>
               </DivBtnLogin>
               <DivBtnLogin>
-                <TextNewUser>Não possue cadastro?</TextNewUser>
+                <TextNewUser>Não possui cadastro?</TextNewUser>
                 <Link to="/signup">Cadastre-se!</Link>
               </DivBtnLogin>
             </Form>

@@ -1,20 +1,25 @@
+import * as Yup from 'yup';
 import { useFormik, FormikHelpers } from 'formik';
-import { SignUpDTO, IroleNumber } from '../../models/SignUpDTO';
 import { useEffect, useState } from 'react';
+import { AnyAction } from 'redux';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import PasswordStrengthBar from 'react-password-strength-bar';
+import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
+import { IRole } from '../../models/AuthDTO';
+import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
+import { RootState } from '../../store';
 import {
   LinkEyePassword,
   ContainerSignUp,
   DivButton,
   StyledSelect,
-  StyledAiOutlineEye,
-  LinkEyeConfirmPassword,
 } from './SignUp.style';
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
   AiOutlineArrowLeft,
 } from 'react-icons/ai';
-import * as Yup from 'yup';
 import {
   ContainerMain,
   DivFlexColumn,
@@ -27,13 +32,6 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
-import PasswordStrengthBar from 'react-password-strength-bar';
-import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
-import { RootState } from '../../store';
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
-import { useNavigate } from 'react-router-dom';
-import { IRole } from '../../models/AuthDTO';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -46,46 +44,23 @@ const SignUp = (state: RootState & AnyAction) => {
     'Ótimo',
   ];
   const passwordTooShort = ['Muito fraco'];
-  const [invisiblePassword, setInvisiblePassword] = useState(true);
-  const [invisibleConfirmPassword, setInvisibleConfirmPassword] =
-    useState(true);
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
   const [image64, setImage64] = useState('');
 
-  useEffect(() => {
-    checkAdmin();
-  }, []);
-
   //#region password
-  // deixa ou não visível o password
-  const changeTypePassword = () => {
-    if (invisiblePassword) {
-      setTypePassword('text');
-      setInvisiblePassword(false);
-    }
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    if (!invisiblePassword) {
-      setTypePassword('password');
-      setInvisiblePassword(true);
-    }
+  const handleShowHidePassword = () => {
+    setShowPassword(!showPassword);
   };
 
-  // deixa ou não visível o confirm password
-  const changeTypeConfirmPassword = () => {
-    if (invisibleConfirmPassword) {
-      setTypeConfirmPassword('text');
-      setInvisibleConfirmPassword(false);
-    }
-
-    if (!invisibleConfirmPassword) {
-      setTypeConfirmPassword('password');
-      setInvisibleConfirmPassword(true);
-    }
+  const handleShowHideConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
-
   //#endregion password
 
   const checkAdmin = () => {
@@ -151,32 +126,30 @@ const SignUp = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       const newValues = { ...values, image: image64 };
-      if(admin){
-        setupCreateUserAdmin(newValues)
+      if (admin) {
+        setupCreateUserAdmin(newValues);
       }
-      setupCreateUser(newValues)
+      setupCreateUser(newValues);
       setSubmitting(false);
-      console.log(values);
     },
     validationSchema: signupSchema,
   });
 
   // setups createuser for admin
-  const setupCreateUserAdmin = (values: SignUpDTO) =>{
+  const setupCreateUserAdmin = (values: SignUpDTO) => {
     const user = {
       name: values.name,
       email: values.email,
       password: values.password,
       image: values.image,
-    }
-    const roleNumber : IroleNumber = { role: formik.values.role}
+    };
+    const roleNumber: IRoleNumber = { role: formik.values.role };
 
-    createUserAdmin(user, dispatch, navigate, token, roleNumber)
-  }
+    createUserAdmin(user, dispatch, navigate, token, roleNumber);
+  };
 
   // setups createuser
   const setupCreateUser = (values: SignUpDTO) => {
-    console.log(values, 'setup');
     const user = {
       name: values.name,
       email: values.email,
@@ -189,15 +162,13 @@ const SignUp = (state: RootState & AnyAction) => {
   // sets image field
   const uploadImage = async (event: any) => {
     const image = event.target.files[0];
-    formik.setFieldValue('image', image);
     const base64: any = await convertBase64(image);
+    formik.setFieldValue('image', image);
     setImage64(base64);
-    console.log(base64, 'base64');
   };
 
   // converts to base64
   const convertBase64 = (file: any) => {
-    console.log(file, 'arquivo');
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
@@ -212,8 +183,12 @@ const SignUp = (state: RootState & AnyAction) => {
     });
   };
 
+  useEffect(() => {
+    checkAdmin();
+  }, []);
+
   return (
-    <ContainerMain>
+    <ContainerMain height="100vh">
       <ContainerSignUp>
         <LinkBack to="/">
           <AiOutlineArrowLeft />
@@ -256,15 +231,18 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               id="password"
               name="password"
-              type={typePassword}
+              type={showPassword ? 'text' : 'password'}
               placeholder="Digite sua senha"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <LinkEyePassword href="#!" onClick={() => changeTypePassword()}>
-              {invisiblePassword && <StyledAiOutlineEye />}
-              {!invisiblePassword && <AiOutlineEyeInvisible />}
+            <LinkEyePassword
+              href="#!"
+              onClick={() => handleShowHidePassword()}
+              tabIndex={-1}
+            >
+              {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </LinkEyePassword>
             <PasswordStrengthBar
               password={formik.values.password}
@@ -285,19 +263,23 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               id="confirmPassword"
               name="confirmPassword"
-              type={typeConfirmPassword}
+              type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirme sua senha"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <LinkEyeConfirmPassword
+            <LinkEyePassword
               href="#!"
-              onClick={() => changeTypeConfirmPassword()}
+              onClick={() => handleShowHideConfirmPassword()}
+              tabIndex={-1}
             >
-              {invisibleConfirmPassword && <AiOutlineEye />}
-              {!invisibleConfirmPassword && <AiOutlineEyeInvisible />}
-            </LinkEyeConfirmPassword>
+              {!showConfirmPassword ? (
+                <AiOutlineEye />
+              ) : (
+                <AiOutlineEyeInvisible />
+              )}
+            </LinkEyePassword>
             {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
               <DivError>{formik.errors.confirmPassword}</DivError>
             ) : null}
