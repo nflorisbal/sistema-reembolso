@@ -46,7 +46,6 @@ const SignUp = (state: RootState & AnyAction) => {
     'Ótimo',
   ];
   const passwordTooShort = ['Muito fraco'];
-
   const [invisiblePassword, setInvisiblePassword] = useState(true);
   const [invisibleConfirmPassword, setInvisibleConfirmPassword] =
     useState(true);
@@ -54,7 +53,6 @@ const SignUp = (state: RootState & AnyAction) => {
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
-  const [validImage, setValidImage] = useState(false);
   const [image64, setImage64] = useState('');
 
   useEffect(() => {
@@ -112,7 +110,13 @@ const SignUp = (state: RootState & AnyAction) => {
     password: Yup.string()
       .required('Campo obrigatório.')
       .min(8, 'Mínimo de 8 caracteres.')
-      .max(20, 'Máximo de 20 caracteres.'),
+      .max(20, 'Máximo de 20 caracteres.')
+      .test('scoreSenha', 'A senha está muito fraca', () => {
+        if (score >= 2) {
+          return true;
+        }
+        return false;
+      }),
     confirmPassword: Yup.string().test(
       'Passwords',
       'Senhas fornecidas não são iguais',
@@ -120,19 +124,19 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    image: Yup.mixed()
-      .test('fileSize', 'O tamanho máximo de arquivo é 800kb', (value) => {
-        if (value?.length) {
-          return value[0].size <= 800000;
-        }
-        return false;
-      })
-      .test('fileType', 'Extensões suportadas são png e jpeg', (value) => {
-        if (value?.length) {
-          return value[0].type.includes('image');
-        }
-        return false;
-      }),
+    // image: Yup.mixed()
+    //   .test('fileSize', 'O tamanho máximo de arquivo é 800kb', (value) => {
+    //     if (value?.length) {
+    //       return value[0].size <= 800000;
+    //     }
+    //     return false;
+    //   })
+    //   .test('fileType', 'Extensões suportadas são png e jpeg', (value) => {
+    //     if (value?.length) {
+    //       return value[0].type.includes('image');
+    //     }
+    //     return false;
+    //   }),
   });
   //#endregion validação do yup
 
@@ -143,35 +147,26 @@ const SignUp = (state: RootState & AnyAction) => {
       email: '',
       password: '',
       confirmPassword: '',
-      role: 'colaborador',
-      image: '',
+      role: 4,
     },
     onSubmit: (
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      if (score >= 2) {
-        setTimeout(async () => {
-          console.log(values.image, 'antes');
-          const newValues = { ...values, image: image64 };
-          console.log(newValues, 'depois');
-          if (values.image !== '') {
-          }
-          console.log(values, 'valores');
-          setupCreateUser(newValues);
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-          console.log(values);
-        }, 500);
-      } else {
-        alert('Senha muito fraca.');
-      }
+      const newValues = { ...values, image: image64 };
+      // setupCreateUser(newValues)
+      setSubmitting(false);
+      console.log(values);
+
+      // } else {
+      //   alert('Senha muito fraca.');
     },
     validationSchema: signupSchema,
   });
 
   // setups createuser
   const setupCreateUser = (values: SignUpDTO) => {
+    console.log(values, 'setup');
     const user = {
       name: values.name,
       email: values.email,
@@ -342,10 +337,10 @@ const SignUp = (state: RootState & AnyAction) => {
                 value={formik.values.role}
                 onChange={formik.handleChange}
               >
-                <option value="colaborador">Colaborador</option>
-                <option value="gestor">Gestor</option>
-                <option value="financeiro">Financeiro</option>
-                <option value="administrador">Administrador</option>
+                <option value="4">Colaborador</option>
+                <option value="3">Gestor</option>
+                <option value="2">Financeiro</option>
+                <option value="1">Administrador</option>
               </StyledSelect>
             </DivFlexColumn>
           )}
