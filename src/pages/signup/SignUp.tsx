@@ -183,7 +183,7 @@ const SignUp = (state: RootState & AnyAction) => {
       password: values.password,
       image: values.image,
     };
-    createUser(user, dispatch, navigate);
+    createUser(user, dispatch, navigate, formik.setStatus);
   };
 
   // sets image field
