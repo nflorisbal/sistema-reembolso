@@ -52,7 +52,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <p>{item.name}</p>
                   <p>{item.dateItem}</p>
                   <p>{item.value}</p>
-                  <a href={item.image} target="_blank">
+                  <a href={item.image} target="_blank" download>
                     Anexo
                   </a>
                 </LineItem>

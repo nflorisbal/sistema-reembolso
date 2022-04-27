@@ -7,7 +7,7 @@ export const INITIAL_STATE_SIGNUP = {
   confirmPassword: '',
   email: '',
   role: 4,
-  image: '',
+  image: undefined,
 };
 
 const signUpReducer = (

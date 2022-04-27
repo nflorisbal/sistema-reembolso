@@ -99,16 +99,16 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    image: Yup.mixed().test(
-      'image',
-      'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
-      (value) => {
-        if (value !== undefined) {
-          return value.size <= 800000 && value.type.includes('image');
-        }
-        return true;
-      }
-    ),
+    // image: Yup.mixed().test(
+    //   'image',
+    //   'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+    //   (value) => {
+    //     if (value !== undefined) {
+    //       return value.size <= 800000 && value.type.includes('image');
+    //     }
+    //     return true;
+    //   }
+    // ),
   });
   //#endregion validação do yup
 
@@ -125,11 +125,11 @@ const SignUp = (state: RootState & AnyAction) => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      const newValues = { ...values, image: image64 };
+      
       if (admin) {
-        setupCreateUserAdmin(newValues);
+        setupCreateUserAdmin(values);
       } else {
-        setupCreateUser(newValues);
+        setupCreateUser(values);
       }
       setSubmitting(false);
     },
@@ -161,28 +161,28 @@ const SignUp = (state: RootState & AnyAction) => {
   };
 
   // sets image field
-  const uploadImage = async (event: any) => {
-    const image = event.target.files[0];
-    const base64: any = await convertBase64(image);
-    formik.setFieldValue('image', image);
-    setImage64(base64);
-  };
+  // const uploadImage = async (event: any) => {
+  //   const image = event.target.files[0];
+  //   const base64: any = await convertBase64(image);
+  //   formik.setFieldValue('image', image);
+  //   setImage64(base64);
+  // };
 
-  // converts to base64
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  // // converts to base64
+  // const convertBase64 = (file: any) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
 
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
 
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
 
   useEffect(() => {
     checkAdmin();
@@ -291,7 +291,7 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) => uploadImage(event)}
+              onChange={(event) => formik.setFieldValue('image', event.target.files?.[0])}
             />
             {formik.errors.image && formik.touched.image ? (
               <DivError>{formik.errors.image}</DivError>

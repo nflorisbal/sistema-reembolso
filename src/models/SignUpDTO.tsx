@@ -4,7 +4,7 @@ export interface SignUpDTO {
   confirmPassword?: string;
   email: string;
   role?: number;
-  image?: string | undefined;
+  image?: File | undefined;
   action?: string;
 }
 
