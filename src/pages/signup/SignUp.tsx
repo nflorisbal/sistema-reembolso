@@ -128,8 +128,8 @@ const SignUp = (state: RootState & AnyAction) => {
       const newValues = { ...values, image: image64 };
       if (admin) {
         setupCreateUserAdmin(newValues);
-      }else{
-      setupCreateUser(newValues);
+      } else {
+        setupCreateUser(newValues);
       }
       setSubmitting(false);
     },
@@ -146,7 +146,7 @@ const SignUp = (state: RootState & AnyAction) => {
     };
     const roleNumber: IRoleNumber = { role: formik.values.role };
 
-    createUserAdmin(user, dispatch, navigate, token, roleNumber);
+    createUserAdmin(user, dispatch, formik.resetForm, token, roleNumber);
   };
 
   // setups createuser
