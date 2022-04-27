@@ -1,10 +1,10 @@
 import { AppDispatch } from '..';
 import api from '../../api';
 
-export const listAllUsers = async (dispatch: AppDispatch, token: any) => {
+export const listAllUsers = async (dispatch: AppDispatch, token: any, page: number) => {
   try {
     const { data } = await api.get(
-      `/user/listAllUserOrderById?requestPage=0&sizePage=10`,
+      `/user/listAllUserOrderById?requestPage=${page}&sizePage=10`,
       (api.defaults.headers.common['Authorization'] = token)
     );
 
