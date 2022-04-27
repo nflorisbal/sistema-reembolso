@@ -1,7 +1,13 @@
 import * as Yup from 'yup';
-import { useFormik, FormikHelpers, FieldArray, FormikProvider } from 'formik';
+import {
+  useFormik,
+  FormikHelpers,
+  FieldArray,
+  FormikProvider,
+  ErrorMessage,
+} from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import {
   ContainerAddTicket,
@@ -21,6 +27,7 @@ import {
   DivFlex,
   PageTitle,
   LinkBack,
+  DivError,
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
@@ -29,6 +36,7 @@ import { connect } from 'react-redux';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
+  const [size, setSize] = useState(0);
 
   const addTicketSchema = Yup.object().shape({
     title: Yup.string()
@@ -50,10 +58,22 @@ const AddTicket = (state: RootState & AnyAction) => {
             .required('Campo obrigatório.')
             .min(3, 'Mínimo de 3 caracteres')
             .max(10, 'máximo de 10 caracteres'),
-          attachment: Yup.string()
+          image: Yup.string()
             .required('Campo obrigatório.')
             .min(1, 'Mímino de um item')
-            .max(1, 'Máximo de um item'),
+            .test(
+              'sizeType',
+              'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg/pdf)',
+              (value) => {
+                if (value !== undefined) {
+                  return (
+                    (size <= 800000 && value.includes('image')) ||
+                    value.includes('pdf')
+                  );
+                }
+                return true;
+              }
+            ),
         })
       )
       .min(1, 'Informe ao menos um item.'),
@@ -76,18 +96,29 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
-        sendNewTicket(values, dispatch, token);
+        //sendNewTicket(values, dispatch, token);
         console.log(values);
         setSubmitting(false);
       }, 500);
     },
-    // validationSchema: addTicketSchema,
+    validationSchema: addTicketSchema,
   });
+
+  const checkFileSize = (base64: string) => {
+    const base64Length = base64.length - 'data:image/png;base64'.length;
+    console.log(base64Length, 'base');
+    const sizeBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
+    const sizeKb = sizeBytes / 1000;
+    setSize(sizeKb);
+  };
 
   const uploadFile = async (event: any, index: number) => {
     const file = event.target.files[0];
-    const base64 = await convertBase64(file);
-    formik.setFieldValue(`items[${index}.image]`, base64);
+    if(file !== undefined){
+      const base64: string = (await convertBase64(file)) as string;
+      formik.setFieldValue(`items[${index}.image]`, base64);
+      checkFileSize(base64);
+    }
   };
 
   const convertBase64 = (file: any) => {
@@ -114,6 +145,9 @@ const AddTicket = (state: RootState & AnyAction) => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(formik.values, 'valores');
+  console.log(formik.values.items);
+
   return (
     <ContainerMain>
       <ContainerAddTicket>
@@ -132,6 +166,9 @@ const AddTicket = (state: RootState & AnyAction) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+             {formik.errors.title && formik.touched.title ? (
+              <DivError>{formik.errors.title}</DivError>
+            ) : null}
           </DivFlexColumn>
 
           <FormikProvider value={formik}>
@@ -168,11 +205,21 @@ const AddTicket = (state: RootState & AnyAction) => {
                           onBlur={formik.handleBlur}
                           placeholder="Valor:"
                         />
+                        <ErrorMessage
+                          name={`items.${index}.value`}
+                          component="div"
+                          className="field-error"
+                        />
                       </DivFlex>
                       <InputDefault
                         name={`items[${index}.image]`}
                         onChange={(event: any) => uploadFile(event, index)}
                         type="file"
+                      />
+                      <ErrorMessage
+                        name={`items.${index}.image`}
+                        component="div"
+                        className="field-error"
                       />
                       <DivButton>
                         <ButtonDefault
