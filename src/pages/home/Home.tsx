@@ -10,7 +10,6 @@ import { AnyAction } from 'redux';
 const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { roles, name } = state;
-  console.log(state);
 
   useEffect(() => {
     if (!hasToken()) {

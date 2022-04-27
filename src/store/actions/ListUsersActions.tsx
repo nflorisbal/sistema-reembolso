@@ -6,11 +6,12 @@ import api from '../../api';
 export const listAllUsers = async (
   users: ListUsersDTO,
   dispatch: AppDispatch,
-  token: any
+  token: any,
+  page: number,
 ) => {
   try {
     const { data } = await api.get(
-      '/user/listAllUserOrderById?requestPage=0&sizePage=20',
+      `/user/listAllUserOrderById?requestPage=${page}&sizePage=10`,
       (api.defaults.headers.common['Authorization'] = token)
     );
     const list = { users: data, type: 'LIST_USERS' };
