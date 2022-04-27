@@ -22,7 +22,7 @@ const Home = (state: RootState & AnyAction) => {
   return hasToken() ? (
     <ContainerMain>
       <ContainerWelcome>
-        <h3>Bem-vindo(a), {name}!</h3>
+        <h3>Olá, {name}!</h3>
       </ContainerWelcome>
       <ListAllUsers />
     </ContainerMain>

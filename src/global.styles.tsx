@@ -23,14 +23,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ContainerMain = styled.div<{ height?: string }>`
+export const ContainerMain = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
   width: 100%;
-  height: ${(props) => props.height || '100%'};
+  height: 100%;
 `;
 
 export const ContainerSmall = styled.div`

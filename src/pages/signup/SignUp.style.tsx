@@ -12,7 +12,7 @@ export const LinkEyePassword = styled.a`
 `;
 
 export const ContainerSignUp = styled(ContainerSmall)`
-  margin-bottom: 50px;
+  margin: ${Theme.margin} 0 50px 0;
 `;
 
 export const DivButton = styled.div`
