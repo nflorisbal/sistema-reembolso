@@ -6,9 +6,12 @@ export const INITIAL_STATE = {
   image: '',
   name: '',
   token: '',
-  roles: [{
-    idRole: 0
-  }],
+  roles: [
+    {
+      idRole: 0,
+      role: '',
+    },
+  ],
   isLogged: false,
 };
 

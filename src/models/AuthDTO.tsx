@@ -7,15 +7,15 @@ export interface CredentialDTO {
   email: string;
   image?: string;
   name: string;
-  roles: Array<object>;
+  roles: Array<IRole>;
   token: string;
   isLogged: boolean;
 }
 
 export interface IRole {
   idRole: number;
+  role: string;
 }
-[];
 
 // export interface IToken extends HeadersDefaults{
 //   Authorization: string

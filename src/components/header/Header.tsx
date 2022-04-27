@@ -8,7 +8,7 @@ import Menu from '../menu/Menu';
 import User from '../user/User';
 import { ImageLogo } from '../logo/Logo.style';
 
-const Header = ({ isLogged, dispatch }: CredentialDTO & AnyAction) => {
+const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
   const navigate = useNavigate();
 
   return (
