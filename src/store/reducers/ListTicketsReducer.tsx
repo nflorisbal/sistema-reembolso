@@ -2,7 +2,7 @@ import { AnyAction } from "redux"
 import { ArrayTicketDTO } from "../../models/TicketDTO"
 
 export const INITIAL_STATE_GET_TICKET: ArrayTicketDTO = {
-  tickets:
+  ticketsList:
   [
       {
           date: "",
@@ -27,7 +27,7 @@ export const INITIAL_STATE_GET_TICKET: ArrayTicketDTO = {
 }
 
 
-const ListTicketsReducer = (
+const listTicketsReducer = (
     state = INITIAL_STATE_GET_TICKET,
     action: AnyAction
 ) => {
@@ -36,7 +36,7 @@ const ListTicketsReducer = (
           return {
             ...state,
             loadingTickets: false,
-            tickets: action.tickets,
+            ticketsList: action.tickets,
             totalPages: action.totalPages,
             totalElements: action.totalElements,
           };
@@ -48,4 +48,4 @@ const ListTicketsReducer = (
         } 
 }
 
-export default ListTicketsReducer
+export default listTicketsReducer
