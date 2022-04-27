@@ -27,7 +27,7 @@ export const createUser = async (
 export const createUserAdmin = async (
   newUser: SignUpDTO,
   dispatch: AppDispatch,
-  navigate: Function,
+  resetForm: Function,
   token: any,
   roleNumber: IRoleNumber
 ) => {
@@ -40,9 +40,7 @@ export const createUserAdmin = async (
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
     Notify.success('Cadastro realizado com sucesso');
-    setTimeout(() => {
-      //navigate('/');
-    }, 5000);
+    resetForm();
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
