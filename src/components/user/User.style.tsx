@@ -8,3 +8,7 @@ export const InfoProfile = styled.div`
   text-align: right;
   margin: ${Theme.margin};
 `;
+
+export const InfoName = styled.p`
+  text-transform: capitalize;
+`;
