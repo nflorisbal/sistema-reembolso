@@ -6,15 +6,17 @@ export interface TicketDTO {
     name:string;
     image: string;
     dateItem: string;
-    value: string;
+    value: number;
   }[]
 }
 
-// export interface ITicketItems{
-//   {
-//     name:string;
-//     image: string;
-//     dateItem: string;
-//     value: string;
-//   }[]
-// }
+export interface GetTicketDTO extends TicketDTO{
+  date: string,
+  idRefund: number,
+  status: string,
+  value: number
+}
+
+export interface ArrayTicketDTO{
+  tickets: GetTicketDTO
+}[]

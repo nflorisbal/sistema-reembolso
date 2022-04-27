@@ -41,7 +41,7 @@ export const createUserAdmin = async (
     dispatch(stateNewUser);
     Notify.success('Cadastro realizado com sucesso');
     setTimeout(() => {
-      navigate('/');
+      //navigate('/');
     }, 5000);
   } catch (error) {
     console.log(error);

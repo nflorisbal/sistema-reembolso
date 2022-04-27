@@ -7,7 +7,7 @@ export const INITIAL_STATE_TICKET = {
     {
       name: '',
       dateItem: '',
-      value: '',
+      value: 0,
       image: '',
     },
   ],

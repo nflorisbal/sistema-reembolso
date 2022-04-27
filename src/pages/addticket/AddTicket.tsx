@@ -85,7 +85,7 @@ const AddTicket = (state: RootState & AnyAction) => {
         {
           name: '',
           dateItem: '',
-          value: '',
+          value: 0,
           image: '',
         },
       ],

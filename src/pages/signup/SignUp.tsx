@@ -128,8 +128,9 @@ const SignUp = (state: RootState & AnyAction) => {
       const newValues = { ...values, image: image64 };
       if (admin) {
         setupCreateUserAdmin(newValues);
-      }
+      }else{
       setupCreateUser(newValues);
+      }
       setSubmitting(false);
     },
     validationSchema: signupSchema,
