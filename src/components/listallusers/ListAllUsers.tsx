@@ -51,7 +51,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </button>
           <button
             onClick={() => {
-              if (currentPage < pages) setCurrentPage(currentPage + 1);
+              if (currentPage < (pages - 1)) setCurrentPage(currentPage + 1);
             }}
           >
             Próxima
