@@ -29,7 +29,7 @@ export const ContainerMain = styled.div<{ height?: string }>`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 1000px;
+  width: 100%;
   height: ${(props) => props.height || '100%'};
 `;
 
@@ -38,6 +38,16 @@ export const ContainerSmall = styled.div`
   flex-direction: column;
   align-items: center;
   width: 440px;
+  padding: ${Theme.padding};
+  background-color: ${Theme.color.neutralLight};
+  border: 1px solid ${Theme.color.neutralDark};
+  border-radius: ${Theme.borderRadius};
+  box-shadow: ${Theme.boxShadow};
+`;
+
+export const ContainerWelcome = styled.div`
+  min-width: 900px;
+  margin: ${Theme.margin} 0;
   padding: ${Theme.padding};
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
@@ -84,10 +94,6 @@ export const DivFlexColumn = styled.div`
   width: 400px;
 `;
 
-export const StyledLabel = styled.label``;
-
-export const StyledForm = styled.form``;
-
 export const DivFlexLink = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,23 +101,10 @@ export const DivFlexLink = styled.div`
   position: relative;
 `;
 
-export const PageTitle = styled.h2`
-  padding: ${Theme.padding} 0;
-`;
-
 export const DivFlex = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 10px;
-`;
-export const LinkBack = styled(Link)`
-  /* position: absolute; */
-  z-index: 0;
-  top: 23px;
-  left: 15px;
-  text-decoration: none;
-  font-size: 20px;
-  color: black;
 `;
 
 export const DivError = styled.div`
@@ -120,6 +113,24 @@ export const DivError = styled.div`
   color: ${Theme.color.highlightPure};
   padding-left: 5px;
   margin-top: 5px;
+`;
+
+export const StyledLabel = styled.label``;
+
+export const StyledForm = styled.form``;
+
+export const PageTitle = styled.h2`
+  padding: ${Theme.padding} 0;
+`;
+
+export const LinkBack = styled(Link)`
+  /* position: absolute; */
+  z-index: 0;
+  top: 23px;
+  left: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
 `;
 
 export const ImgProfile = styled.img`

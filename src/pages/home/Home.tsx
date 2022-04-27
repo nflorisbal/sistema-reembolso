@@ -2,16 +2,15 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { hasToken } from '../../utils';
-import { ContainerMain } from '../../global.styles';
+import { ContainerMain, ContainerWelcome } from '../../global.styles';
 import ListAllUsers from '../../components/listallusers/ListAllUsers';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
 
 const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
-  const { roles } = state;
-  console.log(roles[0].role);
-  
+  const { roles, name } = state;
+  console.log(state);
 
   useEffect(() => {
     if (!hasToken()) {
@@ -22,15 +21,16 @@ const Home = (state: RootState & AnyAction) => {
 
   return hasToken() ? (
     <ContainerMain>
-      <h1>Bem-vindo(a) ao sistema de reembolso!</h1>
-      
-        <ListAllUsers />
-      
+      <ContainerWelcome>
+        <h3>Bem-vindo(a), {name}!</h3>
+      </ContainerWelcome>
+      <ListAllUsers />
     </ContainerMain>
   ) : null;
 };
 
 const mapStateToProps = (state: RootState) => ({
+  name: state.auth.name,
   roles: state.auth.roles,
 });
 
