@@ -1,5 +1,7 @@
 export interface ListUsersDTO {
   loadingList?: boolean;
+  totalPages: number;
+  totalElements: number;
   users: {
     name: string;
     idUser: number;

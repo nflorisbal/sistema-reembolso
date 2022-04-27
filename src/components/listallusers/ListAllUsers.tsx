@@ -1,5 +1,5 @@
 import { listAllUsers } from '../../store/actions/ListUsersActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
@@ -14,11 +14,13 @@ import { switchRole } from '../../utils';
 import DefaultProfileImg from '../../images/profile_default.png';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
-  const { dispatch, users, token } = state;
+  const { dispatch, users, token, pages } = state;
+  const [currentPage, setCurrentPage] = useState(0);
+  console.log(currentPage);
 
   useEffect(() => {
-    listAllUsers(dispatch, token);
-  }, []);
+    listAllUsers(dispatch, token, currentPage);
+  }, [currentPage]);
 
   return (
     <ContainerMain>
@@ -40,10 +42,20 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         ))}
         <DivPagButtons>
           {/* inserir logica para paginação */}
-          <button onClick={() => listAllUsers(dispatch, token)}>
+          <button
+            onClick={() => {
+              if (currentPage) setCurrentPage(currentPage - 1);
+            }}
+          >
             Anterior
           </button>
-          <button onClick={() => listAllUsers(dispatch, token)}>Próxima</button>
+          <button
+            onClick={() => {
+              if (currentPage < pages) setCurrentPage(currentPage + 1);
+            }}
+          >
+            Próxima
+          </button>
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>
@@ -52,6 +64,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   users: state.list.users,
+  pages: state.list.totalPages,
   loading: state.list.loadingList,
   token: state.auth.token,
 });
