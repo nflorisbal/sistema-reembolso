@@ -34,7 +34,13 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         </LineList>
         {users.map((user: any) => (
           <LineList key={user.idUser}>
-            <ImgProfile src={user.image ? user.image : DefaultProfileImg} />
+            <ImgProfile
+              src={
+                user.image
+                  ? `data:image/jpeg;base64, ${user.image}`
+                  : DefaultProfileImg
+              }
+            />
             <DivColumnName>{user.name}</DivColumnName>
             <div>{user.email}</div>
             <div>{switchRole(user.idUser)}</div>
@@ -51,7 +57,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </button>
           <button
             onClick={() => {
-              if (currentPage < (pages - 1)) setCurrentPage(currentPage + 1);
+              if (currentPage < pages - 1) setCurrentPage(currentPage + 1);
             }}
           >
             Próxima
