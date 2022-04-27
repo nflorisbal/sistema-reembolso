@@ -10,5 +10,5 @@ export default combineReducers({
   signup: signUpReducer,
   list: listUsersReducer,
   add: addTicketReducer,
-  tickets: listTicketsReducer
+  tickets: listTicketsReducer,
 });
