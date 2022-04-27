@@ -4,7 +4,7 @@ import api from '../../api';
 export const listTickets = async (dispatch: AppDispatch, token: any) => {
   try {
     const { data } = await api.get(
-      '/refund/?page=1&size=10',
+      '/refund/?page=0&size=10',
       (api.defaults.headers.common['Authorization'] = token)
     );
 

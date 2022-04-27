@@ -18,7 +18,7 @@ export interface GetTicketDTO extends TicketDTO{
 }
 
 export interface ArrayTicketDTO{
-  tickets: GetTicketDTO[],
+  ticketsList: GetTicketDTO[],
   loadingTickets: boolean,
   totalPages: number,
   totalElements: number,

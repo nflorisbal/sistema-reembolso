@@ -96,12 +96,12 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
-        //sendNewTicket(values, dispatch, token);
+        sendNewTicket(values, dispatch, token);
         console.log(values);
         setSubmitting(false);
       }, 500);
     },
-    validationSchema: addTicketSchema,
+    //validationSchema: addTicketSchema,
   });
 
   const checkFileSize = (base64: string) => {
