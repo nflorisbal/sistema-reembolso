@@ -2,20 +2,10 @@ import { AnyAction } from 'redux';
 import { ListUsersDTO } from '../../models/ListUsersDTO';
 
 export const INITIAL_STATE_LIST_USERS = {
-  loading: true,
-  users: [
-    {
-      name: '',
-      idUser: 0,
-      image: '',
-      email: '',
-      roleEntities: [
-        {
-          idRole: 0,
-        },
-      ],
-    },
-  ],
+  loadingList: true,
+  users: [],
+  totalPages: 1,
+  totalElements: 0,
 };
 
 const listUsersReducer = (
@@ -26,8 +16,10 @@ const listUsersReducer = (
     case 'LIST_USERS':
       return {
         ...state,
-        loading: false,
+        loadingList: false,
         users: action.users,
+        totalPages: action.totalPages,
+        totalElements: action.totalElements,
       };
     default:
       return state;

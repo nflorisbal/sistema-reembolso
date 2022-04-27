@@ -1,5 +1,5 @@
 import { listAllUsers } from '../../store/actions/ListUsersActions';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
@@ -15,11 +15,10 @@ import DefaultProfileImg from '../../images/profile_default.png';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token } = state;
-  const [ currentPage, setCurrentPage ] = useState(0);
 
   useEffect(() => {
-    if (users.length === 1) {
-      listAllUsers(users, dispatch, token, currentPage);
+    if (users.length === 0) {
+      listAllUsers(dispatch, token);
     }
   }, [users]);
 
@@ -33,7 +32,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           <p>E-mail</p>
           <p>Cargo</p>
         </LineList>
-        {users.content?.map((user: any) => (
+        {users.map((user: any) => (
           <LineList key={user.idUser}>
             <ImgProfile src={user.image ? user.image : DefaultProfileImg} />
             <DivColumnName>{user.name}</DivColumnName>
@@ -43,12 +42,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         ))}
         <DivPagButtons>
           {/* inserir logica para paginação */}
-          <button onClick={() => listAllUsers(users, dispatch, token, currentPage)}>
+          <button onClick={() => listAllUsers(dispatch, token)}>
             Anterior
           </button>
-          <button onClick={() => listAllUsers(users, dispatch, token, currentPage)}>
-            Próxima
-          </button>
+          <button onClick={() => listAllUsers(dispatch, token)}>Próxima</button>
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>
@@ -57,7 +54,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   users: state.list.users,
-  loading: state.list.loading,
+  loading: state.list.loadingList,
   token: state.auth.token,
 });
 
