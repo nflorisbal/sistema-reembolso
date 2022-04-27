@@ -17,10 +17,8 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token } = state;
 
   useEffect(() => {
-    if (users.length === 0) {
-      listAllUsers(dispatch, token);
-    }
-  }, [users]);
+    listAllUsers(dispatch, token);
+  }, []);
 
   return (
     <ContainerMain>

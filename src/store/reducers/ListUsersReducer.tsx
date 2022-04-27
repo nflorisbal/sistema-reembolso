@@ -21,6 +21,9 @@ const listUsersReducer = (
         totalPages: action.totalPages,
         totalElements: action.totalElements,
       };
+    case 'WIPE_LIST':
+      state = INITIAL_STATE_LIST_USERS;
+      return state;
     default:
       return state;
   }

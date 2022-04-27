@@ -38,7 +38,12 @@ export const handleLogout = (dispatch: AppDispatch, navigate: Function) => {
   const userAuthenticated = {
     type: 'SET_LOGOUT',
   };
+  const listWipe = {
+    type: 'WIPE_LIST',
+  };
+
   localStorage.removeItem('token');
+  dispatch(listWipe);
   dispatch(userAuthenticated);
   navigate('/login');
 };
