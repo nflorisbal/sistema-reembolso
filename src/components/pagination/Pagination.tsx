@@ -6,15 +6,15 @@ import { RootState } from '../../store';
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: Function;
+  pages: number
 }
 
 const Pagination = (
-  { pages }: ListUsersDTO & AnyAction,
-  { currentPage, setCurrentPage }: IPaginationProps
+  { currentPage, setCurrentPage, pages }: IPaginationProps
 ) => {
   console.log(pages);
   console.log(currentPage);
-  console.log(setCurrentPage);
+  console.log(setCurrentPage, "set na pagination");
   
   return (
     <>
@@ -31,7 +31,7 @@ const Pagination = (
         }}
       >
         Próxima
-      </button>
+      </button>              
     </>
   );
 };

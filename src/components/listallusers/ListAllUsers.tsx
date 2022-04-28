@@ -18,6 +18,8 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, pages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
+  console.log(setCurrentPage, "set na listallusers")
+
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
   }, [currentPage]);
