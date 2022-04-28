@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 import {
   ContainerListUsers,
   DivColumnName,
@@ -13,9 +13,11 @@ import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
+import { ListUsersDTO } from '../../models/ListUsersDTO';
+import { CredentialDTO } from '../../models/AuthDTO';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
-  const { dispatch, users, token, pages } = state;
+  const { dispatch, users , token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   useEffect(() => {
@@ -47,11 +49,11 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </LineList>
         ))}
         <DivPagButtons>
-          {pages > 1 && (
+          {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              totalPages={pages}
+              totalPages={totalPages}
             />
           )}
         </DivPagButtons>
@@ -62,7 +64,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   users: state.list.users,
-  pages: state.list.totalPages,
+  totalPages: state.list.totalPages,
   loading: state.list.loadingList,
   token: state.auth.token,
 });

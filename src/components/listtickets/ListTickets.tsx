@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 import { ContainerMain, PageTitle } from '../../global.styles';
 import {
   ContainerListTicket,
@@ -12,6 +12,9 @@ import {
   LineItem,
   LineTicket,
 } from './ListTickets.style';
+import { CredentialDTO } from '../../models/AuthDTO';
+import { ArrayTicketDTO } from '../../models/TicketDTO';
+
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles } = state;

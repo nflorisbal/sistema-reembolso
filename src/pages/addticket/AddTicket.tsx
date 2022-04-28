@@ -30,12 +30,13 @@ import {
   DivError,
 } from '../../global.styles';
 import { RootState } from '../../store';
-import { AnyAction } from 'redux';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
+import { CredentialDTO } from '../../models/AuthDTO';
+import { AnyAction } from 'redux';
 
 const AddTicket = (state: RootState & AnyAction) => {
-  const { token, dispatch } = state;
+  const { token, dispatch, email } = state;
   const [size, setSize] = useState(0);
 
   const addTicketSchema = Yup.object().shape({
@@ -114,7 +115,7 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   const uploadFile = async (event: any, index: number) => {
     const file = event.target.files[0];
-    if(file !== undefined){
+    if (file !== undefined) {
       const base64: string = (await convertBase64(file)) as string;
       formik.setFieldValue(`items[${index}.image]`, base64);
       checkFileSize(base64);
@@ -166,7 +167,7 @@ const AddTicket = (state: RootState & AnyAction) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-             {formik.errors.title && formik.touched.title ? (
+            {formik.errors.title && formik.touched.title ? (
               <DivError>{formik.errors.title}</DivError>
             ) : null}
           </DivFlexColumn>
@@ -261,6 +262,7 @@ const AddTicket = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   token: state.auth.token,
+  email: state.auth.email,
 });
 
 export default connect(mapStateToProps)(AddTicket);

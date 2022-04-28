@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, DispatchProp } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { hasToken } from '../../utils';
 import { ContainerMain, ContainerWelcome } from '../../global.styles';
@@ -7,6 +7,7 @@ import ListAllUsers from '../../components/listallusers/ListAllUsers';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
 import ListTickets from '../../components/listtickets/ListTickets';
+import { CredentialDTO } from '../../models/AuthDTO';
 
 const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
