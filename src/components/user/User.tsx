@@ -23,8 +23,11 @@ const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {
         </a>
       </InfoProfile>
       <ImgProfile
-        src={image ? image : DefaultProfileImg}
-        alt="foto do usuario"
+        src={
+          image
+            ? `data:image/jpeg;base64, ${image}`
+            : DefaultProfileImg
+        }
       />
     </>
   );
