@@ -119,7 +119,7 @@ const SignUp = (state: RootState & AnyAction) => {
       email: '',
       password: '',
       confirmPassword: '',
-      role: 4,
+      role: "",
     },
     onSubmit: (
       values: SignUpDTO,
@@ -143,10 +143,10 @@ const SignUp = (state: RootState & AnyAction) => {
       email: values.email,
       password: values.password,
       image: values.image,
+      role: values.role
     };
-    const roleNumber: IRoleNumber = { role: formik.values.role };
 
-    createUserAdmin(user, dispatch, formik.resetForm, token, roleNumber);
+    createUserAdmin(user, dispatch, formik.resetForm, token);
   };
 
   // setups createuser
@@ -156,6 +156,7 @@ const SignUp = (state: RootState & AnyAction) => {
       email: values.email,
       password: values.password,
       image: values.image,
+      role: values.role
     };
     createUser(user, dispatch, navigate, formik.setStatus);
   };

@@ -18,8 +18,6 @@ export const createUser = async (
     formData.append('password', newUser.password)
     formData.append('image', newUser.image as File)
     console.log(newUser.image, "image")
-
-    console.log({...formData})
     console.log(newUser)
   try {
     await api.post('/user/saveUser', formData);
@@ -40,32 +38,33 @@ export const createUserAdmin = async (
   dispatch: AppDispatch,
   resetForm: Function,
   token: any,
-  roleNumber: IRoleNumber
 ) => {
   const formData = new FormData();
 
     formData.append('name', newUser.name)
     formData.append('email', newUser.email)
     formData.append('password', newUser.password)
+    formData.append('role', newUser.role)
     formData.append('image', newUser.image as File)
+    console.log(newUser.role)
 
     console.log({...formData})
     console.log(newUser)
 
-  // try {
-  //   await api.post(
-  //     `/user/saveAdmin?role=${roleNumber.role}`,
-  //     newUser,
-  //     (api.defaults.headers.common['Authorization'] = token)
-  //   );
-  //   const stateNewUser = { ...newUser, type: 'CREATE_USER' };
-  //   dispatch(stateNewUser);
-  //   Notify.success('Cadastro realizado com sucesso');
-  //   resetForm();
-  // } catch (error) {
-  //   console.log(error);
-  //   Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
-  // }
+  try {
+    await api.post(
+      `/user/saveAdmin`,
+      formData,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    const stateNewUser = { ...newUser, type: 'CREATE_USER' };
+    dispatch(stateNewUser);
+    Notify.success('Cadastro realizado com sucesso');
+    resetForm();
+  } catch (error) {
+    console.log(error);
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  }
 };
 
 const setupLoginAfterPost = (
