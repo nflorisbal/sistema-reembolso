@@ -11,3 +11,9 @@ export interface SignUpDTO {
 export interface IRoleNumber {
   role?: number;
 }
+
+export interface ConfigUserDTO{
+  password: string;
+  confirmPassword?: string;
+  image?: File | undefined;
+}
