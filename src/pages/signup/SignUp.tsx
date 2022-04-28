@@ -44,11 +44,8 @@ const SignUp = (state: RootState & AnyAction) => {
     'Ótimo',
   ];
   const passwordTooShort = ['Muito fraco'];
-  const [typePassword, setTypePassword] = useState('password');
-  const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
-  const [image64, setImage64] = useState('');
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
@@ -99,16 +96,6 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
-    // image: Yup.mixed().test(
-    //   'image',
-    //   'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
-    //   (value) => {
-    //     if (value !== undefined) {
-    //       return value.size <= 800000 && value.type.includes('image');
-    //     }
-    //     return true;
-    //   }
-    // ),
   });
   //#endregion validação do yup
 
@@ -160,30 +147,6 @@ const SignUp = (state: RootState & AnyAction) => {
     };
     createUser(user, dispatch, navigate, formik.setStatus);
   };
-
-  // sets image field
-  // const uploadImage = async (event: any) => {
-  //   const image = event.target.files[0];
-  //   const base64: any = await convertBase64(image);
-  //   formik.setFieldValue('image', image);
-  //   setImage64(base64);
-  // };
-
-  // // converts to base64
-  // const convertBase64 = (file: any) => {
-  //   return new Promise((resolve, reject) => {
-  //     const fileReader = new FileReader();
-  //     fileReader.readAsDataURL(file);
-
-  //     fileReader.onload = () => {
-  //       resolve(fileReader.result);
-  //     };
-
-  //     fileReader.onerror = (error) => {
-  //       reject(error);
-  //     };
-  //   });
-  // };
 
   useEffect(() => {
     checkAdmin();
