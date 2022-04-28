@@ -15,15 +15,6 @@ export const DivTicket = styled.div`
   margin-bottom: ${Theme.margin};
 `;
 
-export const TicketHeader = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
-  font-weight: bold;
-  align-content: center;
-  align-items: center;
-  padding: 10px;
-`;
-
 export const LineTicket = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
@@ -31,13 +22,18 @@ export const LineTicket = styled.div`
   align-items: center;
   border-top: 1px solid ${Theme.color.neutralDark};
   padding: 10px;
+
+  &#header {
+    font-weight: bold;
+  }
 `;
 
 export const LineItem = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
   align-content: center;
-  align-items: center;align-content: center;
+  align-items: center;
+  align-content: center;
   align-items: center;
   padding-left: 10px;
 `;

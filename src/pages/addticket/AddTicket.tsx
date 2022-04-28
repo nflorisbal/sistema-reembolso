@@ -79,6 +79,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       )
       .min(1, 'Informe ao menos um item.'),
   });
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -86,19 +87,19 @@ const AddTicket = (state: RootState & AnyAction) => {
         {
           name: '',
           dateItem: '',
-          value: 0,
-          image: '',
+          value: '',
+          image: undefined
         },
       ],
     },
     onSubmit: (
-      values: TicketDTO,
+      values: any,
       { setSubmitting }: FormikHelpers<TicketDTO>
     ) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
+        console.log(values, "valores")
         sendNewTicket(values, dispatch, token);
-        console.log(values);
         setSubmitting(false);
       }, 500);
     },
@@ -107,7 +108,6 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   const checkFileSize = (base64: string) => {
     const base64Length = base64.length - 'data:image/png;base64'.length;
-    console.log(base64Length, 'base');
     const sizeBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
     const sizeKb = sizeBytes / 1000;
     setSize(sizeKb);
@@ -145,9 +145,6 @@ const AddTicket = (state: RootState & AnyAction) => {
     }
     // eslint-disable-next-line
   }, []);
-
-  console.log(formik.values, 'valores');
-  console.log(formik.values.items);
 
   return (
     <ContainerMain>
@@ -214,7 +211,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                       </DivFlex>
                       <InputDefault
                         name={`items[${index}.image]`}
-                        onChange={(event: any) => uploadFile(event, index)}
+                        onChange={(event) => formik.setFieldValue(`items[${index}.image]`, event.target.files?.[0])}
                         type="file"
                       />
                       <ErrorMessage

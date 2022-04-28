@@ -22,13 +22,14 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
+    // eslint-disable-next-line
   }, [currentPage]);
 
   return (
     <ContainerMain>
       <ContainerListUsers>
         <PageTitle>Lista de usuários</PageTitle>
-        <LineList>
+        <LineList id="header">
           <p>Foto</p>
           <p>Nome</p>
           <p>E-mail</p>
@@ -49,13 +50,11 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </LineList>
         ))}
         <DivPagButtons>
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={totalPages}
-            />
-          )}
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>

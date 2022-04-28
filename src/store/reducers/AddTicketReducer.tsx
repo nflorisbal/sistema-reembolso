@@ -7,14 +7,13 @@ export const INITIAL_STATE_TICKET = {
     {
       name: '',
       dateItem: '',
-      value: 0,
-      image: '',
+      value: '',
     },
   ],
 };
 
 const addTicketReducer = (
-  state: TicketDTO = INITIAL_STATE_TICKET,
+  state: any = INITIAL_STATE_TICKET,
   action: AnyAction
 ) => {
   switch (action.type) {

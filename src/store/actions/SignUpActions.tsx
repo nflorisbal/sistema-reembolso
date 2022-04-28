@@ -1,8 +1,8 @@
-import { AppDispatch } from '..';
-import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
-import api from '../../api';
-import { handleLogin } from './AuthActions';
 import { Notify } from 'notiflix';
+import { handleLogin } from './AuthActions';
+import { AppDispatch } from '..';
+import { SignUpDTO } from '../../models/SignUpDTO';
+import api from '../../api';
 
 export const createUser = async (
   newUser: SignUpDTO,
@@ -10,15 +10,12 @@ export const createUser = async (
   navigate: Function,
   setStatus: Function
 ) => {
-
   const formData = new FormData();
+  formData.append('name', newUser.name);
+  formData.append('email', newUser.email);
+  formData.append('password', newUser.password);
+  formData.append('image', newUser.image as File);
 
-    formData.append('name', newUser.name)
-    formData.append('email', newUser.email)
-    formData.append('password', newUser.password)
-    formData.append('image', newUser.image as File)
-    console.log(newUser.image, "image")
-    console.log(newUser)
   try {
     await api.post('/user/saveUser', formData);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
@@ -37,19 +34,15 @@ export const createUserAdmin = async (
   newUser: SignUpDTO,
   dispatch: AppDispatch,
   resetForm: Function,
-  token: any,
+  token: any
 ) => {
   const formData = new FormData();
 
-    formData.append('name', newUser.name)
-    formData.append('email', newUser.email)
-    formData.append('password', newUser.password)
-    formData.append('role', newUser.role)
-    formData.append('image', newUser.image as File)
-    console.log(newUser.role)
-
-    console.log({...formData})
-    console.log(newUser)
+  formData.append('name', newUser.name);
+  formData.append('email', newUser.email);
+  formData.append('password', newUser.password);
+  formData.append('role', newUser.role);
+  formData.append('image', newUser.image as File);
 
   try {
     await api.post(

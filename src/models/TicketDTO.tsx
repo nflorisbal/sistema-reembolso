@@ -4,9 +4,9 @@ export interface TicketDTO {
   situation?: string;
   items: {
     name: string;
-    image: string;
+    image: File;
     dateItem: string;
-    value: number;
+    value: string;
   }[];
 }
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
@@ -8,16 +8,14 @@ import {
   ContainerListTicket,
   DivPagButtons,
   DivTicket,
-  TicketHeader,
   LineItem,
   LineTicket,
 } from './ListTickets.style';
-import { CredentialDTO } from '../../models/AuthDTO';
-import { ArrayTicketDTO } from '../../models/TicketDTO';
-
+import Pagination from '../pagination/Pagination';
 
 const ListTickets = (state: RootState & AnyAction) => {
-  const { ticketsList, dispatch, token, roles } = state;
+  const { ticketsList, dispatch, token, roles, pages } = state;
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
 
   useEffect(() => {
@@ -28,17 +26,17 @@ const ListTickets = (state: RootState & AnyAction) => {
     <ContainerMain>
       <ContainerListTicket>
         <PageTitle>Tickets</PageTitle>
-        <TicketHeader>
+        <LineTicket id="header">
           <p>Usuário</p>
           <p>Título</p>
           <p>Solicitado em</p>
           <p>Valor</p>
           <p>Status</p>
           {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
-        </TicketHeader>
+        </LineTicket>
         {ticketsList.map((ticket: any) => (
-          <DivTicket>
-            <LineTicket key={ticket.title}>
+          <DivTicket key={ticket.title}>
+            <LineTicket>
               <div>Fulano de Tal</div>
               <div>{ticket.title}</div>
               <div>{ticket.date}</div>
@@ -66,9 +64,11 @@ const ListTickets = (state: RootState & AnyAction) => {
           </DivTicket>
         ))}
         <DivPagButtons>
-          {/* inserir logica para paginação */}
-          <button onClick={() => listTickets(dispatch, token)}>Anterior</button>
-          <button onClick={() => listTickets(dispatch, token)}>Próxima</button>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={pages}
+          />
         </DivPagButtons>
       </ContainerListTicket>
     </ContainerMain>
@@ -80,6 +80,7 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.tickets.loadingTickets,
   token: state.auth.token,
   roles: state.auth.roles,
+  pages: state.list.totalPages,
 });
 
 export default connect(mapStateToProps)(ListTickets);

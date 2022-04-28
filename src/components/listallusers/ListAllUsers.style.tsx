@@ -18,11 +18,7 @@ export const LineList = styled.div`
   font-size: 12px;
   padding: 10px;
 
-  :last-child {
-    border: none;
-  }
-
-  p {
+  &#header {
     font-weight: bold;
   }
 `;
@@ -36,4 +32,4 @@ export const DivPagButtons = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: ${Theme.padding};
-`
+`;
