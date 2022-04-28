@@ -44,8 +44,8 @@ const SignUp = (state: RootState & AnyAction) => {
     'Ótimo',
   ];
   const passwordTooShort = ['Muito fraco'];
-  const [admin, setAdmin] = useState(false);
   const [score, setScore] = useState(0);
+  const [admin, setAdmin] = useState(false);
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
