@@ -1,21 +1,14 @@
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
-import { ListUsersDTO } from '../../models/ListUsersDTO';
-import { RootState } from '../../store';
-
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: Function;
-  pages: number
+  totalPages: number;
 }
 
-const Pagination = (
-  { currentPage, setCurrentPage, pages }: IPaginationProps
-) => {
-  console.log(pages);
-  console.log(currentPage);
-  console.log(setCurrentPage, "set na pagination");
-  
+const Pagination = ({
+  currentPage,
+  setCurrentPage,
+  totalPages,
+}: IPaginationProps) => {
   return (
     <>
       <button
@@ -27,17 +20,13 @@ const Pagination = (
       </button>
       <button
         onClick={() => {
-          if (currentPage < pages - 1) setCurrentPage(currentPage + 1);
+          if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
         }}
       >
         Próxima
-      </button>              
+      </button>
     </>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  pages: state.list.totalPages,
-});
-
-export default connect(mapStateToProps)(Pagination);
+export default Pagination;

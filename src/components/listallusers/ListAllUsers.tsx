@@ -18,12 +18,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, pages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  console.log(setCurrentPage, "set na listallusers")
-
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
   }, [currentPage]);
-  
+
   return (
     <ContainerMain>
       <ContainerListUsers>
@@ -53,22 +51,9 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             <Pagination
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
+              totalPages={pages}
             />
           )}
-          {/* <button
-            onClick={() => {
-              if (currentPage) setCurrentPage(currentPage - 1);
-            }}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={() => {
-              if (currentPage < pages - 1) setCurrentPage(currentPage + 1);
-            }}
-          >
-            Próxima
-          </button> */}
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>
