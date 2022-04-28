@@ -60,6 +60,7 @@ export const InputDefault = styled.input`
   border-radius: ${Theme.borderRadius};
   outline: none;
   padding: 10px;
+  min-height: 40px;
   background-color: ${Theme.color.neutralPure};
 
   :focus {

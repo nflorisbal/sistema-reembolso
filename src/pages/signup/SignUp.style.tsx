@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Theme } from '../../theme';
-import { AiOutlineEye } from 'react-icons/ai';
 import { ContainerSmall } from '../../global.styles';
 
 export const LinkEyePassword = styled.a`
