@@ -18,10 +18,14 @@ import {
 } from '../../global.styles';
 import { ConfigUserDTO } from '../../models/SignUpDTO';
 import { ContainerSignUp, LinkEyePassword } from '../signup/SignUp.style';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import { hasToken } from '../../utils';
 
 const ConfigUser = () => {
+  const navigate = useNavigate();
+
   //#region password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -63,15 +67,15 @@ const ConfigUser = () => {
       }
     ),
     image: Yup.mixed().test(
-        'image',
-        'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
-        (value) => {
-          if (value !== undefined) {
-            return value.size <= 800000 && value.type.includes('image');
-          }
-          return true;
+      'image',
+      'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+      (value) => {
+        if (value !== undefined) {
+          return value.size <= 800000 && value.type.includes('image');
         }
-      ),
+        return true;
+      }
+    ),
   });
 
   const formik = useFormik({
@@ -88,11 +92,18 @@ const ConfigUser = () => {
     //validationSchema: signupSchema,
   });
 
+  useEffect(() => {
+    if (!hasToken()) {
+      navigate('/login');
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <ContainerMain>
-        <LinkBack to="/">
-          <AiOutlineArrowLeft />
-        </LinkBack>
+      <LinkBack to="/">
+        <AiOutlineArrowLeft />
+      </LinkBack>
       <ContainerSignUp>
         <PageTitle>Configurar Cadastro</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>

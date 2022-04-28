@@ -11,7 +11,10 @@ const Menu = ({ roles }: CredentialDTO & AnyAction) => {
     <ContainerNavbar>
       <LinkMenu to="/">Home</LinkMenu>
       {userRole === 'ROLE_COLABORADOR' && (
+        <>
         <LinkMenu to="/addticket">Criar ticket</LinkMenu>
+        <LinkMenu to="/configuser">Configurações</LinkMenu>
+        </>
       )}
       {userRole === 'ROLE_ADMIN' && (
         <>

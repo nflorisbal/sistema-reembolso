@@ -132,7 +132,7 @@ export const LinkBack = styled(Link)`
   left: 15px;
   text-decoration: none;
   font-size: 20px;
-  color: black;
+  color:  ${Theme.color.neutralPure};
 `;
 
 export const ImgProfile = styled.img`
