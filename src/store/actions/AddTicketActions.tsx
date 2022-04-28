@@ -3,29 +3,32 @@ import api from '../../api';
 import ListTickets from '../../components/listtickets/ListTickets';
 import { TicketDTO } from '../../models/TicketDTO';
 
-interface sendticket {
-  title: string;
-  items: [];
-}
+
 export const sendNewTicket = async (
-  ticket: sendticket,
+  ticket: TicketDTO,
   dispatch: AppDispatch,
   token: any
 ) => {
-  const ticketData = new FormData();
-  ticketData.append('title', ticket.title);
+
+  console.log(ticket.title, "oi");
+  console.log(token);
  
 
-  console.log(ticketData.getAll('items[]'));
-
-  console.log(ticket);
-  console.log(token);
-
   try {
-    const {data} = await api.post('/refund/', ticket.title, 
-    ticket.items.forEach((item) =>{
-      
-    })
+    const { data } = await api.post(
+     ` /refund/?refundTitle=${ticket.title}`,
+      undefined,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    console.log(data)
+    // ticket.items.forEach(async (item) => {
+    //   const ticketData = new FormData();
+    //   ticketData.append('dateItem', item.dateItem);
+    //   ticketData.append('image', item.image as File);
+    //   ticketData.append('name', item.name);
+    //   ticketData.append('value', item.value);
+    //   await api.post(`/refund/${data}`, ticketData, (api.defaults.headers.common['Authorization'] = token))
+    // });
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
     dispatch(stateTicket);
   } catch (error) {
