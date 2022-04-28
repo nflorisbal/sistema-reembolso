@@ -1,22 +1,21 @@
-import { listAllUsers } from '../../store/actions/ListUsersActions';
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { RootState } from '../../store';
-import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import {
   ContainerListUsers,
   DivColumnName,
   DivPagButtons,
   LineList,
 } from './ListAllUsers.style';
+import { RootState } from '../../store';
+import { listAllUsers } from '../../store/actions/ListUsersActions';
 import { switchRole } from '../../utils';
+import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, pages } = state;
   const [currentPage, setCurrentPage] = useState(0);
-  console.log(currentPage);
 
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
@@ -47,7 +46,6 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </LineList>
         ))}
         <DivPagButtons>
-          {/* inserir logica para paginação */}
           <button
             onClick={() => {
               if (currentPage) setCurrentPage(currentPage - 1);

@@ -96,6 +96,16 @@ const SignUp = (state: RootState & AnyAction) => {
         return this.parent.password === value;
       }
     ),
+    image: Yup.mixed().test(
+      'image',
+      'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+      (value) => {
+        if (value !== undefined) {
+          return value.size <= 800000 && value.type.includes('image');
+        }
+        return true;
+      }
+    ),
   });
   //#endregion validação do yup
 
