@@ -20,13 +20,14 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
+    // eslint-disable-next-line
   }, [currentPage]);
 
   return (
     <ContainerMain>
       <ContainerListUsers>
         <PageTitle>Lista de usuários</PageTitle>
-        <LineList>
+        <LineList id="header">
           <p>Foto</p>
           <p>Nome</p>
           <p>E-mail</p>

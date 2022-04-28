@@ -1,3 +1,6 @@
+import { FaStepBackward, FaStepForward } from 'react-icons/fa';
+import { PageButton } from './Pagination.style';
+
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: Function;
@@ -11,20 +14,22 @@ const Pagination = ({
 }: IPaginationProps) => {
   return (
     <>
-      <button
+      <PageButton
+        disabled={currentPage ? false : true}
         onClick={() => {
           if (currentPage) setCurrentPage(currentPage - 1);
         }}
       >
-        Anterior
-      </button>
-      <button
+        <FaStepBackward />
+      </PageButton>
+      <PageButton
+        disabled={currentPage == totalPages - 1 ? true : false}
         onClick={() => {
           if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
         }}
       >
-        Próxima
-      </button>
+        <FaStepForward />
+      </PageButton>
     </>
   );
 };
