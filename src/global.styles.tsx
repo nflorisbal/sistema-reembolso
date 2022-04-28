@@ -31,6 +31,7 @@ export const ContainerMain = styled.div<{ height?: string }>`
   margin: 0 auto;
   width: 100%;
   height: ${(props) => props.height || '100%'};
+  position: relative;
 `;
 
 export const ContainerSmall = styled.div`
@@ -125,9 +126,9 @@ export const PageTitle = styled.h2`
 `;
 
 export const LinkBack = styled(Link)`
-  /* position: absolute; */
+  position: absolute;
   z-index: 0;
-  top: 23px;
+  top: 15px;
   left: 15px;
   text-decoration: none;
   font-size: 20px;

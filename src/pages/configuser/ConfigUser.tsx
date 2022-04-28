@@ -62,6 +62,16 @@ const ConfigUser = () => {
         return this.parent.password === value;
       }
     ),
+    image: Yup.mixed().test(
+        'image',
+        'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+        (value) => {
+          if (value !== undefined) {
+            return value.size <= 800000 && value.type.includes('image');
+          }
+          return true;
+        }
+      ),
   });
 
   const formik = useFormik({
@@ -80,10 +90,10 @@ const ConfigUser = () => {
 
   return (
     <ContainerMain>
-      <ContainerSignUp>
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
+      <ContainerSignUp>
         <PageTitle>Configurar Cadastro</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexLink>
