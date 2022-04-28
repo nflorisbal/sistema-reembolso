@@ -48,13 +48,11 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </LineList>
         ))}
         <DivPagButtons>
-          {pages > 1 && (
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={pages}
-            />
-          )}
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={pages}
+          />
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>

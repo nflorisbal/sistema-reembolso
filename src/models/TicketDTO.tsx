@@ -6,7 +6,7 @@ export interface TicketDTO {
     name: string;
     image: string;
     dateItem: string;
-    value: number;
+    value: string;
   }[];
 }
 

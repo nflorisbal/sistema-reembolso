@@ -78,6 +78,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       )
       .min(1, 'Informe ao menos um item.'),
   });
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -85,7 +86,7 @@ const AddTicket = (state: RootState & AnyAction) => {
         {
           name: '',
           dateItem: '',
-          value: 0,
+          value: '',
           image: '',
         },
       ],
@@ -97,7 +98,6 @@ const AddTicket = (state: RootState & AnyAction) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         sendNewTicket(values, dispatch, token);
-        console.log(values);
         setSubmitting(false);
       }, 500);
     },
@@ -106,7 +106,6 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   const checkFileSize = (base64: string) => {
     const base64Length = base64.length - 'data:image/png;base64'.length;
-    console.log(base64Length, 'base');
     const sizeBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
     const sizeKb = sizeBytes / 1000;
     setSize(sizeKb);
@@ -114,7 +113,7 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   const uploadFile = async (event: any, index: number) => {
     const file = event.target.files[0];
-    if(file !== undefined){
+    if (file !== undefined) {
       const base64: string = (await convertBase64(file)) as string;
       formik.setFieldValue(`items[${index}.image]`, base64);
       checkFileSize(base64);
@@ -145,9 +144,6 @@ const AddTicket = (state: RootState & AnyAction) => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(formik.values, 'valores');
-  console.log(formik.values.items);
-
   return (
     <ContainerMain>
       <ContainerAddTicket>
@@ -166,7 +162,7 @@ const AddTicket = (state: RootState & AnyAction) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-             {formik.errors.title && formik.touched.title ? (
+            {formik.errors.title && formik.touched.title ? (
               <DivError>{formik.errors.title}</DivError>
             ) : null}
           </DivFlexColumn>

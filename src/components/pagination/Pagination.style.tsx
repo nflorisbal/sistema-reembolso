@@ -4,7 +4,7 @@ import { Theme } from '../../theme';
 export const PageButton = styled.button`
   border: none;
   background: none;
-  font-size: ${Theme.defaultFontSize};
+  font-size: 20px;
   color: ${Theme.color.primaryDark};
   cursor: pointer;
 

@@ -14,7 +14,7 @@ export const INITIAL_STATE_GET_TICKET: ArrayTicketDTO = {
           dateItem: '',
           image: '',
           name: '',
-          value: 0,
+          value: '',
         },
       ],
     },
