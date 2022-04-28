@@ -12,10 +12,11 @@ import { listAllUsers } from '../../store/actions/ListUsersActions';
 import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
+// import Pagination from '../pagination/Pagination';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, pages } = state;
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
 
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
@@ -46,7 +47,11 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           </LineList>
         ))}
         <DivPagButtons>
-          <button
+          {/* <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          /> */}
+          {/* <button
             onClick={() => {
               if (currentPage) setCurrentPage(currentPage - 1);
             }}
@@ -59,7 +64,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             }}
           >
             Próxima
-          </button>
+          </button> */}
         </DivPagButtons>
       </ContainerListUsers>
     </ContainerMain>

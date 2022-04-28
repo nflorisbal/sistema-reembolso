@@ -8,9 +8,6 @@ export const listTickets = async (dispatch: AppDispatch, token: any) => {
       (api.defaults.headers.common['Authorization'] = token)
     );
 
-    console.log(data);
-    
-
     const tickets = {
       type: 'LIST_TICKETS',
       tickets: data.content,

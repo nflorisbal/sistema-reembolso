@@ -14,13 +14,13 @@ import {
 } from './ListTickets.style';
 
 const ListTickets = (state: RootState & AnyAction) => {
-  const { ticketsList, dispatch, token } = state;
+  const { ticketsList, dispatch, token, roles } = state;
+  const userRole = roles[0]?.role;
 
   useEffect(() => {
     listTickets(dispatch, token);
   }, []);
 
-  console.log(ticketsList);
   return (
     <ContainerMain>
       <ContainerListTicket>
@@ -31,7 +31,7 @@ const ListTickets = (state: RootState & AnyAction) => {
           <p>Solicitado em</p>
           <p>Valor</p>
           <p>Status</p>
-          <p>Ações</p>
+          {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
         </TicketHeader>
         {ticketsList.map((ticket: any) => (
           <DivTicket>
@@ -41,10 +41,12 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{ticket.status}</div>
-              <div>
-                <button>Aprovar</button>
-                <button>Reprovar</button>
-              </div>
+              {userRole === 'ROLE_ADMIN' && (
+                <div>
+                  <button>Aprovar</button>
+                  <button>Reprovar</button>
+                </div>
+              )}
             </LineTicket>
             <div>
               {ticket.items.map((item: any) => (
@@ -74,6 +76,7 @@ const mapStateToProps = (state: RootState) => ({
   ticketsList: state.tickets.ticketsList,
   loading: state.tickets.loadingTickets,
   token: state.auth.token,
+  roles: state.auth.roles,
 });
 
 export default connect(mapStateToProps)(ListTickets);

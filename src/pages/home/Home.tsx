@@ -6,10 +6,12 @@ import { ContainerMain, ContainerWelcome } from '../../global.styles';
 import ListAllUsers from '../../components/listallusers/ListAllUsers';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
+import ListTickets from '../../components/listtickets/ListTickets';
 
 const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { roles, name } = state;
+  const userRole = roles[0]?.role;
 
   useEffect(() => {
     if (!hasToken()) {
@@ -23,7 +25,8 @@ const Home = (state: RootState & AnyAction) => {
       <ContainerWelcome>
         <h3>Olá, {name}!</h3>
       </ContainerWelcome>
-      <ListAllUsers />
+      {userRole === 'ROLE_COLABORADOR' && <ListTickets />}
+      {userRole === 'ROLE_ADMIN' && <ListAllUsers />}
     </ContainerMain>
   ) : null;
 };

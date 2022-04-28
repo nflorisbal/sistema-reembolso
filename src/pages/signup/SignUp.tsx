@@ -5,7 +5,7 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { SignUpDTO, IRoleNumber } from '../../models/SignUpDTO';
+import { SignUpDTO } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
 import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
