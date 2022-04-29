@@ -23,9 +23,15 @@ import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { hasToken } from '../../utils';
+import { connect } from 'react-redux';
+import { RootState } from '../../store';
+import { CredentialDTO } from '../../models/AuthDTO';
+import { AnyAction } from 'redux';
+import { editingUser } from '../../store/actions/SignUpActions';
 
-const ConfigUser = () => {
+const ConfigUser = (state: CredentialDTO & AnyAction) => {
   const navigate = useNavigate();
+  const {name, email, dispatch, token, roles} = state
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +57,6 @@ const ConfigUser = () => {
 
   const signupSchema = Yup.object().shape({
     password: Yup.string()
-      .required('Campo obrigatório.')
       .min(8, 'Mínimo de 8 caracteres.')
       .max(20, 'Máximo de 20 caracteres.')
       .test('scoreSenha', 'A senha está muito fraca', () => {
@@ -88,6 +93,8 @@ const ConfigUser = () => {
       values: ConfigUserDTO,
       { setSubmitting }: FormikHelpers<ConfigUserDTO>
     ) => {
+      const changedUser: ConfigUserDTO | CredentialDTO = {...values, name: name, email: email, roleEntities: roles}
+      editingUser(changedUser, dispatch, token)
       setSubmitting(false);
     },
     //validationSchema: signupSchema,
@@ -114,7 +121,7 @@ const ConfigUser = () => {
               id="password"
               name="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Digite sua senha"
+              placeholder="Digite sua nova senha"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -146,7 +153,7 @@ const ConfigUser = () => {
               id="confirmPassword"
               name="confirmPassword"
               type={showConfirmPassword ? 'text' : 'password'}
-              placeholder="Confirme sua senha"
+              placeholder="Confirme sua nova senha"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -189,4 +196,12 @@ const ConfigUser = () => {
   );
 };
 
-export default ConfigUser;
+const mapStateToProps = (state: RootState) => ({
+  name: state.auth.name,
+  token: state.auth.token,
+  email: state.auth.email,
+  roles: state.auth.roles,
+  isLogged: state.auth.isLogged,
+});
+
+export default connect(mapStateToProps)(ConfigUser);

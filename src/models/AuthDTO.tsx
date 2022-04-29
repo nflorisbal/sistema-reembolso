@@ -17,6 +17,10 @@ export interface IRole {
   role: string;
 }
 
+export interface UpdatingUserDTO extends CredentialDTO{
+  roleEntities: Array<IRole>
+}
+
 // export interface IToken extends HeadersDefaults{
 //   Authorization: string
 // } não funciona
