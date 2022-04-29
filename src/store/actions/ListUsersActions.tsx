@@ -1,3 +1,4 @@
+import { Block } from 'notiflix';
 import { AppDispatch } from '..';
 import api from '../../api';
 
@@ -12,9 +13,6 @@ export const listAllUsers = async (
       (api.defaults.headers.common['Authorization'] = token)
     );
 
-    console.log(data);
-    
-
     const list = {
       type: 'LIST_USERS',
       users: data.content,
@@ -26,6 +24,8 @@ export const listAllUsers = async (
     dispatch(list);
   } catch (error) {
     console.log(error);
+  } finally {
+    Block.remove('.listUser');
   }
 };
 
@@ -39,9 +39,6 @@ export const listUsersByName = async (
       `/user/findUserByName?name=${name}`,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    
-    console.log(data);
-    
 
     const list = {
       type: 'LIST_USERS',
@@ -52,6 +49,8 @@ export const listUsersByName = async (
     dispatch(list);
   } catch (error) {
     console.log(error);
+  } finally {
+    Block.remove('.listUser');
   }
 };
 

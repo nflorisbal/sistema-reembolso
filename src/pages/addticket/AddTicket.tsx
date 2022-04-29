@@ -28,11 +28,11 @@ import {
   PageTitle,
   LinkBack,
   DivError,
+  LabelError,
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
-import { connect, DispatchProp } from 'react-redux';
-import { CredentialDTO } from '../../models/AuthDTO';
+import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 
 const AddTicket = (state: RootState & AnyAction) => {
@@ -59,26 +59,27 @@ const AddTicket = (state: RootState & AnyAction) => {
             .required('Campo obrigatório.')
             .min(3, 'Mínimo de 3 caracteres')
             .max(10, 'máximo de 10 caracteres'),
-          image: Yup.string()
-            .required('Campo obrigatório.')
-            .min(1, 'Mímino de um item')
-            .test(
-              'sizeType',
-              'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg/pdf)',
-              (value) => {
-                if (value !== undefined) {
-                  return (
-                    (size <= 800000 && value.includes('image')) ||
-                    value.includes('pdf')
-                  );
-                }
-                return true;
-              }
-            ),
+          // image: Yup.string()
+          //   .required('Campo obrigatório.')
+          //   .min(1, 'Mímino de um item')
+          //   .test(
+          //     'sizeType',
+          //     'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg/pdf)',
+          //     (value) => {
+          //       if (value !== undefined) {
+          //         return (
+          //           (size <= 800000 && value.includes('image')) ||
+          //           value.includes('pdf')
+          //         );
+          //       }
+          //       return true;
+          //     }
+          //   ),
         })
       )
       .min(1, 'Informe ao menos um item.'),
   });
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -102,7 +103,7 @@ const AddTicket = (state: RootState & AnyAction) => {
         setSubmitting(false);
       }, 500);
     },
-    //validationSchema: addTicketSchema,
+    validationSchema: addTicketSchema,
   });
 
   const checkFileSize = (base64: string) => {
@@ -145,9 +146,6 @@ const AddTicket = (state: RootState & AnyAction) => {
     }
     // eslint-disable-next-line
   }, []);
-
-  console.log(formik.values, 'valores');
-  console.log(formik.values.items);
 
   return (
     <ContainerMain>
@@ -214,12 +212,17 @@ const AddTicket = (state: RootState & AnyAction) => {
                       </DivFlex>
                       <InputDefault
                         name={`items[${index}.image]`}
-                        onChange={(event:any)=>formik.setFieldValue(`items[${index}.image]`, event.target.files?.[0])}
+                        onChange={(event: any) =>
+                          formik.setFieldValue(
+                            `items[${index}.image]`,
+                            event.target.files?.[0]
+                          )
+                        }
                         type="file"
                       />
                       <ErrorMessage
                         name={`items.${index}.image`}
-                        component="div"
+                        component={LabelError}
                         className="field-error"
                       />
                       <DivButton>

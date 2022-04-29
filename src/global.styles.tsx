@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Theme } from './theme';
 import Pattern from './images/pattern_bg.png';
+import Notiflix from 'notiflix';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -140,6 +141,14 @@ export const DivError = styled.div`
   margin-top: 5px;
 `;
 
+export const LabelError = styled.label`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${Theme.color.highlightPure};
+  padding-left: 5px;
+  margin-top: 5px;
+`;
+
 export const StyledLabel = styled.label``;
 
 export const StyledForm = styled.form``;
@@ -166,3 +175,14 @@ export const ImgProfile = styled.img`
   border: 3px solid ${Theme.color.neutralLight};
   outline: 3px solid ${Theme.color.neutralDark};
 `;
+
+// global style  para os loadings
+Notiflix.Loading.init({
+  svgColor: Theme.color.primaryPure,
+  backgroundColor: 'rgba(224, 224, 224, 0.5)',
+});
+
+Notiflix.Block.init({
+  svgColor: Theme.color.primaryPure,
+  backgroundColor: 'rgba(224, 224, 224, 0.5)',
+});

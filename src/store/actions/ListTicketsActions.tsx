@@ -1,12 +1,18 @@
+import { Block } from 'notiflix';
 import { AppDispatch } from '..';
 import api from '../../api';
 
-export const listTickets = async (dispatch: AppDispatch, token: any) => {
+export const listTickets = async (
+  dispatch: AppDispatch,
+  token: any,
+  pages: number
+) => {
   try {
     const { data } = await api.get(
-      '/refund/?page=0&size=10',
+      `/refund/?page=${pages}&size=5`,
       (api.defaults.headers.common['Authorization'] = token)
     );
+    console.log(data);
 
     const tickets = {
       type: 'LIST_TICKETS',
@@ -19,5 +25,7 @@ export const listTickets = async (dispatch: AppDispatch, token: any) => {
     dispatch(tickets);
   } catch (error) {
     console.log(error);
+  } finally {
+    Block.remove('.listTickets');
   }
 };

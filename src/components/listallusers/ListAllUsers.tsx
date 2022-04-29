@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { Block } from 'notiflix';
 import {
   ContainerListUsers,
   DivColumnName,
@@ -24,24 +25,25 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  console.log(users);
-
   const handleSearch = (value: string) => {
     if (value == '') {
+      Block.circle('.listUser');
       listAllUsers(dispatch, token, currentPage);
     } else if (value.length > MIN_LENGTH) {
+      Block.circle('.listUser');
       listUsersByName(dispatch, token, value);
     }
   };
 
   useEffect(() => {
+    Block.circle('.listUser');
     listAllUsers(dispatch, token, currentPage);
     // eslint-disable-next-line
   }, [currentPage]);
 
   return (
     <ContainerMain>
-      <ContainerListUsers>
+      <ContainerListUsers className="listUser">
         <PageTitle>Lista de usuários</PageTitle>
         <div>
           <InputFind

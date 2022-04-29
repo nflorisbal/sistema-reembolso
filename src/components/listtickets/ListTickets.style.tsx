@@ -15,6 +15,8 @@ export const DivTicket = styled.div`
   margin-bottom: ${Theme.margin};
 `;
 
+export const DivItem = styled.div``;
+
 export const LineTicket = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
@@ -25,6 +27,7 @@ export const LineTicket = styled.div`
 
   &#header {
     font-weight: bold;
+    background-color: ${Theme.color.neutralPure};
   }
 `;
 
@@ -36,6 +39,10 @@ export const LineItem = styled.div`
   align-content: center;
   align-items: center;
   padding-left: 10px;
+
+  &#header {
+    font-weight: bold;
+  }
 `;
 
 export const DivColumnName = styled.div`

@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { Block } from 'notiflix';
 import { RootState } from '../../store';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import {
   ContainerListTicket,
+  DivItem,
   DivPagButtons,
   DivTicket,
   LineItem,
@@ -19,18 +21,19 @@ const ListTickets = (state: RootState & AnyAction) => {
   const userRole = roles[0]?.role;
 
   useEffect(() => {
-    listTickets(dispatch, token);
-  }, []);
+    Block.circle('.listTickets');
+    listTickets(dispatch, token, currentPage);
+  }, [currentPage]);
 
   return (
     <ContainerMain>
-      <ContainerListTicket>
+      <ContainerListTicket className="listTickets">
         <PageTitle>Tickets</PageTitle>
         <LineTicket id="header">
           <p>Usuário</p>
           <p>Título</p>
           <p>Solicitado em</p>
-          <p>Valor</p>
+          <p>Total</p>
           <p>Status</p>
           {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
         </LineTicket>
@@ -42,14 +45,20 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{ticket.status}</div>
-              {userRole === 'ROLE_ADMIN' && (
+              {userRole !== 'ROLE_COLABORADOR' && (
                 <div>
                   <ButtonAction color="#29CC97">Aprovar</ButtonAction>
                   <ButtonAction color="#F12B2C">Recusar</ButtonAction>
                 </div>
               )}
             </LineTicket>
-            <div>
+            <DivItem>
+              <LineItem id="header">
+                <p>Item</p>
+                <p>Ocorreu em</p>
+                <p>Valor</p>
+                <p>Comprovante</p>
+              </LineItem>
               {ticket.items.map((item: any) => (
                 <LineItem key={item.idItem}>
                   <p>{item.name}</p>
@@ -60,7 +69,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   </a>
                 </LineItem>
               ))}
-            </div>
+            </DivItem>
           </DivTicket>
         ))}
         <DivPagButtons>
@@ -77,10 +86,9 @@ const ListTickets = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   ticketsList: state.tickets.ticketsList,
-  loading: state.tickets.loadingTickets,
+  pages: state.tickets.totalPages,
   token: state.auth.token,
   roles: state.auth.roles,
-  pages: state.list.totalPages,
 });
 
 export default connect(mapStateToProps)(ListTickets);
