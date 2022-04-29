@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import { CredentialDTO } from '../../models/AuthDTO';
+import DefaultProfileImg from '../../images/profile_default.png'
 
 export const INITIAL_STATE = {
   email: '',
@@ -33,6 +34,11 @@ const authReducer = (
     case 'SET_LOGOUT':
       state = INITIAL_STATE;
       return state;
+    case 'SET_UPDATE':
+      return{
+        ...state,
+        image: action.image? action.image : DefaultProfileImg,
+      }
     default:
       return state;
   }

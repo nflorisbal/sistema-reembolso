@@ -1,3 +1,5 @@
+import { IRole } from "./AuthDTO";
+
 export interface SignUpDTO {
   name: string;
   password: string;
@@ -16,4 +18,7 @@ export interface ConfigUserDTO{
   password: string;
   confirmPassword?: string;
   image?: File | undefined;
+  name?: string;
+  roleEntities?: Array<IRole>;
+  email?: string;
 }

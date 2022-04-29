@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
 
 export const INITIAL_STATE_SIGNUP = {
   name: '',
@@ -11,7 +11,7 @@ export const INITIAL_STATE_SIGNUP = {
 };
 
 const signUpReducer = (
-  state: SignUpDTO = INITIAL_STATE_SIGNUP,
+  state: SignUpDTO | ConfigUserDTO = INITIAL_STATE_SIGNUP,
   action: AnyAction
 ) => {
   switch (action.type) {
@@ -25,6 +25,15 @@ const signUpReducer = (
         email: action.email,
         image: action.image,
       };
+      case 'UPDATE_USER':
+        return{
+          ...state,
+          name: action.name,
+          password: action.password,
+          role: action.role,
+          email: action.email,
+          image: action.image
+        };
     default:
       return state;
   }

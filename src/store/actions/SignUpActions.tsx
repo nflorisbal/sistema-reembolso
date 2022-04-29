@@ -1,7 +1,7 @@
 import { Notify } from 'notiflix';
 import { handleLogin } from './AuthActions';
 import { AppDispatch } from '..';
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
 import api from '../../api';
 
 export const createUser = async (
@@ -73,12 +73,11 @@ const setupLoginAfterPost = (
   handleLogin(loginNewUser, dispatch, navigate, setStatus);
 };
 
-const editingUser = async (
-  user: SignUpDTO,
+export const editingUser = async (
+  user: ConfigUserDTO,
   dispatch: AppDispatch,
   token: any
 ) => {
-  //ainda nao ta pronta
   const updatedUser: any = new FormData();
 
   updatedUser.append('name', user.name);
@@ -86,9 +85,16 @@ const editingUser = async (
   updatedUser.append('password', user.password);
   updatedUser.append('image', user.image as File);
 
-  await api.post(
-    '/updateUser',
+  const {data} = await api.post(
+    'user/updateUser',
     updatedUser,
     (api.defaults.headers.common['Authorization'] = token)
   );
+
+    user.image = data.image
+
+  const stateUser = {...user, type: 'UPDATE_USER'}
+  const updateStateUser = {...user, type: 'SET_UPDATE'}
+  dispatch(stateUser)
+  dispatch(updateStateUser)
 };
