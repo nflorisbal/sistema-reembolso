@@ -7,7 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
-import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
+import {
+  createUser,
+  createUserAdmin,
+  getUserById,
+  updateUserAdmin,
+} from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 import {
   LinkEyePassword,
@@ -34,8 +39,16 @@ import {
 } from '../../global.styles';
 
 const SignUp = (state: RootState & AnyAction) => {
-  const { id } = useParams()
-  const { dispatch, roles, token } = state;
+  const {
+    dispatch,
+    roles,
+    token,
+    nameToUpdate,
+    emailToUpdate,
+    imageToUpdate,
+    roleToUpdate,
+  } = state;
+  console.log(nameToUpdate, 'name');
   const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
@@ -48,28 +61,7 @@ const SignUp = (state: RootState & AnyAction) => {
   const [score, setScore] = useState(0);
   const [admin, setAdmin] = useState(false);
 
-  const setInitialValue = () => {
-    if(id){
-     const InitialValuesFilled = {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        role: '',
-      }
-      return InitialValuesFilled
-      
-    }else{
-      const InitialValuesEmpty = {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        role: '',
-      }
-      return InitialValuesEmpty
-    }
-  }
+  
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
@@ -105,14 +97,15 @@ const SignUp = (state: RootState & AnyAction) => {
       .max(50, 'Máximo de 50 caracteres.'),
     password: Yup.string()
       .required('Campo obrigatório.')
-      .min(8, 'Mínimo de 8 caracteres.')
-      .max(20, 'Máximo de 20 caracteres.')
-      .test('scoreSenha', 'A senha está muito fraca', () => {
-        if (score >= 2) {
-          return true;
-        }
-        return false;
-      }),
+      .min(8, "Mínimo de 8 caracteres.")
+      .max(18, "Máximo de 18 caracteres.")
+      .matches(/^(?=.*[A-Z])/, "Precisa conter uma letra maiúscula.")
+      .matches(/^(?=.*[a-z])/, "Precisa conter uma letra minúscula.")
+      .matches(/^(?=.*[0-9])/, "Precisa conter um número.")
+      .matches(
+        /^(?=.*[$*&@#])/,
+        "Sua senha precisa conter um caractere especial."
+      ),
     confirmPassword: Yup.string().test(
       'Passwords',
       'Senhas fornecidas não são iguais',
@@ -124,7 +117,7 @@ const SignUp = (state: RootState & AnyAction) => {
       'image',
       'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
       (value) => {
-        if (value !== undefined) {
+        if (value !== undefined && value !== null) {
           return value.size <= 800000 && value.type.includes('image');
         }
         return true;
@@ -135,7 +128,13 @@ const SignUp = (state: RootState & AnyAction) => {
 
   // const do useformik
   const formik = useFormik({
-    initialValues: setInitialValue(),
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      role: '',
+    },
     onSubmit: (
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
@@ -177,9 +176,7 @@ const SignUp = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     checkAdmin();
-    if(id){
-      
-    }
+
   }, []);
 
   return (
@@ -239,13 +236,6 @@ const SignUp = (state: RootState & AnyAction) => {
             >
               {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </LinkEyePassword>
-            <PasswordStrengthBar
-              password={formik.values.password}
-              minLength={8}
-              scoreWords={passwordFeedback}
-              shortScoreWord={passwordTooShort}
-              onChangeScore={(score) => setScore(score)}
-            />
             {formik.errors.password && formik.touched.password ? (
               <DivError>{formik.errors.password}</DivError>
             ) : null}
@@ -326,6 +316,11 @@ const mapStateToProps = (state: RootState) => ({
   image: state.auth.image,
   roles: state.auth.roles,
   token: state.auth.token,
+  nameToUpdate: state.signup.name,
+  roleToUpdate: state.signup.role,
+  emailToUpdate: state.signup.email,
+  passwordToUpdate: state.signup.password,
+  imageToUpdate: state.signup.image,
 });
 
 export default connect(mapStateToProps)(SignUp);

@@ -6,7 +6,7 @@ export const INITIAL_STATE_SIGNUP = {
   password: '',
   confirmPassword: '',
   email: '',
-  role: "",
+  role: '',
   image: undefined,
 };
 
@@ -25,15 +25,24 @@ const signUpReducer = (
         email: action.email,
         image: action.image,
       };
-      case 'UPDATE_USER':
-        return{
-          ...state,
-          name: action.name,
-          password: action.password,
-          role: action.role,
-          email: action.email,
-          image: action.image
-        };
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        name: action.name,
+        password: action.password,
+        role: action.role,
+        email: action.email,
+        image: action.image,
+      };
+    case 'UPDATE_USER_ADMIN':
+      return {
+        ...state,
+        name: action.name,
+        password: action.password,
+        role: action.roleEntities,
+        email: action.email,
+        image: action.image,
+      };
     default:
       return state;
   }

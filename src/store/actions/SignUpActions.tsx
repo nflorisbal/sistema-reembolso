@@ -85,16 +85,66 @@ export const editingUser = async (
   updatedUser.append('password', user.password);
   updatedUser.append('image', user.image as File);
 
-  const {data} = await api.post(
+  const { data } = await api.post(
     'user/updateUser',
     updatedUser,
     (api.defaults.headers.common['Authorization'] = token)
   );
 
-    user.image = data.image
+  user.image = data.image;
 
-  const stateUser = {...user, type: 'UPDATE_USER'}
-  const updateStateUser = {...user, type: 'SET_UPDATE'}
-  dispatch(stateUser)
-  dispatch(updateStateUser)
+  const stateUser = { ...user, type: 'UPDATE_USER' };
+  const updateStateUser = { ...user, type: 'SET_UPDATE' };
+  dispatch(stateUser);
+  dispatch(updateStateUser);
+};
+
+export const updateUserAdmin = async (
+  updatedUser: SignUpDTO,
+  dispatch: AppDispatch,
+  token: any,
+  id: string | undefined
+) => {
+  console.log(updatedUser, 'updated');
+  const updatedUserData = new FormData();
+
+  updatedUserData.append('name', updatedUser.name);
+  updatedUserData.append('email', updatedUser.email);
+  updatedUserData.append('role', updatedUser.role);
+  if(updatedUser.image !== undefined){
+  updatedUserData.append('image', updatedUser.image as File);
+  }
+  if (updatedUser.password !== '') {
+    updatedUserData.append('password', updatedUser.password);
+  }
+
+  try {
+    await api.post(
+      `/user/updateAdmin/${id}`,
+      updatedUserData,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    const actionUpdatedUser = {...updatedUser, type: 'UPDATE_USER_ADMIN'}
+    dispatch(actionUpdatedUser)
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export const getUserById = async (
+  id: string,
+  dispatch: AppDispatch,
+  token: any
+) => {
+  try {
+    const { data } = await api.get(
+      `/user/${id}`,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    const updatedUserAdmin = { ...data, type: 'UPDATE_USER_ADMIN' };
+    dispatch(updatedUserAdmin);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };

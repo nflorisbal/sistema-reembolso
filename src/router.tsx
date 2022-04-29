@@ -7,6 +7,7 @@ import Login from './pages/login/Login';
 import NotFound from './pages/notfound/NotFound';
 import SignUp from './pages/signup/SignUp';
 import ListTicketsPage from './pages/tickets/ListTicketsPage';
+import UpdateUser from './pages/updateuser/UpdateUser';
 
 const Router = () => {
   return (
@@ -16,8 +17,9 @@ const Router = () => {
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />}>
-          <Route path=":id" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/updateuser" element={<UpdateUser />} >
+          <Route path=":id" element={<UpdateUser />} />
         </Route>
         <Route path="/addticket" element={<AddTicket />} />
         <Route path="/tickets" element={<ListTicketsPage />} />

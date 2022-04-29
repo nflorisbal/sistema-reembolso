@@ -21,4 +21,5 @@ export interface ConfigUserDTO{
   name?: string;
   roleEntities?: Array<IRole>;
   email?: string;
+  role?: string
 }
