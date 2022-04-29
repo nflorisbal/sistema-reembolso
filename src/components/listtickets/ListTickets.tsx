@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { listTickets } from '../../store/actions/ListTicketsActions';
-import { RootState } from '../../store';
 import { AnyAction } from 'redux';
-import { connect, DispatchProp } from 'react-redux';
-import { ContainerMain, PageTitle } from '../../global.styles';
+import { connect } from 'react-redux';
+import { RootState } from '../../store';
+import { listTickets } from '../../store/actions/ListTicketsActions';
 import {
   ContainerListTicket,
   DivPagButtons,
@@ -12,6 +11,7 @@ import {
   LineTicket,
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
+import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, pages } = state;
@@ -44,8 +44,8 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.status}</div>
               {userRole === 'ROLE_ADMIN' && (
                 <div>
-                  <button>Aprovar</button>
-                  <button>Reprovar</button>
+                  <ButtonAction color="#29CC97">Aprovar</ButtonAction>
+                  <ButtonAction color="#F12B2C">Recusar</ButtonAction>
                 </div>
               )}
             </LineTicket>

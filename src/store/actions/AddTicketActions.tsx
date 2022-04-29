@@ -1,6 +1,5 @@
 import { AppDispatch } from '..';
 import api from '../../api';
-import ListTickets from '../../components/listtickets/ListTickets';
 import { TicketDTO } from '../../models/TicketDTO';
 
 export const sendNewTicket = async (

@@ -84,7 +84,30 @@ export const ButtonDefault = styled.button`
   outline: none;
 
   :hover {
-    background-color: ${Theme.color.highlightDark};
+    filter: brightness(0.8);
+  }
+`;
+
+export const ButtonAction = styled.button<{ color: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: ${Theme.borderRadius};
+  padding: 3px;
+  margin-top: 5px;
+  min-width: 70px;
+  min-height: 20px;
+  background-color: ${(props) => props.color};
+  color: ${Theme.color.neutralLight};
+  font-size: 12px;
+
+  :hover:enabled {
+    filter: brightness(0.9);
+  }
+
+  :disabled {
+    background-color: ${Theme.color.neutralGrayLight};
   }
 `;
 
@@ -132,7 +155,7 @@ export const LinkBack = styled(Link)`
   left: 15px;
   text-decoration: none;
   font-size: 20px;
-  color:  ${Theme.color.neutralPure};
+  color: ${Theme.color.neutralPure};
 `;
 
 export const ImgProfile = styled.img`
