@@ -214,7 +214,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                       </DivFlex>
                       <InputDefault
                         name={`items[${index}.image]`}
-                        onChange={(event: any) => uploadFile(event, index)}
+                        onChange={(event:any)=>formik.setFieldValue(`items[${index}.image]`, event.target.files?.[0])}
                         type="file"
                       />
                       <ErrorMessage

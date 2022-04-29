@@ -72,3 +72,20 @@ const setupLoginAfterPost = (
   };
   handleLogin(loginNewUser, dispatch, navigate, setStatus);
 };
+
+const editingUser = async (
+  user:SignUpDTO,
+  dispatch: AppDispatch,
+  token: any
+) =>{
+  //ainda nao ta pronta
+  const updatedUser:any = new FormData();
+
+  updatedUser.append('name', user.name);
+  updatedUser.append('email', user.email);
+  updatedUser.append('password', user.password);
+  updatedUser.append('image', user.image as File);
+
+  await api.post('/updateUser', updatedUser, (api.defaults.headers.common['Authorization'] = token))
+
+}

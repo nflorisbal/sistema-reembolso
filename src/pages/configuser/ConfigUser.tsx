@@ -6,6 +6,7 @@ import {
 } from 'react-icons/ai';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import {
+  ButtonDefault,
   ContainerMain,
   DivError,
   DivFlexColumn,
@@ -17,7 +18,7 @@ import {
   StyledLabel,
 } from '../../global.styles';
 import { ConfigUserDTO } from '../../models/SignUpDTO';
-import { ContainerSignUp, LinkEyePassword } from '../signup/SignUp.style';
+import { ContainerSignUp, DivButton, LinkEyePassword } from '../signup/SignUp.style';
 import { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -179,6 +180,9 @@ const ConfigUser = () => {
               <DivError>{formik.errors.image}</DivError>
             ) : null}
           </DivFlexColumn>
+          <DivButton>
+            <ButtonDefault type="submit">Enviar</ButtonDefault>
+          </DivButton>
         </StyledForm>
       </ContainerSignUp>
     </ContainerMain>
