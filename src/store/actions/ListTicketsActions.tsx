@@ -19,5 +19,6 @@ export const listTickets = async (dispatch: AppDispatch, token: any) => {
     dispatch(tickets);
   } catch (error) {
     console.log(error);
+  } finally {
   }
 };

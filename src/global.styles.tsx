@@ -174,4 +174,7 @@ Notiflix.Loading.init({
   backgroundColor: 'rgba(224, 224, 224, 0.5)',
 });
 
-
+Notiflix.Block.init({
+  svgColor: Theme.color.primaryPure,
+  backgroundColor: 'rgba(224, 224, 224, 0.5)',
+});

@@ -7,6 +7,7 @@ import ListAllUsers from '../../components/listallusers/ListAllUsers';
 import { RootState } from '../../store';
 import { AnyAction } from 'redux';
 import ListTickets from '../../components/listtickets/ListTickets';
+import { Block } from 'notiflix';
 
 const Home = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const Home = (state: RootState & AnyAction) => {
     }
     // eslint-disable-next-line
   }, []);
+
+  
 
   return hasToken() ? (
     <ContainerMain>

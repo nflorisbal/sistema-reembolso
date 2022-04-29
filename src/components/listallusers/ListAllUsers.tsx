@@ -17,14 +17,13 @@ import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
+import { Block } from 'notiflix';
 
 const MIN_LENGTH = 2;
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
-
-  console.log(users);
 
   const handleSearch = (value: string) => {
     if (value == '') {
@@ -35,13 +34,14 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   };
 
   useEffect(() => {
+    Block.circle('.listUser');
     listAllUsers(dispatch, token, currentPage);
     // eslint-disable-next-line
   }, [currentPage]);
 
   return (
     <ContainerMain>
-      <ContainerListUsers>
+      <ContainerListUsers className="listUser">
         <PageTitle>Lista de usuários</PageTitle>
         <div>
           <InputFind
