@@ -2,6 +2,7 @@ import { AppDispatch } from '..';
 import { AxiosError } from 'axios';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
+import { Loading } from 'notiflix';
 
 export const handleLogin = async (
   credentials: AuthDTO,
@@ -34,7 +35,7 @@ export const handleLogin = async (
   }
 };
 
-export const handleLogout = (dispatch: AppDispatch, navigate: Function) => {
+export const handleLogout = (dispatch: AppDispatch) => {
   const userAuthenticated = {
     type: 'SET_LOGOUT',
   };
@@ -45,5 +46,4 @@ export const handleLogout = (dispatch: AppDispatch, navigate: Function) => {
   localStorage.removeItem('token');
   dispatch(listWipe);
   dispatch(userAuthenticated);
-  navigate('/login');
 };

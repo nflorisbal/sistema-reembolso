@@ -46,7 +46,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
         <div>
           <InputFind
             name="find"
-            placeholder="Buscar usuário por nome (min. 3 letras)"
+            placeholder="Buscar usuário por nome"
             onChange={(event) => handleSearch(event.target.value)}
           />
         </div>

@@ -1,16 +1,13 @@
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { ContainerHeader, ContainerMenu } from './Header.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import Menu from '../menu/Menu';
-import User from '../user/User';
+import HeaderProfile from '../headerprofile/HeaderProfile';
 import { ImageLogo } from '../logo/Logo.style';
 
 const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
-  const navigate = useNavigate();
-
   return (
     <>
       {isLogged ? (
@@ -20,7 +17,7 @@ const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
             <Menu />
           </ContainerMenu>
           <ContainerMenu>
-            <User />
+            <HeaderProfile />
           </ContainerMenu>
         </ContainerHeader>
       ) : null}

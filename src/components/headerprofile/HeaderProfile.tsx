@@ -1,29 +1,43 @@
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { AnyAction } from 'redux';
+import { GoGear, GoLinkExternal } from 'react-icons/go';
+import {
+  ActionLink,
+  UserActions,
+  UserName,
+  UserProfile,
+} from './HeaderProfile.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import { handleLogout } from '../../store/actions/AuthActions';
-import { InfoName, InfoProfile } from './User.style';
 import { ImgProfile } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 
-const User = ({ image, name, email, dispatch }: CredentialDTO & AnyAction) => {
-  const navigate = useNavigate();
-
+const HeaderProfile = ({
+  image,
+  name,
+  email,
+  dispatch,
+}: CredentialDTO & AnyAction) => {
   return (
     <>
-      <InfoProfile>
-        <InfoName>
+      <UserProfile>
+        <UserName>
           <strong>{name}</strong>
-        </InfoName>
+        </UserName>
         <small>{email}</small>
-        <a href="#" onClick={() => handleLogout(dispatch, navigate)}>
-          Sair
-        </a>
-      </InfoProfile>
+        <UserActions>
+          <ActionLink to="/configuser">
+            <GoGear /> Perfil
+          </ActionLink>
+          <ActionLink to="/login" onClick={() => handleLogout(dispatch)}>
+            <GoLinkExternal /> Sair
+          </ActionLink>
+        </UserActions>
+      </UserProfile>
       <ImgProfile
         src={image ? `data:image/jpeg;base64, ${image}` : DefaultProfileImg}
+        alt="foto perfil"
       />
     </>
   );
@@ -35,4 +49,4 @@ const mapStateToProps = (state: RootState) => ({
   email: state.auth.email,
 });
 
-export default connect(mapStateToProps)(User);
+export default connect(mapStateToProps)(HeaderProfile);
