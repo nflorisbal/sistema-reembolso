@@ -23,3 +23,7 @@ export interface ArrayTicketDTO {
   totalPages: number;
   totalElements: number;
 }
+
+export interface newStatusDTO{
+  status: number
+}

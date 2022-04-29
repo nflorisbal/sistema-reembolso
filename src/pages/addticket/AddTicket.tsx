@@ -34,6 +34,7 @@ import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
+import InputMask from 'react-input-mask';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch, email } = state;
@@ -196,6 +197,8 @@ const AddTicket = (state: RootState & AnyAction) => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           placeholder="Data:"
+                          as={InputMask}
+                          mask="99/99/9999"
                         />
                         <InputDefault
                           name={`items[${index}.value]`}
