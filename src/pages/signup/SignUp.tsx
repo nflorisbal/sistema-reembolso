@@ -116,13 +116,12 @@ const SignUp = (state: RootState & AnyAction) => {
       email: '',
       password: '',
       confirmPassword: '',
-      role: "",
+      role: '',
     },
     onSubmit: (
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      
       if (admin) {
         setupCreateUserAdmin(values);
       } else {
@@ -140,7 +139,7 @@ const SignUp = (state: RootState & AnyAction) => {
       email: values.email,
       password: values.password,
       image: values.image,
-      role: values.role
+      role: values.role,
     };
 
     createUserAdmin(user, dispatch, formik.resetForm, token);
@@ -153,7 +152,7 @@ const SignUp = (state: RootState & AnyAction) => {
       email: values.email,
       password: values.password,
       image: values.image,
-      role: values.role
+      role: values.role,
     };
     createUser(user, dispatch, navigate, formik.setStatus);
   };
@@ -265,7 +264,9 @@ const SignUp = (state: RootState & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
-              onChange={(event) => formik.setFieldValue('image', event.target.files?.[0])}
+              onChange={(event) =>
+                formik.setFieldValue('image', event.target.files?.[0])
+              }
             />
             {formik.errors.image && formik.touched.image ? (
               <DivError>{formik.errors.image}</DivError>

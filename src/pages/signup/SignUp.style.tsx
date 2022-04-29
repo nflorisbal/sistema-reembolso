@@ -16,6 +16,7 @@ export const ContainerSignUp = styled(ContainerSmall)`
 
 export const DivButton = styled.div`
   padding: 10px;
+  margin: ${Theme.margin};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
-import { connect, DispatchProp } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   ContainerListUsers,
   DivColumnName,
@@ -13,11 +13,9 @@ import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
-import { ListUsersDTO } from '../../models/ListUsersDTO';
-import { CredentialDTO } from '../../models/AuthDTO';
 
 const ListAllUsers = (state: RootState & AnyAction) => {
-  const { dispatch, users , token, totalPages } = state;
+  const { dispatch, users, token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   useEffect(() => {

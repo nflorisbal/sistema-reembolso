@@ -35,7 +35,7 @@ const ListTickets = (state: RootState & AnyAction) => {
           {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
         </LineTicket>
         {ticketsList.map((ticket: any) => (
-          <DivTicket key={ticket.title}>
+          <DivTicket key={ticket.idRefund}>
             <LineTicket>
               <div>Fulano de Tal</div>
               <div>{ticket.title}</div>
@@ -55,7 +55,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <p>{item.name}</p>
                   <p>{item.dateItem}</p>
                   <p>{item.value}</p>
-                  <a href={item.image} target="_blank" download>
+                  <a href={item.imageString} target="_blank" download>
                     Anexo
                   </a>
                 </LineItem>

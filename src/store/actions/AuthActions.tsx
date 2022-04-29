@@ -29,7 +29,7 @@ export const handleLogin = async (
   } catch (error) {
     const { response } = error as AxiosError;
     if (response?.status === 403) {
-      setStatus('Usuário ou senha inválido.');
+      setStatus('Usuário/senha inválidos.');
     }
   }
 };
