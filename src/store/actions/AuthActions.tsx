@@ -11,6 +11,7 @@ export const handleLogin = async (
   setStatus: Function
 ) => {
   try {
+    Loading.circle();
     const { data } = await api.post('/auth', credentials);
 
     const userAuthenticated = {
@@ -32,6 +33,8 @@ export const handleLogin = async (
     if (response?.status === 403) {
       setStatus('Usuário/senha inválidos.');
     }
+  } finally {
+    Loading.remove();
   }
 };
 

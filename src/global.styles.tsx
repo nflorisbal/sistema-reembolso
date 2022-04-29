@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Theme } from './theme';
 import Pattern from './images/pattern_bg.png';
+import Notiflix from 'notiflix';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -166,3 +167,11 @@ export const ImgProfile = styled.img`
   border: 3px solid ${Theme.color.neutralLight};
   outline: 3px solid ${Theme.color.neutralDark};
 `;
+
+// global style  para os loadings
+Notiflix.Loading.init({
+  svgColor: Theme.color.primaryPure,
+  backgroundColor: 'rgba(224, 224, 224, 0.5)',
+});
+
+
