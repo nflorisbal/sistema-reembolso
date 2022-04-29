@@ -6,6 +6,7 @@ import { RootState } from '../../store';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import {
   ContainerListTicket,
+  DivItem,
   DivPagButtons,
   DivTicket,
   LineItem,
@@ -32,7 +33,7 @@ const ListTickets = (state: RootState & AnyAction) => {
           <p>Usuário</p>
           <p>Título</p>
           <p>Solicitado em</p>
-          <p>Valor</p>
+          <p>Total</p>
           <p>Status</p>
           {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
         </LineTicket>
@@ -51,7 +52,13 @@ const ListTickets = (state: RootState & AnyAction) => {
                 </div>
               )}
             </LineTicket>
-            <div>
+            <DivItem>
+              <LineItem id="header">
+                <p>Item</p>
+                <p>Ocorreu em</p>
+                <p>Valor</p>
+                <p>Comprovante</p>
+              </LineItem>
               {ticket.items.map((item: any) => (
                 <LineItem key={item.idItem}>
                   <p>{item.name}</p>
@@ -62,7 +69,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   </a>
                 </LineItem>
               ))}
-            </div>
+            </DivItem>
           </DivTicket>
         ))}
         <DivPagButtons>
