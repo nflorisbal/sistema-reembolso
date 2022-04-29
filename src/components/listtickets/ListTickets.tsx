@@ -37,7 +37,7 @@ const ListTickets = (state: RootState & AnyAction) => {
         {ticketsList.map((ticket: any) => (
           <DivTicket key={ticket.idRefund}>
             <LineTicket>
-              <div>Fulano de Tal</div>
+              <div>{ticket.name}</div>
               <div>{ticket.title}</div>
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>

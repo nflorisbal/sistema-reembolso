@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { InputDefault } from '../../global.styles';
 import { Theme } from '../../theme';
 
 export const ContainerListUsers = styled.div`
@@ -8,6 +9,10 @@ export const ContainerListUsers = styled.div`
   box-shadow: ${Theme.boxShadow};
   min-width: 900px;
 `;
+
+export const InputFind = styled(InputDefault)`
+  width: 100%;
+`
 
 export const LineList = styled.div`
   display: grid;

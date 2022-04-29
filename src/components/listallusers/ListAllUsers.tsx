@@ -5,18 +5,34 @@ import {
   ContainerListUsers,
   DivColumnName,
   DivPagButtons,
+  InputFind,
   LineList,
 } from './ListAllUsers.style';
 import { RootState } from '../../store';
-import { listAllUsers } from '../../store/actions/ListUsersActions';
+import {
+  listAllUsers,
+  listUsersByName,
+} from '../../store/actions/ListUsersActions';
 import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
 
+const MIN_LENGTH = 2;
+
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
+
+  console.log(users);
+
+  const handleSearch = (value: string) => {
+    if (value == '') {
+      listAllUsers(dispatch, token, currentPage);
+    } else if (value.length > MIN_LENGTH) {
+      listUsersByName(dispatch, token, value);
+    }
+  };
 
   useEffect(() => {
     listAllUsers(dispatch, token, currentPage);
@@ -27,13 +43,20 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     <ContainerMain>
       <ContainerListUsers>
         <PageTitle>Lista de usuários</PageTitle>
+        <div>
+          <InputFind
+            name="find"
+            placeholder="Buscar usuário por nome (min. 3 letras)"
+            onChange={(event) => handleSearch(event.target.value)}
+          />
+        </div>
         <LineList id="header">
           <p>Foto</p>
           <p>Nome</p>
           <p>E-mail</p>
           <p>Cargo</p>
         </LineList>
-        {users.map((user: any) => (
+        {users?.map((user: any) => (
           <LineList key={user.idUser}>
             <ImgProfile
               src={
