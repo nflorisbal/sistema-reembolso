@@ -27,8 +27,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
 
   const handleSearch = (value: string) => {
     if (value == '') {
+      Block.circle('.listUser');
       listAllUsers(dispatch, token, currentPage);
     } else if (value.length > MIN_LENGTH) {
+      Block.circle('.listUser');
       listUsersByName(dispatch, token, value);
     }
   };

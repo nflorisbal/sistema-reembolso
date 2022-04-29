@@ -51,5 +51,7 @@ export const listUsersByName = async (
     dispatch(list);
   } catch (error) {
     console.log(error);
+  } finally {
+    Block.remove('.listUser');
   }
 };
