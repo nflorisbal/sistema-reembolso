@@ -60,7 +60,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <p>Comprovante</p>
               </LineItem>
               {ticket.items.map((item: any) => (
-                <LineItem key={item.idItem}>
+                <LineItem key={item.idItem + ticket.idRefund}>
                   <p>{item.name}</p>
                   <p>{item.dateItem}</p>
                   <p>{item.value}</p>

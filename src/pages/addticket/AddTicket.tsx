@@ -6,6 +6,8 @@ import {
   FormikProvider,
   ErrorMessage,
 } from 'formik';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
@@ -32,12 +34,9 @@ import {
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
 
 const AddTicket = (state: RootState & AnyAction) => {
-  const { token, dispatch, email } = state;
-  const [size, setSize] = useState(0);
+  const { token, dispatch } = state;
 
   const addTicketSchema = Yup.object().shape({
     title: Yup.string()
@@ -105,38 +104,6 @@ const AddTicket = (state: RootState & AnyAction) => {
     },
     validationSchema: addTicketSchema,
   });
-
-  const checkFileSize = (base64: string) => {
-    const base64Length = base64.length - 'data:image/png;base64'.length;
-    console.log(base64Length, 'base');
-    const sizeBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
-    const sizeKb = sizeBytes / 1000;
-    setSize(sizeKb);
-  };
-
-  const uploadFile = async (event: any, index: number) => {
-    const file = event.target.files[0];
-    if (file !== undefined) {
-      const base64: string = (await convertBase64(file)) as string;
-      formik.setFieldValue(`items[${index}.image]`, base64);
-      checkFileSize(base64);
-    }
-  };
-
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   const navigate = useNavigate();
 

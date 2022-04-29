@@ -12,7 +12,6 @@ export const listTickets = async (
       `/refund/?page=${pages}&size=5`,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    console.log(data);
 
     const tickets = {
       type: 'LIST_TICKETS',
