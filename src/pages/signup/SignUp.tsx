@@ -3,7 +3,7 @@ import { useFormik, FormikHelpers } from 'formik';
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
@@ -34,6 +34,7 @@ import {
 } from '../../global.styles';
 
 const SignUp = (state: RootState & AnyAction) => {
+  const { id } = useParams()
   const { dispatch, roles, token } = state;
   const navigate = useNavigate();
   const passwordFeedback = [
@@ -46,6 +47,29 @@ const SignUp = (state: RootState & AnyAction) => {
   const passwordTooShort = ['Muito fraco'];
   const [score, setScore] = useState(0);
   const [admin, setAdmin] = useState(false);
+
+  const setInitialValue = () => {
+    if(id){
+     const InitialValuesFilled = {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        role: '',
+      }
+      return InitialValuesFilled
+      
+    }else{
+      const InitialValuesEmpty = {
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        role: '',
+      }
+      return InitialValuesEmpty
+    }
+  }
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
@@ -111,13 +135,7 @@ const SignUp = (state: RootState & AnyAction) => {
 
   // const do useformik
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      role: '',
-    },
+    initialValues: setInitialValue(),
     onSubmit: (
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
@@ -159,6 +177,9 @@ const SignUp = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     checkAdmin();
+    if(id){
+      
+    }
   }, []);
 
   return (
