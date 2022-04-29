@@ -21,14 +21,13 @@ const Home = (state: RootState & AnyAction) => {
     // eslint-disable-next-line
   }, []);
 
-  
 
   return hasToken() ? (
     <ContainerMain>
       <ContainerWelcome>
         <h3>Olá, {name}!</h3>
       </ContainerWelcome>
-      {userRole === 'ROLE_COLABORADOR' && <ListTickets />}
+      {userRole !== 'ROLE_ADMIN' && <ListTickets />}
       {userRole === 'ROLE_ADMIN' && <ListAllUsers />}
     </ContainerMain>
   ) : null;

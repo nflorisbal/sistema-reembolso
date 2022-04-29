@@ -141,6 +141,14 @@ export const DivError = styled.div`
   margin-top: 5px;
 `;
 
+export const LabelError = styled.label`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${Theme.color.highlightPure};
+  padding-left: 5px;
+  margin-top: 5px;
+`;
+
 export const StyledLabel = styled.label``;
 
 export const StyledForm = styled.form``;

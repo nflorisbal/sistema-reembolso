@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { Block } from 'notiflix';
 import { RootState } from '../../store';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import {
@@ -19,12 +20,13 @@ const ListTickets = (state: RootState & AnyAction) => {
   const userRole = roles[0]?.role;
 
   useEffect(() => {
-    listTickets(dispatch, token);
-  }, []);
+    Block.circle('.listTickets');
+    listTickets(dispatch, token, currentPage);
+  }, [currentPage]);
 
   return (
     <ContainerMain>
-      <ContainerListTicket>
+      <ContainerListTicket className="listTickets">
         <PageTitle>Tickets</PageTitle>
         <LineTicket id="header">
           <p>Usuário</p>
@@ -42,7 +44,7 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{ticket.status}</div>
-              {userRole === 'ROLE_ADMIN' && (
+              {userRole !== 'ROLE_COLABORADOR' && (
                 <div>
                   <ButtonAction color="#29CC97">Aprovar</ButtonAction>
                   <ButtonAction color="#F12B2C">Recusar</ButtonAction>
@@ -77,10 +79,9 @@ const ListTickets = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   ticketsList: state.tickets.ticketsList,
-  loading: state.tickets.loadingTickets,
+  pages: state.tickets.totalPages,
   token: state.auth.token,
   roles: state.auth.roles,
-  pages: state.list.totalPages,
 });
 
 export default connect(mapStateToProps)(ListTickets);
