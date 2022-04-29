@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { Block } from 'notiflix';
 import {
   ContainerListUsers,
   DivColumnName,
@@ -17,7 +18,6 @@ import { switchRole } from '../../utils';
 import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
-import { Block } from 'notiflix';
 
 const MIN_LENGTH = 2;
 

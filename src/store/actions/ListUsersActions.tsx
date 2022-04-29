@@ -40,8 +40,6 @@ export const listUsersByName = async (
       (api.defaults.headers.common['Authorization'] = token)
     );
 
-    console.log(data);
-
     const list = {
       type: 'LIST_USERS',
       users: data,
