@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
-import { GoGear, GoLinkExternal } from 'react-icons/go';
+import { GoGear } from 'react-icons/go';
+import { HiOutlineLogout } from 'react-icons/hi';
 import {
   ActionLink,
   UserActions,
   UserName,
   UserProfile,
+  DivIcons
 } from './HeaderProfile.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
@@ -28,10 +30,14 @@ const HeaderProfile = ({
         <small>{email}</small>
         <UserActions>
           <ActionLink to="/configuser">
-            <GoGear /> Perfil
+          <DivIcons>
+          <div><GoGear /></div> <div>Perfil</div>
+          </DivIcons>
           </ActionLink>
           <ActionLink to="/login" onClick={() => handleLogout(dispatch)}>
-            <GoLinkExternal /> Sair
+          <DivIcons>
+            <div><HiOutlineLogout /></div> <div>Sair</div>
+            </DivIcons>
           </ActionLink>
         </UserActions>
       </UserProfile>

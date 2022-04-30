@@ -138,7 +138,7 @@ export const updateUserAdmin = async (
     dispatch(actionUpdatedUser);
     setTimeout(() => {
       navigate('/');
-    }, 5000);
+    }, 2000);
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
