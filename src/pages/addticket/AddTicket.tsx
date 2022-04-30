@@ -64,8 +64,8 @@ const AddTicket = (state: RootState & AnyAction) => {
               const now = moment().format('DD/MM/YYYY');
               console.log(value)
               console.log(now,"agora")
-              console.log(moment(value).isSameOrBefore(now, "day"), "checa")
-              if (moment(value).isBefore(now)) {
+              console.log(moment(value, "DD/MM/YYYY").isSameOrBefore(moment()), "checa")
+              if (moment(value, "DD/MM/YYYY").isSameOrBefore(moment())) {
                 return true;
               }
               return false;
@@ -186,14 +186,14 @@ const AddTicket = (state: RootState & AnyAction) => {
                         placeholder="Item:"
                       />
                       <ErrorMessage
-                        name={`items.${index}.value`}
+                        name={`items[${index}.name]`}
                         component={LabelError}
                         className="field-error"
                       />
                       <DivFlexItem>
                         <InputDefault
-                          name={`items[${index}.dateItem]`}
-                          id={`items[${index}.dateItem]`}
+                          name={`items[${index}].dateItem`}
+                          id={`items[${index}].dateItem`}
                           value={item.dateItem}
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -202,27 +202,27 @@ const AddTicket = (state: RootState & AnyAction) => {
                           mask="99/99/9999"
                         />
                         <ErrorMessage
-                          name={`items.${index}.value`}
+                          name={`items[${index}].dateItem`}
                           component={LabelError}
                           className="field-error"
                         />
                         <InputDefault
-                          name={`items[${index}.value]`}
+                          name={`items[${index}].value`}
                           value={item.value}
                           onChange={(e) =>
-                            setupValue(e.target.value, `items[${index}.value]`)
+                            setupValue(e.target.value, `items[${index}].value`)
                           }
                           onBlur={formik.handleBlur}
                           placeholder="Valor:"
                         />
                         <ErrorMessage
-                          name={`items.${index}.value`}
+                          name={`items[${index}].value`}
                           component={LabelError}
                           className="field-error"
                         />
                       </DivFlexItem>
                       <InputDefault
-                        name={`items[${index}.image]`}
+                        name={`items[${index}].image`}
                         onChange={(event: any) =>
                           formik.setFieldValue(
                             `items[${index}.image]`,
@@ -232,7 +232,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                         type="file"
                       />
                       <ErrorMessage
-                        name={`items.${index}.image`}
+                        name={`items[${index}].image`}
                         component={LabelError}
                         className="field-error"
                       />
