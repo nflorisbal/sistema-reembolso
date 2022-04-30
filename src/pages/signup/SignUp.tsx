@@ -3,16 +3,10 @@ import { useFormik, FormikHelpers } from 'formik';
 import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import PasswordStrengthBar from 'react-password-strength-bar';
+import { useNavigate } from 'react-router-dom';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
-import {
-  createUser,
-  createUserAdmin,
-  getUserById,
-  updateUserAdmin,
-} from '../../store/actions/SignUpActions';
+import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 import {
   LinkEyePassword,
@@ -37,28 +31,11 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
+import Notiflix, { Loading } from 'notiflix';
 
 const SignUp = (state: RootState & AnyAction) => {
-  const {
-    dispatch,
-    roles,
-    token,
-    nameToUpdate,
-    emailToUpdate,
-    imageToUpdate,
-    roleToUpdate,
-  } = state;
-
+  const { dispatch, roles, token } = state;
   const navigate = useNavigate();
-  const passwordFeedback = [
-    'Muito fraco',
-    'Fraco',
-    'Satisfatório',
-    'Bom',
-    'Ótimo',
-  ];
-  const passwordTooShort = ['Muito fraco'];
-  const [score, setScore] = useState(0);
   const [admin, setAdmin] = useState(false);
 
   //#region password
@@ -137,6 +114,7 @@ const SignUp = (state: RootState & AnyAction) => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
+      Loading.circle();
       if (admin) {
         setupCreateUserAdmin(values);
       } else {

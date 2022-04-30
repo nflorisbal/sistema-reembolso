@@ -9,7 +9,7 @@ export const listTickets = async (
 ) => {
   try {
     const { data } = await api.get(
-      `/refund/?page=${pages}&size=5`,
+      `/refund/?page=${pages}&size=10`,
       (api.defaults.headers.common['Authorization'] = token)
     );
 

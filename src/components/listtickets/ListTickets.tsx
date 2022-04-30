@@ -52,7 +52,7 @@ import { DivButton } from '../../pages/signup/SignUp.style';
 const MIN_LENGTH = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
-  const { ticketsList, dispatch, token, roles, pages } = state;
+  const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
   const [editTitle, setEditTitle] = useState(false);
@@ -222,12 +222,10 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <p>Ocorreu em</p>
                 <p>Valor</p>
                 <p>Comprovante</p>
+                <p>Ação</p>
               </LineItem>
               {ticket.items.map((item: any) => (
                 <LineItem key={`i-${item.idItem}`}>
-                  <a href="#!" onClick={() => setupEditItem(item)}>
-                    Deseja editar esse item?
-                  </a>
                   {editItem ? (
                     <FormikProvider value={formikItem}>
                       <FieldArray
@@ -331,6 +329,9 @@ const ListTickets = (state: RootState & AnyAction) => {
                       >
                         Anexo
                       </a>
+                      <a href="#!" onClick={() => setupEditItem(item)}>
+                        Editar
+                      </a>
                     </>
                   )}
                 </LineItem>
@@ -342,7 +343,7 @@ const ListTickets = (state: RootState & AnyAction) => {
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            totalPages={pages}
+            totalPages={totalPages}
           />
         </DivPagButtons>
       </ContainerListTicket>
@@ -352,7 +353,7 @@ const ListTickets = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   ticketsList: state.tickets.ticketsList,
-  pages: state.tickets.totalPages,
+  totalPages: state.tickets.totalPages,
   token: state.auth.token,
   roles: state.auth.roles,
 });

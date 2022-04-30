@@ -113,7 +113,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
         <AiOutlineArrowLeft />
       </LinkBack>
       <ContainerSignUp>
-        <PageTitle>Configurar Cadastro</PageTitle>
+        <PageTitle>Atualizar Cadastro</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexLink>
             <StyledLabel htmlFor="password">Senha:</StyledLabel>

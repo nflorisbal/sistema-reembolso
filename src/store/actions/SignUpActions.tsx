@@ -1,4 +1,4 @@
-import { Notify } from 'notiflix';
+import { Loading, Notify } from 'notiflix';
 import { handleLogin } from './AuthActions';
 import { AppDispatch } from '..';
 import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
@@ -27,6 +27,8 @@ export const createUser = async (
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  } finally {
+    Loading.remove();
   }
 };
 
@@ -57,6 +59,8 @@ export const createUserAdmin = async (
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  } finally {
+    Loading.remove();
   }
 };
 
@@ -91,7 +95,7 @@ export const editingUser = async (
       updatedUser,
       (api.defaults.headers.common['Authorization'] = token)
     );
-  
+
     user.image = data.image;
     Notify.success('Cadastro atualizado com sucesso');
     const stateUser = { ...user, type: 'UPDATE_USER' };
@@ -101,7 +105,6 @@ export const editingUser = async (
   } catch (error) {
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
-  
 };
 
 export const updateUserAdmin = async (
@@ -117,8 +120,8 @@ export const updateUserAdmin = async (
   updatedUserData.append('name', updatedUser.name);
   updatedUserData.append('email', updatedUser.email);
   updatedUserData.append('role', updatedUser.role);
-  if(updatedUser.image !== undefined){
-  updatedUserData.append('image', updatedUser.image as File);
+  if (updatedUser.image !== undefined) {
+    updatedUserData.append('image', updatedUser.image as File);
   }
   if (updatedUser.password !== '') {
     updatedUserData.append('password', updatedUser.password);
@@ -131,13 +134,13 @@ export const updateUserAdmin = async (
       (api.defaults.headers.common['Authorization'] = token)
     );
     Notify.success('Cadastro atualizado com sucesso');
-    const actionUpdatedUser = {...updatedUser, type: 'UPDATE_USER_ADMIN'}
-    dispatch(actionUpdatedUser)
+    const actionUpdatedUser = { ...updatedUser, type: 'UPDATE_USER_ADMIN' };
+    dispatch(actionUpdatedUser);
     setTimeout(() => {
-      navigate('/')
+      navigate('/');
     }, 5000);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
