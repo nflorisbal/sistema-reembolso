@@ -1,6 +1,7 @@
 import { AppDispatch } from '..';
 import api from '../../api';
 import { newStatusDTO, TicketDTO } from '../../models/TicketDTO';
+import { Notify } from 'notiflix';
 
 export const sendNewTicket = async (
   ticket: TicketDTO,
@@ -15,7 +16,7 @@ export const sendNewTicket = async (
       sendTitle,
       (api.defaults.headers.common['Authorization'] = token)
     );
-
+    Notify.success('Pedido realizado com sucesso');
     ticket.items.forEach(async (item) => {
       const ticketData = new FormData();
       ticketData.append('dateItem', item.dateItem);
@@ -30,6 +31,7 @@ export const sendNewTicket = async (
       );
     });
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
+    
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);
@@ -47,6 +49,7 @@ export const updateStatusTicket = async (
       newStatus,
       (api.defaults.headers.common['Authorization'] = token)
     );
+    Notify.success('Ação realizada com sucesso');
   } catch (error) {
     console.log(error);
   }

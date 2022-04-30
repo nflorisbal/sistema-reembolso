@@ -101,7 +101,7 @@ const SignUp = (state: RootState & AnyAction) => {
       .matches(/^(?=.*[a-z])/, 'Precisa conter uma letra minúscula.')
       .matches(/^(?=.*[0-9])/, 'Precisa conter um número.')
       .matches(
-        /^(?=.*[$*&@#])/,
+        /^(?=.*[$*&@#!.,])/,
         'Sua senha precisa conter um caractere especial.'
       ),
     confirmPassword: Yup.string().test(
