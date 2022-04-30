@@ -16,16 +16,23 @@ import {
   listUsersByName,
 } from '../../store/actions/ListUsersActions';
 import { switchRole } from '../../utils';
-import { ButtonAction, ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
+import {
+  ButtonAction,
+  ContainerMain,
+  ImgProfile,
+  PageTitle,
+} from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
 import { Theme } from '../../theme';
+import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH = 2;
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const navigate = useNavigate();
 
   const handleSearch = (value: string) => {
     if (value === '') {
@@ -74,9 +81,11 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             <div>{user.email}</div>
             <div>{switchRole(user.roleEntities[0].idRole)}</div>
             <ButtonAction
-                    color={Theme.color.primaryDark}
-                    onClick={() => console.log('editar')}
-                  >Editar</ButtonAction>
+              color={Theme.color.primaryDark}
+              onClick={() => navigate(`/updateuser/${user.idUser}`)}
+            >
+              Editar
+            </ButtonAction>
           </LineList>
         ))}
         <DivPagButtons>

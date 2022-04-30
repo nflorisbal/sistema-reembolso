@@ -125,7 +125,6 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              disabled
             />
             <LinkEyePassword
               href="#!"
@@ -151,7 +150,6 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              disabled
             />
             <LinkEyePassword
               href="#!"

@@ -23,16 +23,12 @@ import Pagination from '../pagination/Pagination';
 import {
   ButtonAction,
   ContainerMain,
-  DivFlex,
-  InputDefault,
-  LabelError,
   PageTitle,
-  StyledLabel,
 } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import { Theme } from '../../theme';
-import { FormikHelpers, useFormik } from 'formik';
+import ZeroTicket from '../zeroticket/ZeroTicket'
 
 const MIN_LENGTH = 2;
 
@@ -40,14 +36,14 @@ const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
-  const [editTitle, setEditTitle] = useState(false);
-  const [editItem, setEditItem] = useState(false);
 
   useEffect(() => {
     Block.circle('.listTickets');
     listTickets(dispatch, token, currentPage);
     // eslint-disable-next-line
   }, [currentPage]);
+
+  console.log(ticketsList)
 
   const handleSearch = (value: string) => {
     if (value === '') {
@@ -92,7 +88,9 @@ const ListTickets = (state: RootState & AnyAction) => {
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
-        <PageTitle>Tickets</PageTitle>
+      {!ticketsList.length  
+        ? <ZeroTicket />  
+        : <PageTitle>Tickets</PageTitle>
         {userRole !== 'ROLE_COLABORADOR' && (
           <ContainerFind>
             <InputFind
@@ -114,13 +112,11 @@ const ListTickets = (state: RootState & AnyAction) => {
           <DivTicket key={ticket.idRefund}>
             <LineTicket>
               <div>{ticket.name}</div>
-
               <div>{ticket.title}</div>
-
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{StatusEnum[ticket.status]}</div>
-              {userRole !== 'ROLE_COLABORADOR' && 'ROLE_ADMINISTRADOR' ? (
+              {userRole !== 'ROLE_COLABORADOR' && userRole !== 'ROLE_ADMIN' ? (
                 <div>
                   <ButtonAction
                     color="#29CC97"
@@ -192,6 +188,7 @@ const ListTickets = (state: RootState & AnyAction) => {
             totalPages={totalPages}
           />
         </DivPagButtons>
+        }
       </ContainerListTicket>
     </ContainerMain>
   );
