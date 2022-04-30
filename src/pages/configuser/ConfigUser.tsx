@@ -40,15 +40,6 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
   //#region password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const passwordFeedback = [
-    'Muito fraco',
-    'Fraco',
-    'Satisfatório',
-    'Bom',
-    'Ótimo',
-  ];
-  const passwordTooShort = ['Muito fraco'];
-  const [score, setScore] = useState(0);
 
   const handleShowHidePassword = () => {
     setShowPassword(!showPassword);
@@ -59,7 +50,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
   };
   //#endregion password
 
-  const signupSchema = Yup.object().shape({
+  const configSchema = Yup.object().shape({
     password: Yup.string()
       .min(8, 'Mínimo de 8 caracteres.')
       .max(18, 'Máximo de 18 caracteres.')
@@ -81,7 +72,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
       'image',
       'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
       (value) => {
-        if (value !== undefined) {
+        if (value !== undefined && value !== null) {
           return value.size <= 800000 && value.type.includes('image');
         }
         return true;
@@ -107,7 +98,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
       editingUser(changedUser, dispatch, token);
       setSubmitting(false);
     },
-    //validationSchema: signupSchema,
+    validationSchema: configSchema,
   });
 
   useEffect(() => {
@@ -144,13 +135,6 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
             >
               {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </LinkEyePassword>
-            <PasswordStrengthBar
-              password={formik.values.password}
-              minLength={8}
-              scoreWords={passwordFeedback}
-              shortScoreWord={passwordTooShort}
-              onChangeScore={(score) => setScore(score)}
-            />
             {formik.errors.password && formik.touched.password ? (
               <DivError>{formik.errors.password}</DivError>
             ) : null}
