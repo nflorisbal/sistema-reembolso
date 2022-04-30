@@ -33,7 +33,7 @@ import ZeroTicket from '../zeroticket/ZeroTicket'
 const MIN_LENGTH = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
-  const { ticketsList, dispatch, token, roles, pages } = state;
+  const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
 
@@ -157,6 +157,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <p>Ocorreu em</p>
                 <p>Valor</p>
                 <p>Comprovante</p>
+                <p>Ação</p>
               </LineItem>
               {ticket.items.map((item: any) => (
                 <LineItem key={`i-${item.idItem}`}>
@@ -172,6 +173,9 @@ const ListTickets = (state: RootState & AnyAction) => {
                     >
                       Anexo
                     </a>
+                    <a href="#!" onClick={() => console.log('editar')}>
+                      Editar
+                    </a>
                   </>
                 </LineItem>
               ))}
@@ -182,7 +186,7 @@ const ListTickets = (state: RootState & AnyAction) => {
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            totalPages={pages}
+            totalPages={totalPages}
           />
         </DivPagButtons>
         </>}
@@ -193,7 +197,7 @@ const ListTickets = (state: RootState & AnyAction) => {
 
 const mapStateToProps = (state: RootState) => ({
   ticketsList: state.tickets.ticketsList,
-  pages: state.tickets.totalPages,
+  totalPages: state.tickets.totalPages,
   token: state.auth.token,
   roles: state.auth.roles,
 });

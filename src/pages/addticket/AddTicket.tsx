@@ -62,10 +62,13 @@ const AddTicket = (state: RootState & AnyAction) => {
             .required('Campo obrigatório.')
             .test('dateItem', 'Data inválida.', (value) => {
               const now = moment().format('DD/MM/YYYY');
-              console.log(value)
-              console.log(now,"agora")
-              console.log(moment(value, "DD/MM/YYYY").isSameOrBefore(moment()), "checa")
-              if (moment(value, "DD/MM/YYYY").isSameOrBefore(moment())) {
+              console.log(value);
+              console.log(now, 'agora');
+              console.log(
+                moment(value, 'DD/MM/YYYY').isSameOrBefore(moment()),
+                'checa'
+              );
+              if (moment(value, 'DD/MM/YYYY').isSameOrBefore(moment())) {
                 return true;
               }
               return false;
