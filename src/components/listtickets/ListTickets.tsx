@@ -20,15 +20,10 @@ import {
   LineTicket,
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
-import {
-  ButtonAction,
-  ContainerMain,
-  PageTitle,
-} from '../../global.styles';
+import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
-import { Theme } from '../../theme';
-import ZeroTicket from '../zeroticket/ZeroTicket'
+import ZeroTicket from '../zeroticket/ZeroTicket';
 
 const MIN_LENGTH = 2;
 
@@ -43,7 +38,7 @@ const ListTickets = (state: RootState & AnyAction) => {
     // eslint-disable-next-line
   }, [currentPage]);
 
-  console.log(ticketsList)
+  console.log(ticketsList);
 
   const handleSearch = (value: string) => {
     if (value === '') {
@@ -88,108 +83,102 @@ const ListTickets = (state: RootState & AnyAction) => {
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
-      {!ticketsList.length  
-        ? <ZeroTicket /> 
-        : 
-        <><PageTitle>Tickets</PageTitle>
-        {userRole !== 'ROLE_COLABORADOR' && (
-          <ContainerFind>
-            <InputFind
-              name="find"
-              placeholder="Buscar usuário por nome"
-              onChange={(event) => handleSearch(event.target.value)}
-            />
-          </ContainerFind>
-        )}
-        <LineTicket id="header">
-          <p>Usuário</p>
-          <p>Título</p>
-          <p>Solicitado em</p>
-          <p>Total</p>
-          <p>Status</p>
-          <p>Ações</p>
-        </LineTicket>
-        {ticketsList.map((ticket: any) => (
-          <DivTicket key={ticket.idRefund}>
-            <LineTicket>
-              <div>{ticket.name}</div>
-              <div>{ticket.title}</div>
-              <div>{ticket.date}</div>
-              <div>{ticket.value}</div>
-              <div>{StatusEnum[ticket.status]}</div>
-              {userRole !== 'ROLE_COLABORADOR' && userRole !== 'ROLE_ADMIN' ? (
-                <div>
-                  <ButtonAction
-                    color="#29CC97"
-                    onClick={() => setupAprovar(ticket.idRefund)}
-                  >
-                    Aprovar
-                  </ButtonAction>
-                  <ButtonAction
-                    color="#F12B2C"
-                    onClick={() => setupReprovar(ticket.idRefund)}
-                  >
-                    Reprovar
-                  </ButtonAction>
-                </div>
-              ) : (
-                <div>
-                  <ButtonAction
-                    color={Theme.color.primaryPure}
-                    onClick={() => console.log('editar')}
-                    disabled={ticket.status !== 'ABERTO'}
-                  >
-                    Editar
-                  </ButtonAction>
-                  <ButtonAction
-                    color="#F12B2C"
-                    onClick={() => handleDelete(ticket.idRefund)}
-                    disabled={ticket.status !== 'ABERTO'}
-                  >
-                    Excluir
-                  </ButtonAction>
-                </div>
-              )}
+        {!ticketsList.length ? (
+          <ZeroTicket />
+        ) : (
+          <>
+            <PageTitle>Tickets</PageTitle>
+            {userRole !== 'ROLE_COLABORADOR' && (
+              <ContainerFind>
+                <InputFind
+                  name="find"
+                  placeholder="Buscar usuário por nome"
+                  onChange={(event) => handleSearch(event.target.value)}
+                />
+              </ContainerFind>
+            )}
+            <LineTicket id="header">
+              <p>Usuário</p>
+              <p>Título</p>
+              <p>Total</p>
+              <p>Status</p>
+              <p>Ações</p>
             </LineTicket>
-            <DivItem>
-              <LineItem id="header">
-                <p>Item</p>
-                <p>Ocorreu em</p>
-                <p>Valor</p>
-                <p>Comprovante</p>
-                <p>Ação</p>
-              </LineItem>
-              {ticket.items.map((item: any) => (
-                <LineItem key={`i-${item.idItem}`}>
-                  <>
-                    <p>{item.name}</p>
-                    <p>{item.dateItem}</p>
-                    <p>{item.value}</p>
-                    <a
-                      href={fixBase64(item.imageString)}
-                      target="_blank"
-                      rel="noreferrer"
-                      download
-                    >
-                      Anexo
-                    </a>
-                    <a href="#!" onClick={() => console.log('editar')}>
-                      Editar
-                    </a>
-                  </>
-                </LineItem>
-              ))}
-            </DivItem>
-          </DivTicket>
-        ))}
-        <DivPagButtons>
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalPages={totalPages}
-          />
-        </DivPagButtons>
-        </>}
+            {ticketsList.map((ticket: any) => (
+              <DivTicket key={ticket.idRefund}>
+                <LineTicket>
+                  <div>{ticket.name}</div>
+                  <div>{ticket.title}</div>
+                  <div>{ticket.value}</div>
+                  <div>{StatusEnum[ticket.status]}</div>
+                  {userRole !== 'ROLE_COLABORADOR' &&
+                  userRole !== 'ROLE_ADMIN' ? (
+                    <div>
+                      <ButtonAction
+                        color="#29CC97"
+                        onClick={() => setupAprovar(ticket.idRefund)}
+                      >
+                        Aprovar
+                      </ButtonAction>
+                      <ButtonAction
+                        color="#F12B2C"
+                        onClick={() => setupReprovar(ticket.idRefund)}
+                      >
+                        Reprovar
+                      </ButtonAction>
+                    </div>
+                  ) : (
+                    <div>
+                      <ButtonAction
+                        color="#F12B2C"
+                        onClick={() => handleDelete(ticket.idRefund)}
+                        disabled={ticket.status !== 'ABERTO'}
+                      >
+                        Excluir
+                      </ButtonAction>
+                    </div>
+                  )}
+                </LineTicket>
+                <DivItem>
+                  <LineItem id="header">
+                    <p>Item</p>
+                    <p>Ocorreu em</p>
+                    <p>Valor</p>
+                    <p>Comprovante</p>
+                    <p>Ação</p>
+                  </LineItem>
+                  {ticket.items.map((item: any) => (
+                    <LineItem key={`i-${item.idItem}`}>
+                      <>
+                        <p>{item.name}</p>
+                        <p>{item.dateItem}</p>
+                        <p>{item.value}</p>
+                        <a
+                          href={fixBase64(item.imageString)}
+                          target="_blank"
+                          rel="noreferrer"
+                          download
+                        >
+                          Anexo
+                        </a>
+                        <a href="#!" onClick={() => console.log('editar')}>
+                          Editar
+                        </a>
+                      </>
+                    </LineItem>
+                  ))}
+                </DivItem>
+              </DivTicket>
+            ))}
+            <DivPagButtons>
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+              />
+            </DivPagButtons>
+          </>
+        )}
       </ContainerListTicket>
     </ContainerMain>
   );
