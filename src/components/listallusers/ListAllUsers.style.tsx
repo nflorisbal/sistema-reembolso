@@ -10,9 +10,13 @@ export const ContainerListUsers = styled.div`
   min-width: 900px;
 `;
 
+export const ContainerFind = styled.div`
+  padding-bottom: ${Theme.padding};
+`;
+
 export const InputFind = styled(InputDefault)`
   width: 100%;
-`
+`;
 
 export const LineList = styled.div`
   display: grid;

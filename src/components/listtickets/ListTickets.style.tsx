@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { InputDefault } from '../../global.styles';
 import { Theme } from '../../theme';
 
 export const ContainerListTicket = styled.div`
@@ -11,6 +12,14 @@ export const ContainerListTicket = styled.div`
   font-size: 12px;
 `;
 
+export const ContainerFind = styled.div`
+  padding-bottom: ${Theme.padding};
+`;
+
+export const InputFind = styled(InputDefault)`
+  width: 100%;
+`;
+
 export const DivTicket = styled.div`
   margin-bottom: ${Theme.margin};
 `;
@@ -20,6 +29,7 @@ export const DivItem = styled.div``;
 export const LineTicket = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
+  row-gap: 13px;
   align-content: center;
   align-items: center;
   border-top: 1px solid ${Theme.color.neutralDark};

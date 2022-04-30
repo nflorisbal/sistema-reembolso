@@ -5,10 +5,12 @@ import { Block } from 'notiflix';
 import { RootState } from '../../store';
 import { listTickets } from '../../store/actions/ListTicketsActions';
 import {
+  ContainerFind,
   ContainerListTicket,
   DivItem,
   DivPagButtons,
   DivTicket,
+  InputFind,
   LineItem,
   LineTicket,
 } from './ListTickets.style';
@@ -16,6 +18,9 @@ import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
+import { Theme } from '../../theme';
+
+const MIN_LENGTH = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, pages } = state;
@@ -25,7 +30,17 @@ const ListTickets = (state: RootState & AnyAction) => {
   useEffect(() => {
     Block.circle('.listTickets');
     listTickets(dispatch, token, currentPage);
+    // eslint-disable-next-line
   }, [currentPage]);
+
+  const handleSearch = (value: string) => {
+    if (value === '') {
+      Block.circle('.listTickets');
+      listTickets(dispatch, token, currentPage);
+    } else if (value.length > MIN_LENGTH) {
+      // Block.circle('.listTickets');
+    }
+  };
 
   const setupAprovar = async (id: number) => {
     if (userRole === 'ROLE_GESTOR') {
@@ -51,17 +66,28 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
   };
 
+  console.log(ticketsList);
+
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
         <PageTitle>Tickets</PageTitle>
+        {userRole !== 'ROLE_COLABORADOR' && (
+          <ContainerFind>
+            <InputFind
+              name="find"
+              placeholder="Buscar usuário por nome"
+              onChange={(event) => handleSearch(event.target.value)}
+            />
+          </ContainerFind>
+        )}
         <LineTicket id="header">
           <p>Usuário</p>
           <p>Título</p>
           <p>Solicitado em</p>
           <p>Total</p>
           <p>Status</p>
-          {userRole === 'ROLE_ADMIN' && <p>Ações</p>}
+          <p>Ações</p>
         </LineTicket>
         {ticketsList.map((ticket: any) => (
           <DivTicket key={ticket.idRefund}>
@@ -71,7 +97,7 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{ticket.status}</div>
-              {userRole !== 'ROLE_COLABORADOR' && (
+              {userRole !== 'ROLE_COLABORADOR' ? (
                 <div>
                   <ButtonAction
                     color="#29CC97"
@@ -84,6 +110,22 @@ const ListTickets = (state: RootState & AnyAction) => {
                     onClick={() => setupReprovar(ticket.idRefund)}
                   >
                     Reprovar
+                  </ButtonAction>
+                </div>
+              ) : (
+                <div>
+                  <ButtonAction
+                    color={Theme.color.primaryPure}
+                    onClick={() => console.log('editar')}
+                  >
+                    Editar
+                  </ButtonAction>
+                  <ButtonAction
+                    color="#F12B2C"
+                    onClick={() => console.log('excluir')}
+                    disabled={ticket.status !== 'ABERTO'}
+                  >
+                    Excluir
                   </ButtonAction>
                 </div>
               )}
@@ -100,10 +142,10 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <p>{item.name}</p>
                   <p>{item.dateItem}</p>
                   <p>{item.value}</p>
-
                   <a
                     href={fixBase64(item.imageString)}
                     target="_blank"
+                    rel="noreferrer"
                     download
                   >
                     Anexo

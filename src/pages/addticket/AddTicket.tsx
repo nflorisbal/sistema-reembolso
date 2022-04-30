@@ -99,6 +99,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       setTimeout(() => {
         // alert(JSON.stringify(values, null, 2));
         sendNewTicket(values, dispatch, token);
+
         setSubmitting(false);
       }, 500);
     },

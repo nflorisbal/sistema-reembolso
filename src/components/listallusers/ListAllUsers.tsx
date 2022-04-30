@@ -3,6 +3,7 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
 import {
+  ContainerFind,
   ContainerListUsers,
   DivColumnName,
   DivPagButtons,
@@ -26,7 +27,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const handleSearch = (value: string) => {
-    if (value == '') {
+    if (value === '') {
       Block.circle('.listUser');
       listAllUsers(dispatch, token, currentPage);
     } else if (value.length > MIN_LENGTH) {
@@ -45,13 +46,13 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     <ContainerMain>
       <ContainerListUsers className="listUser">
         <PageTitle>Lista de usuários</PageTitle>
-        <div>
+        <ContainerFind>
           <InputFind
             name="find"
             placeholder="Buscar usuário por nome"
             onChange={(event) => handleSearch(event.target.value)}
           />
-        </div>
+        </ContainerFind>
         <LineList id="header">
           <p>Foto</p>
           <p>Nome</p>

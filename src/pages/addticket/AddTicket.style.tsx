@@ -10,7 +10,7 @@ export const ContainerAddTicket = styled.div`
   border-radius: ${Theme.borderRadius};
   box-shadow: ${Theme.boxShadow};
   padding: 0 ${Theme.padding};
-  margin: ${Theme.margin};  
+  margin: ${Theme.margin};
 `;
 
 export const DivFlexItem = styled.div`
