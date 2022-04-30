@@ -23,6 +23,11 @@ const addTicketReducer = (
         title: action.title,
         items: action.items
       };
+      case 'UPDATE_TICKET':
+        return {
+          ...state,
+          items: action.items
+        };
     default:
       return state;
   }

@@ -29,6 +29,7 @@ import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import { Theme } from '../../theme';
 import ZeroTicket from '../zeroticket/ZeroTicket'
+import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH = 2;
 
@@ -36,6 +37,7 @@ const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
+  const navigate = useNavigate()
 
   useEffect(() => {
     Block.circle('.listTickets');
@@ -173,7 +175,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                     >
                       Anexo
                     </a>
-                    <a href="#!" onClick={() => console.log('editar')}>
+                    <a href="#!" onClick={() => navigate(`/updateitem/${item.idItem}`)}>
                       Editar
                     </a>
                   </>
