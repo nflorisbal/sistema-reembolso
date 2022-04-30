@@ -16,3 +16,16 @@ export const switchRole = (idRole: number) => {
       return 'Funcionário';
   }
 };
+
+export const fixBase64 = (file: string) => {
+  if (file?.charAt(0) === 'i') {
+    const newBase64 = `data:image/png;base64, ${file}`;
+    return newBase64;
+  } else if (file?.charAt(0) === '/') {
+    const newBase64 = `data:image/jpeg;base64, ${file}`;
+    return newBase64;
+  } else {
+    const newBase64 = `data:application/pdf;base64, ${file}`;
+    return newBase64;
+  }
+};

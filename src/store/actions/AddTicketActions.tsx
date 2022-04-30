@@ -1,6 +1,6 @@
 import { AppDispatch } from '..';
 import api from '../../api';
-import { TicketDTO } from '../../models/TicketDTO';
+import { newStatusDTO, TicketDTO } from '../../models/TicketDTO';
 
 export const sendNewTicket = async (
   ticket: TicketDTO,
@@ -8,7 +8,7 @@ export const sendNewTicket = async (
   token: any
 ) => {
   const sendTitle = { title: ticket.title };
-  console.log(ticket)
+  console.log(ticket);
 
   try {
     const { data } = await api.post(
@@ -34,6 +34,20 @@ export const sendNewTicket = async (
   } catch (error) {
     console.log(error);
   }
+};
+
+export const updateStatusTicket = async (
+  id: number,
+  newStatus: newStatusDTO,
+  token: any
+) => {
+  try {
+    await api.put(
+      `/refund/updateStatus?id=${id}`,
+      newStatus,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+  } catch (error) {}
 };
 
 // {

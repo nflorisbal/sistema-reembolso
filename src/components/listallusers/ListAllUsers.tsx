@@ -35,6 +35,8 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     }
   };
 
+  console.log(users)
+
   useEffect(() => {
     Block.circle('.listUser');
     listAllUsers(dispatch, token, currentPage);
@@ -69,7 +71,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             />
             <DivColumnName>{user.name}</DivColumnName>
             <div>{user.email}</div>
-            <div>{switchRole(user.idUser)}</div>
+            <div>{switchRole(user.roleEntities[0].idRole)}</div>
           </LineList>
         ))}
         <DivPagButtons>

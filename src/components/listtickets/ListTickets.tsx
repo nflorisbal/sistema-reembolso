@@ -14,6 +14,8 @@ import {
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
+import { updateStatusTicket } from '../../store/actions/AddTicketActions';
+import { fixBase64 } from '../../utils';
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, pages } = state;
@@ -24,6 +26,30 @@ const ListTickets = (state: RootState & AnyAction) => {
     Block.circle('.listTickets');
     listTickets(dispatch, token, currentPage);
   }, [currentPage]);
+
+  const setupAprovar = async (id: number) => {
+    if (userRole === 'ROLE_GESTOR') {
+      const newStatus = { status: 1 };
+      await updateStatusTicket(id, newStatus, token);
+    }
+    if (userRole === 'ROLE_FINANCEIRO') {
+      const newStatus = { status: 4 };
+      await updateStatusTicket(id, newStatus, token);
+    }
+    listTickets(dispatch, token, currentPage);
+  };
+
+  const setupReprovar = async (id: number) => {
+    if (userRole === 'ROLE_GESTOR') {
+      const newStatus = { status: 2 };
+      await updateStatusTicket(id, newStatus, token);
+    }
+    if (userRole === 'ROLE_FINANCEIRO') {
+      const newStatus = { status: 3 };
+      await updateStatusTicket(id, newStatus, token);
+    }
+    listTickets(dispatch, token, currentPage);
+  };
 
   return (
     <ContainerMain>
@@ -47,8 +73,18 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.status}</div>
               {userRole !== 'ROLE_COLABORADOR' && (
                 <div>
-                  <ButtonAction color="#29CC97">Aprovar</ButtonAction>
-                  <ButtonAction color="#F12B2C">Recusar</ButtonAction>
+                  <ButtonAction
+                    color="#29CC97"
+                    onClick={() => setupAprovar(ticket.idRefund)}
+                  >
+                    Aprovar
+                  </ButtonAction>
+                  <ButtonAction
+                    color="#F12B2C"
+                    onClick={() => setupReprovar(ticket.idRefund)}
+                  >
+                    Reprovar
+                  </ButtonAction>
                 </div>
               )}
             </LineTicket>
@@ -60,14 +96,22 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <p>Comprovante</p>
               </LineItem>
               {ticket.items.map((item: any) => (
-                <LineItem key={item.idItem + ticket.idRefund}>
-                  <p>{item.name}</p>
-                  <p>{item.dateItem}</p>
-                  <p>{item.value}</p>
-                  <a href={item.imageString} target="_blank" download>
-                    Anexo
-                  </a>
-                </LineItem>
+                <>
+                  {console.log(item.imageString, 'socorro')}
+                  <LineItem key={item.idItem}>
+                    <p>{item.name}</p>
+                    <p>{item.dateItem}</p>
+                    <p>{item.value}</p>
+
+                    <a
+                      href={fixBase64(item.imageString)}
+                      target="_blank"
+                      download
+                    >
+                      Anexo
+                    </a>
+                  </LineItem>
+                </>
               ))}
             </DivItem>
           </DivTicket>

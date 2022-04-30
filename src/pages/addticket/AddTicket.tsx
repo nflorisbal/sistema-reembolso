@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import InputMask from 'react-input-mask';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import {
   ContainerAddTicket,
@@ -34,6 +35,8 @@ import {
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
+
+
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
@@ -163,6 +166,8 @@ const AddTicket = (state: RootState & AnyAction) => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           placeholder="Data:"
+                          as={InputMask}
+                          mask="99/99/9999"
                         />
                         <InputDefault
                           name={`items[${index}.value]`}
