@@ -36,8 +36,6 @@ import {
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
 
-
-
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
 
@@ -99,31 +97,31 @@ const AddTicket = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<TicketDTO>
     ) => {
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        // alert(JSON.stringify(values, null, 2));
         sendNewTicket(values, dispatch, token);
-        console.log(values);
         setSubmitting(false);
       }, 500);
     },
     validationSchema: addTicketSchema,
   });
 
-  function formatReal(int: any) {
+  const formatReal = (int: any) => {
     let tmp = int + '';
     tmp = tmp.replace(/([0-9]{2})$/g, ',$1');
     if (tmp.length > 6) tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
 
     return tmp;
-  }
+  };
+
   const setupValue = (value: any, index: any) => {
     if (value !== '') {
       const onlyNumbers = value.replace(/\D+/g, '');
       const money = parseInt(onlyNumbers.replace(/[\D]+/g, ''));
-      if(!isNaN(money)){
-      formik.setFieldValue(index, formatReal(money));
+      if (!isNaN(money)) {
+        formik.setFieldValue(index, formatReal(money));
       }
-    }else if (value === ""){
-      formik.setFieldValue(index, "")
+    } else if (value === '') {
+      formik.setFieldValue(index, '');
     }
   };
 

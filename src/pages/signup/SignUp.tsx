@@ -48,7 +48,7 @@ const SignUp = (state: RootState & AnyAction) => {
     imageToUpdate,
     roleToUpdate,
   } = state;
-  console.log(nameToUpdate, 'name');
+
   const navigate = useNavigate();
   const passwordFeedback = [
     'Muito fraco',
@@ -60,8 +60,6 @@ const SignUp = (state: RootState & AnyAction) => {
   const passwordTooShort = ['Muito fraco'];
   const [score, setScore] = useState(0);
   const [admin, setAdmin] = useState(false);
-
-  
 
   //#region password
   const [showPassword, setShowPassword] = useState(false);
@@ -97,14 +95,14 @@ const SignUp = (state: RootState & AnyAction) => {
       .max(50, 'Máximo de 50 caracteres.'),
     password: Yup.string()
       .required('Campo obrigatório.')
-      .min(8, "Mínimo de 8 caracteres.")
-      .max(18, "Máximo de 18 caracteres.")
-      .matches(/^(?=.*[A-Z])/, "Precisa conter uma letra maiúscula.")
-      .matches(/^(?=.*[a-z])/, "Precisa conter uma letra minúscula.")
-      .matches(/^(?=.*[0-9])/, "Precisa conter um número.")
+      .min(8, 'Mínimo de 8 caracteres.')
+      .max(18, 'Máximo de 18 caracteres.')
+      .matches(/^(?=.*[A-Z])/, 'Precisa conter uma letra maiúscula.')
+      .matches(/^(?=.*[a-z])/, 'Precisa conter uma letra minúscula.')
+      .matches(/^(?=.*[0-9])/, 'Precisa conter um número.')
       .matches(
         /^(?=.*[$*&@#])/,
-        "Sua senha precisa conter um caractere especial."
+        'Sua senha precisa conter um caractere especial.'
       ),
     confirmPassword: Yup.string().test(
       'Passwords',
@@ -176,7 +174,6 @@ const SignUp = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     checkAdmin();
-
   }, []);
 
   return (

@@ -8,7 +8,6 @@ export const sendNewTicket = async (
   token: any
 ) => {
   const sendTitle = { title: ticket.title };
-  console.log(ticket);
 
   try {
     const { data } = await api.post(
@@ -16,13 +15,13 @@ export const sendNewTicket = async (
       sendTitle,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    console.log(data);
+
     ticket.items.forEach(async (item) => {
       const ticketData = new FormData();
       ticketData.append('dateItem', item.dateItem);
       ticketData.append('image', item.image as File);
       ticketData.append('name', item.name);
-      let newValue = item.value.replaceAll(".", "").replaceAll(",", ".")
+      let newValue = item.value.replaceAll('.', '').replaceAll(',', '.');
       ticketData.append('value', newValue);
       await api.post(
         `/item/${data}`,
@@ -48,12 +47,7 @@ export const updateStatusTicket = async (
       newStatus,
       (api.defaults.headers.common['Authorization'] = token)
     );
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
-
-// {
-//   headers: {
-//     'Content-Type': 'multipart/form-data',
-//     Authorization: `${token}`,
-//   },
-// });

@@ -8,26 +8,17 @@ import { RootState } from '../../store';
 import { hasToken } from '../../utils';
 
 const ListTicketsPage = (state: ArrayTicketDTO & DispatchProp) => {
-
-  const {ticketsList} = state;
-  console.log(state)
   const navigate = useNavigate();
+  const { ticketsList } = state;
 
   useEffect(() => {
     if (!hasToken()) {
       navigate('/login');
     }
-
     // eslint-disable-next-line
   }, []);
 
-  return (
-    <>{ticketsList.length  
-      ? <ListTickets />
-      : <ZeroTicket />
-      }
-    </>
-  );
+  return <>{ticketsList.length ? <ListTickets /> : <ZeroTicket />}</>;
 };
 
 const mapStateToProps = (state: RootState) => ({

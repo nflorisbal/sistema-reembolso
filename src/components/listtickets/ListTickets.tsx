@@ -96,22 +96,19 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <p>Comprovante</p>
               </LineItem>
               {ticket.items.map((item: any) => (
-                <>
-                  {console.log(item.imageString, 'socorro')}
-                  <LineItem key={item.idItem}>
-                    <p>{item.name}</p>
-                    <p>{item.dateItem}</p>
-                    <p>{item.value}</p>
+                <LineItem key={`i-${item.idItem}`}>
+                  <p>{item.name}</p>
+                  <p>{item.dateItem}</p>
+                  <p>{item.value}</p>
 
-                    <a
-                      href={fixBase64(item.imageString)}
-                      target="_blank"
-                      download
-                    >
-                      Anexo
-                    </a>
-                  </LineItem>
-                </>
+                  <a
+                    href={fixBase64(item.imageString)}
+                    target="_blank"
+                    download
+                  >
+                    Anexo
+                  </a>
+                </LineItem>
               ))}
             </DivItem>
           </DivTicket>

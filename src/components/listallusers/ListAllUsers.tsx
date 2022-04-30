@@ -35,8 +35,6 @@ const ListAllUsers = (state: RootState & AnyAction) => {
     }
   };
 
-  console.log(users)
-
   useEffect(() => {
     Block.circle('.listUser');
     listAllUsers(dispatch, token, currentPage);
