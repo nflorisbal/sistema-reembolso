@@ -22,36 +22,34 @@ const ListTickets = (state: RootState & AnyAction) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
 
-  console.log(userRole, "log")
-
   useEffect(() => {
     Block.circle('.listTickets');
     listTickets(dispatch, token, currentPage);
   }, [currentPage]);
 
-  const setupAprovar = async (id:number) =>{
-    if(userRole === "ROLE_GESTOR"){
-      const newStatus = {status: 1}
-      await updateStatusTicket (id, newStatus, token)
+  const setupAprovar = async (id: number) => {
+    if (userRole === 'ROLE_GESTOR') {
+      const newStatus = { status: 1 };
+      await updateStatusTicket(id, newStatus, token);
     }
-    if(userRole === "ROLE_FINANCEIRO"){
-      const newStatus = {status: 4}
-      await updateStatusTicket(id, newStatus, token)
+    if (userRole === 'ROLE_FINANCEIRO') {
+      const newStatus = { status: 4 };
+      await updateStatusTicket(id, newStatus, token);
     }
     listTickets(dispatch, token, currentPage);
-  }
+  };
 
-  const setupReprovar = async (id:number) =>{
-    if(userRole === "ROLE_GESTOR"){
-      const newStatus = {status: 2}
-      await updateStatusTicket(id, newStatus, token)
+  const setupReprovar = async (id: number) => {
+    if (userRole === 'ROLE_GESTOR') {
+      const newStatus = { status: 2 };
+      await updateStatusTicket(id, newStatus, token);
     }
-    if(userRole === "ROLE_FINANCEIRO"){
-      const newStatus = {status: 3}
-      await updateStatusTicket(id, newStatus, token)
+    if (userRole === 'ROLE_FINANCEIRO') {
+      const newStatus = { status: 3 };
+      await updateStatusTicket(id, newStatus, token);
     }
     listTickets(dispatch, token, currentPage);
-  }
+  };
 
   return (
     <ContainerMain>
@@ -75,8 +73,18 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.status}</div>
               {userRole !== 'ROLE_COLABORADOR' && (
                 <div>
-                  <ButtonAction color="#29CC97" onClick={()=> setupAprovar(ticket.idRefund)}>Aprovar</ButtonAction>
-                  <ButtonAction color="#F12B2C" onClick={()=> setupReprovar(ticket.idRefund)}>Reprovar</ButtonAction>
+                  <ButtonAction
+                    color="#29CC97"
+                    onClick={() => setupAprovar(ticket.idRefund)}
+                  >
+                    Aprovar
+                  </ButtonAction>
+                  <ButtonAction
+                    color="#F12B2C"
+                    onClick={() => setupReprovar(ticket.idRefund)}
+                  >
+                    Reprovar
+                  </ButtonAction>
                 </div>
               )}
             </LineTicket>
@@ -89,16 +97,20 @@ const ListTickets = (state: RootState & AnyAction) => {
               </LineItem>
               {ticket.items.map((item: any) => (
                 <>
-                {console.log(item.imageString, "socorro")}
-                <LineItem key={item.idItem}>
-                  <p>{item.name}</p>
-                  <p>{item.dateItem}</p>
-                  <p>{item.value}</p>
-                  
-                  <a href={fixBase64(item.imageString)} target="_blank" download>
-                    Anexo
-                  </a>
-                </LineItem>
+                  {console.log(item.imageString, 'socorro')}
+                  <LineItem key={item.idItem}>
+                    <p>{item.name}</p>
+                    <p>{item.dateItem}</p>
+                    <p>{item.value}</p>
+
+                    <a
+                      href={fixBase64(item.imageString)}
+                      target="_blank"
+                      download
+                    >
+                      Anexo
+                    </a>
+                  </LineItem>
                 </>
               ))}
             </DivItem>
