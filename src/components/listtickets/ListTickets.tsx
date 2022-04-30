@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
+import StatusEnum from '../../enums/Status';
 import { RootState } from '../../store';
 import {
   deleteTicket,
@@ -105,7 +106,7 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.title}</div>
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
-              <div>{ticket.status}</div>
+              <div>{StatusEnum[ticket.status]}</div>
               {userRole !== 'ROLE_COLABORADOR' ? (
                 <div>
                   <ButtonAction
