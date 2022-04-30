@@ -76,8 +76,6 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
   };
 
-  console.log(ticketsList);
-
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">

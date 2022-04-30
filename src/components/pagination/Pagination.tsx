@@ -23,7 +23,9 @@ const Pagination = ({
         <FaStepBackward />
       </PageButton>
       <PageButton
-        disabled={currentPage == totalPages - 1 ? true : false}
+        disabled={
+          currentPage === totalPages - 1 || totalPages === 0 ? true : false
+        }
         onClick={() => {
           if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
         }}
