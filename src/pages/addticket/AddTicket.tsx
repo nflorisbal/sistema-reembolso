@@ -139,6 +139,25 @@ const AddTicket = (state: RootState & AnyAction) => {
     });
   };
 
+  function formatReal(int: any) {
+    let tmp = int + '';
+    tmp = tmp.replace(/([0-9]{2})$/g, ',$1');
+    if (tmp.length > 6) tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
+
+    return tmp;
+  }
+  const setupValue = (value: any, index: any) => {
+    if (value !== '') {
+      const onlyNumbers = value.replace(/\D+/g, '');
+      const money = parseInt(onlyNumbers.replace(/[\D]+/g, ''));
+      if(!isNaN(money)){
+      formik.setFieldValue(index, formatReal(money));
+      }
+    }else if (value === ""){
+      formik.setFieldValue(index, "")
+    }
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -203,7 +222,9 @@ const AddTicket = (state: RootState & AnyAction) => {
                         <InputDefault
                           name={`items[${index}.value]`}
                           value={item.value}
-                          onChange={formik.handleChange}
+                          onChange={(e) =>
+                            setupValue(e.target.value, `items[${index}.value]`)
+                          }
                           onBlur={formik.handleBlur}
                           placeholder="Valor:"
                         />

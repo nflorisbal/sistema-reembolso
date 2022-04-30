@@ -22,7 +22,8 @@ export const sendNewTicket = async (
       ticketData.append('dateItem', item.dateItem);
       ticketData.append('image', item.image as File);
       ticketData.append('name', item.name);
-      ticketData.append('value', item.value);
+      let newValue = item.value.replaceAll(".", "").replaceAll(",", ".")
+      ticketData.append('value', newValue);
       await api.post(
         `/item/${data}`,
         ticketData,
