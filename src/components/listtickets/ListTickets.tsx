@@ -89,8 +89,9 @@ const ListTickets = (state: RootState & AnyAction) => {
     <ContainerMain>
       <ContainerListTicket className="listTickets">
       {!ticketsList.length  
-        ? <ZeroTicket />  
-        : <PageTitle>Tickets</PageTitle>
+        ? <ZeroTicket /> 
+        : 
+        <><PageTitle>Tickets</PageTitle>
         {userRole !== 'ROLE_COLABORADOR' && (
           <ContainerFind>
             <InputFind
@@ -184,7 +185,7 @@ const ListTickets = (state: RootState & AnyAction) => {
             totalPages={pages}
           />
         </DivPagButtons>
-        }
+        </>}
       </ContainerListTicket>
     </ContainerMain>
   );
