@@ -6,7 +6,8 @@ import { Notify } from 'notiflix';
 export const sendNewTicket = async (
   ticket: TicketDTO,
   dispatch: AppDispatch,
-  token: any
+  token: any,
+  navigate: Function
 ) => {
   const sendTitle = { title: ticket.title };
 
@@ -31,7 +32,9 @@ export const sendNewTicket = async (
       );
     });
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
-    
+    setTimeout(() => {
+      navigate('/')
+    }, 4000);
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);

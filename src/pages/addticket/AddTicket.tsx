@@ -38,6 +38,7 @@ import { sendNewTicket } from '../../store/actions/AddTicketActions';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
+  const navigate = useNavigate();
 
   const addTicketSchema = Yup.object().shape({
     title: Yup.string()
@@ -94,7 +95,7 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         // alert(JSON.stringify(values, null, 2));
-        sendNewTicket(values, dispatch, token);
+        sendNewTicket(values, dispatch, token, navigate);
 
         setSubmitting(false);
       }, 500);
@@ -122,7 +123,6 @@ const AddTicket = (state: RootState & AnyAction) => {
     }
   };
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!hasToken()) {
