@@ -3,7 +3,10 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
 import { RootState } from '../../store';
-import { listTickets } from '../../store/actions/ListTicketsActions';
+import {
+  deleteTicket,
+  listTickets,
+} from '../../store/actions/ListTicketsActions';
 import {
   ContainerFind,
   ContainerListTicket,
@@ -40,6 +43,12 @@ const ListTickets = (state: RootState & AnyAction) => {
     } else if (value.length > MIN_LENGTH) {
       // Block.circle('.listTickets');
     }
+  };
+
+  const handleDelete = async (id: number) => {
+    Block.circle('.listTickets');
+    await deleteTicket(token, id);
+    listTickets(dispatch, token, currentPage);
   };
 
   const setupAprovar = async (id: number) => {
@@ -117,12 +126,13 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <ButtonAction
                     color={Theme.color.primaryPure}
                     onClick={() => console.log('editar')}
+                    disabled={ticket.status !== 'ABERTO'}
                   >
                     Editar
                   </ButtonAction>
                   <ButtonAction
                     color="#F12B2C"
-                    onClick={() => console.log('excluir')}
+                    onClick={() => handleDelete(ticket.idRefund)}
                     disabled={ticket.status !== 'ABERTO'}
                   >
                     Excluir

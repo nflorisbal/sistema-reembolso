@@ -28,3 +28,16 @@ export const listTickets = async (
     Block.remove('.listTickets');
   }
 };
+
+export const deleteTicket = async (token: any, id: number) => {
+  try {
+    await api.delete(
+      `/refund/?id=${id}`,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+  } catch (error) {
+    console.log(error);
+  } finally {
+    Block.remove('.listTickets');
+  }
+};
