@@ -182,7 +182,7 @@ const ListTickets = (state: RootState & AnyAction) => {
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{StatusEnum[ticket.status]}</div>
-              {userRole !== 'ROLE_COLABORADOR' ? (
+              {userRole !== 'ROLE_COLABORADOR' && 'ROLE_ADMINISTRADOR' ? (
                 <div>
                   <ButtonAction
                     color="#29CC97"

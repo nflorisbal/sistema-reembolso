@@ -105,6 +105,7 @@ export const ButtonAction = styled.button<{ color: string }>`
 
   :hover:enabled {
     filter: brightness(0.9);
+    cursor: pointer;
   }
 
   :disabled {
