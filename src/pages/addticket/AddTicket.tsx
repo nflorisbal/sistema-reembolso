@@ -82,7 +82,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                 if (value !== undefined && value !== null) {
                   return (
                     (value.size <= 800000 && value.type.includes('image')) ||
-                    value.type.includes('pdf')
+                    value.size <= 800000 && value.type.includes('pdf')
                   );
                 }
                 return true;
@@ -111,8 +111,8 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         // alert(JSON.stringify(values, null, 2));
-        //sendNewTicket(values, dispatch, token, navigate);
-        console.log('aceito');
+        sendNewTicket(values, dispatch, token, navigate);
+        console.log("aceito")
 
         setSubmitting(false);
       }, 500);
