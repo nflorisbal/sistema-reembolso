@@ -4,7 +4,6 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from 'react-icons/ai';
-import PasswordStrengthBar from 'react-password-strength-bar';
 import {
   ButtonDefault,
   ContainerMain,
@@ -175,6 +174,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
+              onBlur={formik.handleBlur}
               onChange={(event) =>
                 formik.setFieldValue('image', event.target.files?.[0])
               }

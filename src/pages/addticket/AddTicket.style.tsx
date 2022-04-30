@@ -11,12 +11,13 @@ export const ContainerAddTicket = styled.div`
   box-shadow: ${Theme.boxShadow};
   padding: 0 ${Theme.padding};
   margin: ${Theme.margin};
+  width: 440px;
+  
 `;
 
 export const DivFlexItem = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
   gap: 10px;
 `;
 
@@ -25,3 +26,9 @@ export const AnotherItem = styled.a`
     cursor: pointer;
     text-decoration: none;
 `
+export const DivFlexItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+`;

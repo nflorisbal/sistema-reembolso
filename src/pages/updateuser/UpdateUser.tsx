@@ -116,7 +116,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      updateUserAdmin(values, dispatch, token, id);
+      updateUserAdmin(values, dispatch, token, id, navigate)
       setSubmitting(false);
     },
     validationSchema: updateSchema,

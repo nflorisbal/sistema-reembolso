@@ -85,25 +85,31 @@ export const editingUser = async (
   updatedUser.append('password', user.password);
   updatedUser.append('image', user.image as File);
 
-  const { data } = await api.post(
-    'user/updateUser',
-    updatedUser,
-    (api.defaults.headers.common['Authorization'] = token)
-  );
-
-  user.image = data.image;
-
-  const stateUser = { ...user, type: 'UPDATE_USER' };
-  const updateStateUser = { ...user, type: 'SET_UPDATE' };
-  dispatch(stateUser);
-  dispatch(updateStateUser);
+  try {
+    const { data } = await api.post(
+      'user/updateUser',
+      updatedUser,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+  
+    user.image = data.image;
+    Notify.success('Cadastro atualizado com sucesso');
+    const stateUser = { ...user, type: 'UPDATE_USER' };
+    const updateStateUser = { ...user, type: 'SET_UPDATE' };
+    dispatch(stateUser);
+    dispatch(updateStateUser);
+  } catch (error) {
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  }
+  
 };
 
 export const updateUserAdmin = async (
   updatedUser: SignUpDTO,
   dispatch: AppDispatch,
   token: any,
-  id: string | undefined
+  id: string | undefined,
+  navigate: Function
 ) => {
   console.log(updatedUser, 'updated');
   const updatedUserData = new FormData();
@@ -124,10 +130,15 @@ export const updateUserAdmin = async (
       updatedUserData,
       (api.defaults.headers.common['Authorization'] = token)
     );
+    Notify.success('Cadastro atualizado com sucesso');
     const actionUpdatedUser = {...updatedUser, type: 'UPDATE_USER_ADMIN'}
     dispatch(actionUpdatedUser)
+    setTimeout(() => {
+      navigate('/')
+    }, 5000);
   } catch (error) {
     console.log(error)
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
 

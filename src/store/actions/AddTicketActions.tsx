@@ -33,11 +33,12 @@ export const sendNewTicket = async (
     });
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
     setTimeout(() => {
-      navigate('/')
+      navigate('/');
     }, 4000);
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
 
@@ -55,5 +56,25 @@ export const updateStatusTicket = async (
     Notify.success('Ação realizada com sucesso');
   } catch (error) {
     console.log(error);
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  }
+};
+
+export const updateItem = async (item:any, token:any, id:any) => {
+  const ticketDataUpdated = new FormData();
+  ticketDataUpdated.append('dateItem', item.dateItem);
+  ticketDataUpdated.append('image', item.image as File);
+  ticketDataUpdated.append('name', item.name);
+  let newValue = item.value.replaceAll('.', '').replaceAll(',', '.');
+  ticketDataUpdated.append('value', newValue);
+  try {
+    await api.post(
+      `/item/updateItem/${id}`,
+      ticketDataUpdated,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    Notify.success('Ação realizada com sucesso');
+  } catch (error) {
+    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };

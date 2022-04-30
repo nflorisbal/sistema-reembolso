@@ -16,6 +16,7 @@ import {
   ContainerAddTicket,
   DivFlexItem,
   AnotherItem,
+  DivFlexItemContainer
 } from './AddTicket.style';
 import { DivButton } from '../signup/SignUp.style';
 import { TicketDTO } from '../../models/TicketDTO';
@@ -160,7 +161,7 @@ const AddTicket = (state: RootState & AnyAction) => {
               render={(ArrayHelpers) => (
                 <div>
                   {formik.values.items.map((item, index) => (
-                    <DivFlexItem key={index}>
+                    <DivFlexItemContainer key={index}>
                       <StyledLabel htmlFor="item">
                         Dados do pedido de reembolso:
                       </StyledLabel>
@@ -172,7 +173,12 @@ const AddTicket = (state: RootState & AnyAction) => {
                         onBlur={formik.handleBlur}
                         placeholder="Item:"
                       />
-                      <DivFlex>
+                       <ErrorMessage
+                          name={`items.${index}.value`}
+                          component={LabelError}
+                          className="field-error"
+                        />
+                      <DivFlexItem>
                         <InputDefault
                           name={`items[${index}.dateItem]`}
                           id={`items[${index}.dateItem]`}
@@ -182,6 +188,11 @@ const AddTicket = (state: RootState & AnyAction) => {
                           placeholder="Data:"
                           as={InputMask}
                           mask="99/99/9999"
+                        />
+                         <ErrorMessage
+                          name={`items.${index}.value`}
+                          component={LabelError}
+                          className="field-error"
                         />
                         <InputDefault
                           name={`items[${index}.value]`}
@@ -194,10 +205,10 @@ const AddTicket = (state: RootState & AnyAction) => {
                         />
                         <ErrorMessage
                           name={`items.${index}.value`}
-                          component="div"
+                          component={LabelError}
                           className="field-error"
                         />
-                      </DivFlex>
+                      </DivFlexItem>
                       <InputDefault
                         name={`items[${index}.image]`}
                         onChange={(event: any) =>
@@ -221,7 +232,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                           Remover
                         </ButtonDefault>
                       </DivButton>
-                    </DivFlexItem>
+                    </DivFlexItemContainer>
                   ))}
                   <DivButton>
                     <AnotherItem
