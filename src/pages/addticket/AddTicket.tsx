@@ -62,10 +62,13 @@ const AddTicket = (state: RootState & AnyAction) => {
             .required('Campo obrigatório.')
             .test('dateItem', 'Data inválida.', (value) => {
               const now = moment().format('DD/MM/YYYY');
-              console.log(value)
-              console.log(now,"agora")
-              console.log(moment(value, "DD/MM/YYYY").isSameOrBefore(moment()), "checa")
-              if (moment(value, "DD/MM/YYYY").isSameOrBefore(moment())) {
+              console.log(value);
+              console.log(now, 'agora');
+              console.log(
+                moment(value, 'DD/MM/YYYY').isSameOrBefore(moment()),
+                'checa'
+              );
+              if (moment(value, 'DD/MM/YYYY').isSameOrBefore(moment())) {
                 return true;
               }
               return false;
@@ -109,7 +112,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       setTimeout(() => {
         // alert(JSON.stringify(values, null, 2));
         //sendNewTicket(values, dispatch, token, navigate);
-        console.log("aceito")
+        console.log('aceito');
 
         setSubmitting(false);
       }, 500);

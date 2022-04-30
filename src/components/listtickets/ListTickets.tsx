@@ -22,7 +22,6 @@ import {
 import Pagination from '../pagination/Pagination';
 import {
   ButtonAction,
-  ButtonDefault,
   ContainerMain,
   DivFlex,
   InputDefault,
@@ -33,21 +32,7 @@ import {
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import { Theme } from '../../theme';
-import {
-  FieldArray,
-  FormikHelpers,
-  useFormik,
-  ArrayHelpers,
-  FormikProvider,
-  ErrorMessage,
-} from 'formik';
-import { TicketDTO } from '../../models/TicketDTO';
-import {
-  AnotherItem,
-  DivFlexItem,
-} from '../../pages/addticket/AddTicket.style';
-import InputMask from 'react-input-mask';
-import { DivButton } from '../../pages/signup/SignUp.style';
+import { FormikHelpers, useFormik } from 'formik';
 
 const MIN_LENGTH = 2;
 
@@ -104,44 +89,6 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
   };
 
-  const formikTitle = useFormik({
-    initialValues: {
-      title: '',
-    },
-    onSubmit: (values: any, { setSubmitting }: FormikHelpers<any>) => {
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 500);
-    },
-    //validationSchema: addTicketSchema,
-  });
-
-  const formikItem = useFormik({
-    initialValues: {
-      items: [
-        {
-          name: '',
-          dateItem: '',
-          value: '',
-          image: '',
-        },
-      ],
-    },
-    onSubmit: (values: any, { setSubmitting }: FormikHelpers<any>) => {
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 500);
-    },
-    //validationSchema: addTicketSchema,
-  });
-
-  const setupEditItem = (item: any) => {
-    setEditItem(!editItem);
-    formikItem.setFieldValue(`items[0.name]`, item.name);
-    formikItem.setFieldValue(`items[0.dateItem]`, item.dateItem);
-    formikItem.setFieldValue(`items[0.value]`, item.value);
-  };
-
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
@@ -167,18 +114,9 @@ const ListTickets = (state: RootState & AnyAction) => {
           <DivTicket key={ticket.idRefund}>
             <LineTicket>
               <div>{ticket.name}</div>
-              {editTitle ? (
-                <InputDefault
-                  id="title"
-                  name="title"
-                  placeholder="Digite o título"
-                  value={formikTitle.values.title}
-                  onChange={formikTitle.handleChange}
-                  onBlur={formikTitle.handleBlur}
-                />
-              ) : (
-                <div>{ticket.title}</div>
-              )}
+
+              <div>{ticket.title}</div>
+
               <div>{ticket.date}</div>
               <div>{ticket.value}</div>
               <div>{StatusEnum[ticket.status]}</div>
@@ -226,114 +164,22 @@ const ListTickets = (state: RootState & AnyAction) => {
               </LineItem>
               {ticket.items.map((item: any) => (
                 <LineItem key={`i-${item.idItem}`}>
-                  {editItem ? (
-                    <FormikProvider value={formikItem}>
-                      <FieldArray
-                        name="items"
-                        render={(ArrayHelpers) => (
-                          <div>
-                            {formikItem.values.items.map((item, index) => (
-                              <DivFlexItem key={index}>
-                                <StyledLabel htmlFor="item">
-                                  Dados do pedido de reembolso:
-                                </StyledLabel>
-                                <InputDefault
-                                  name={`items[${index}.name]`}
-                                  id={`items[${index}.name]`}
-                                  value={item.name}
-                                  onChange={formikItem.handleChange}
-                                  onBlur={formikItem.handleBlur}
-                                  placeholder="Item:"
-                                />
-                                <DivFlex>
-                                  <InputDefault
-                                    name={`items[${index}.dateItem]`}
-                                    id={`items[${index}.dateItem]`}
-                                    value={item.dateItem}
-                                    onChange={formikItem.handleChange}
-                                    onBlur={formikItem.handleBlur}
-                                    placeholder="Data:"
-                                    as={InputMask}
-                                    mask="99/99/9999"
-                                  />
-                                  <InputDefault
-                                    name={`items[${index}.value]`}
-                                    value={item.value}
-                                    onChange={
-                                      formikItem.handleChange
-                                      //setupValue(e.target.value, `items[${index}.value]`)
-                                    }
-                                    onBlur={formikItem.handleBlur}
-                                    placeholder="Valor:"
-                                  />
-                                  <ErrorMessage
-                                    name={`items.${index}.value`}
-                                    component="div"
-                                    className="field-error"
-                                  />
-                                </DivFlex>
-                                <InputDefault
-                                  name={`items[${index}.image]`}
-                                  onChange={(event: any) =>
-                                    formikItem.setFieldValue(
-                                      `items[${index}.image]`,
-                                      event.target.files?.[0]
-                                    )
-                                  }
-                                  type="file"
-                                />
-                                <ErrorMessage
-                                  name={`items.${index}.image`}
-                                  component={LabelError}
-                                  className="field-error"
-                                />
-                                <DivButton>
-                                  <ButtonDefault
-                                    type="button"
-                                    onClick={() => ArrayHelpers.remove(index)}
-                                  >
-                                    Remover
-                                  </ButtonDefault>
-                                </DivButton>
-                              </DivFlexItem>
-                            ))}
-                            <DivButton>
-                              <AnotherItem
-                                href="#!"
-                                onClick={() =>
-                                  ArrayHelpers.push({
-                                    name: '',
-                                    dateItem: '',
-                                    value: '',
-                                    image: '',
-                                  })
-                                }
-                              >
-                                Deseja adicionar outro item?
-                              </AnotherItem>
-                            </DivButton>
-                          </div>
-                        )}
-                      ></FieldArray>
-                    </FormikProvider>
-                  ) : (
-                    <>
-                      <p>{item.name}</p>
-                      <p>{item.dateItem}</p>
-                      <p>{item.value}</p>
-                      <a
-                        href={fixBase64(item.imageString)}
-                        target="_blank"
-                        rel="noreferrer"
-                        download
-                      >
-                        Anexo
-                      </a>
-                      <a href="#!" onClick={() => setupEditItem(item)}>
-                        Editar
-                      </a>
-                    </>
-                  )}
+                  <>
+                    <p>{item.name}</p>
+                    <p>{item.dateItem}</p>
+                    <p>{item.value}</p>
+                    <a
+                      href={fixBase64(item.imageString)}
+                      target="_blank"
+                      rel="noreferrer"
+                      download
+                    >
+                      Anexo
+                    </a>
+                    <a href="#!" onClick={() => console.log('editar')}>
+                      Editar
+                    </a>
+                  </>
                 </LineItem>
               ))}
             </DivItem>
