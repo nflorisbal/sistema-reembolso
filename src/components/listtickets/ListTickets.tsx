@@ -7,6 +7,7 @@ import { RootState } from '../../store';
 import {
   deleteTicket,
   listTickets,
+  listTicketsByName,
 } from '../../store/actions/ListTicketsActions';
 import {
   ContainerFind,
@@ -68,7 +69,8 @@ const ListTickets = (state: RootState & AnyAction) => {
       Block.circle('.listTickets');
       listTickets(dispatch, token, currentPage);
     } else if (value.length > MIN_LENGTH) {
-      // Block.circle('.listTickets');
+      Block.circle('.listTickets');
+      listTicketsByName(dispatch, token, value);
     }
   };
 
