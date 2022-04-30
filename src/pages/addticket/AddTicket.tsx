@@ -178,15 +178,15 @@ const AddTicket = (state: RootState & AnyAction) => {
                         Dados do pedido de reembolso:
                       </StyledLabel>
                       <InputDefault
-                        name={`items[${index}.name]`}
-                        id={`items[${index}.name]`}
+                        name={`items[${index}].name`}
+                        id={`items[${index}].name`}
                         value={item.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         placeholder="Item:"
                       />
                       <ErrorMessage
-                        name={`items[${index}.name]`}
+                        name={`items[${index}].name`}
                         component={LabelError}
                         className="field-error"
                       />
@@ -225,7 +225,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                         name={`items[${index}].image`}
                         onChange={(event: any) =>
                           formik.setFieldValue(
-                            `items[${index}.image]`,
+                            `items[${index}].image`,
                             event.target.files?.[0]
                           )
                         }

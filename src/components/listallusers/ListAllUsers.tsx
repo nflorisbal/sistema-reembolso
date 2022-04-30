@@ -16,9 +16,10 @@ import {
   listUsersByName,
 } from '../../store/actions/ListUsersActions';
 import { switchRole } from '../../utils';
-import { ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
+import { ButtonAction, ContainerMain, ImgProfile, PageTitle } from '../../global.styles';
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
+import { Theme } from '../../theme';
 
 const MIN_LENGTH = 2;
 
@@ -58,6 +59,7 @@ const ListAllUsers = (state: RootState & AnyAction) => {
           <p>Nome</p>
           <p>E-mail</p>
           <p>Cargo</p>
+          <p>Ações</p>
         </LineList>
         {users?.map((user: any) => (
           <LineList key={user.idUser}>
@@ -71,6 +73,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
             <DivColumnName>{user.name}</DivColumnName>
             <div>{user.email}</div>
             <div>{switchRole(user.roleEntities[0].idRole)}</div>
+            <ButtonAction
+                    color={Theme.color.primaryDark}
+                    onClick={() => console.log('editar')}
+                  >Editar</ButtonAction>
           </LineList>
         ))}
         <DivPagButtons>

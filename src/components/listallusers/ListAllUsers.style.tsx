@@ -20,7 +20,7 @@ export const InputFind = styled(InputDefault)`
 
 export const LineList = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1.5fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 1.5fr 0.8fr 0.5fr;
   align-content: center;
   align-items: center;
   border-bottom: 1px solid ${Theme.color.neutralDark};

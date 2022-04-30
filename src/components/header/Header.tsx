@@ -6,6 +6,7 @@ import { RootState } from '../../store';
 import Menu from '../menu/Menu';
 import HeaderProfile from '../headerprofile/HeaderProfile';
 import { ImageLogo } from '../logo/Logo.style';
+import { Link } from 'react-router-dom';
 
 const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
   return (
@@ -13,7 +14,7 @@ const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
       {isLogged ? (
         <ContainerHeader>
           <ContainerMenu>
-            <ImageLogo width="170px" />
+            <Link to="/"><ImageLogo width="170px" /></Link>
             <Menu />
           </ContainerMenu>
           <ContainerMenu>
