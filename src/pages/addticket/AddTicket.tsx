@@ -16,7 +16,7 @@ import {
   ContainerAddTicket,
   DivFlexItem,
   AnotherItem,
-  DivFlexItemContainer
+  DivFlexItemContainer,
 } from './AddTicket.style';
 import { DivButton } from '../signup/SignUp.style';
 import { TicketDTO } from '../../models/TicketDTO';
@@ -36,6 +36,7 @@ import {
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/AddTicketActions';
+import moment from 'moment';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
@@ -56,11 +57,19 @@ const AddTicket = (state: RootState & AnyAction) => {
           name: Yup.string()
             .required('Campo obrigatório.')
             .min(3, 'Mínimo de 3 caracteres')
-            .max(10, 'máximo de 10 caracteres'),
+            .max(20, 'máximo de 20 caracteres'),
           dateItem: Yup.string()
             .required('Campo obrigatório.')
-            .min(3, 'Mínimo de 3 caracteres')
-            .max(10, 'máximo de 10 caracteres'),
+            .test('dateItem', 'Data inválida.', (value) => {
+              const now = moment().format('DD/MM/YYYY');
+              console.log(value)
+              console.log(now,"agora")
+              console.log(moment(value).isSameOrBefore(now, "day"), "checa")
+              if (moment(value).isBefore(now)) {
+                return true;
+              }
+              return false;
+            }),
           image: Yup.mixed()
             .required('Campo obrigatório.')
             .test(
@@ -68,7 +77,10 @@ const AddTicket = (state: RootState & AnyAction) => {
               'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg/pdf)',
               (value) => {
                 if (value !== undefined && value !== null) {
-                  return value.size <= 800000 && value.type.includes('image') || value.type.includes('pdf');
+                  return (
+                    (value.size <= 800000 && value.type.includes('image')) ||
+                    value.type.includes('pdf')
+                  );
                 }
                 return true;
               }
@@ -96,7 +108,8 @@ const AddTicket = (state: RootState & AnyAction) => {
     ) => {
       setTimeout(() => {
         // alert(JSON.stringify(values, null, 2));
-        sendNewTicket(values, dispatch, token, navigate);
+        //sendNewTicket(values, dispatch, token, navigate);
+        console.log("aceito")
 
         setSubmitting(false);
       }, 500);
@@ -123,7 +136,6 @@ const AddTicket = (state: RootState & AnyAction) => {
       formik.setFieldValue(index, '');
     }
   };
-
 
   useEffect(() => {
     if (!hasToken()) {
@@ -173,11 +185,11 @@ const AddTicket = (state: RootState & AnyAction) => {
                         onBlur={formik.handleBlur}
                         placeholder="Item:"
                       />
-                       <ErrorMessage
-                          name={`items.${index}.value`}
-                          component={LabelError}
-                          className="field-error"
-                        />
+                      <ErrorMessage
+                        name={`items.${index}.value`}
+                        component={LabelError}
+                        className="field-error"
+                      />
                       <DivFlexItem>
                         <InputDefault
                           name={`items[${index}.dateItem]`}
@@ -189,7 +201,7 @@ const AddTicket = (state: RootState & AnyAction) => {
                           as={InputMask}
                           mask="99/99/9999"
                         />
-                         <ErrorMessage
+                        <ErrorMessage
                           name={`items.${index}.value`}
                           component={LabelError}
                           className="field-error"
