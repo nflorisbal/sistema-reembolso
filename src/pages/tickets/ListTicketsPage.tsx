@@ -13,7 +13,7 @@ const ListTicketsPage = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <ListTickets />;
+  return hasToken() ? <ListTickets /> : null;
 };
 
 export default ListTicketsPage;
