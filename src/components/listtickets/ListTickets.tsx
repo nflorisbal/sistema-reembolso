@@ -85,20 +85,20 @@ const ListTickets = (state: RootState & AnyAction) => {
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
+        <PageTitle>Tickets</PageTitle>
+        {userRole !== 'ROLE_COLABORADOR' && (
+          <ContainerFind>
+            <InputFind
+              name="find"
+              placeholder="Buscar usuário por nome"
+              onChange={(event) => handleSearch(event.target.value)}
+            />
+          </ContainerFind>
+        )}
         {!ticketsList.length ? (
           <ZeroTicket />
         ) : (
           <>
-            <PageTitle>Tickets</PageTitle>
-            {userRole !== 'ROLE_COLABORADOR' && (
-              <ContainerFind>
-                <InputFind
-                  name="find"
-                  placeholder="Buscar usuário por nome"
-                  onChange={(event) => handleSearch(event.target.value)}
-                />
-              </ContainerFind>
-            )}
             {ticketsList.map((ticket: any) => (
               <div key={ticket.idRefund}>
                 <LineTicket className="header">
