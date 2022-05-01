@@ -23,7 +23,7 @@ import {
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
-import { updateStatusTicket } from '../../store/actions/AddTicketActions';
+import { updateStatusTicket } from '../../store/actions/TicketActions';
 import { fixBase64, setupValor } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
 import { Theme } from '../../theme';

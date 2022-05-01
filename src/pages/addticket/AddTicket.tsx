@@ -34,7 +34,7 @@ import {
   LabelError,
 } from '../../global.styles';
 import { RootState } from '../../store';
-import { sendNewTicket } from '../../store/actions/AddTicketActions';
+import { sendNewTicket } from '../../store/actions/TicketActions';
 import moment from 'moment';
 
 const AddTicket = (state: RootState & AnyAction) => {
