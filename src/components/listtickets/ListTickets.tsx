@@ -82,6 +82,18 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
   };
 
+  const setupValor = (value:number) =>{
+    let valueString = value.toString()
+    console.log(valueString)
+    if(valueString.includes(".")){
+      valueString = valueString.replaceAll(".", ",")
+      console.log(valueString)
+      return valueString
+    }else{
+      return value
+    }
+  }
+
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
@@ -112,7 +124,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <LineTicket>
                     <div>{ticket.name}</div>
                     <div>{ticket.title}</div>
-                    <div>{ticket.value}</div>
+                    <div>{"R$ " + setupValor(ticket.value)}</div>
                     <StatusTicket color={StatusColor[ticket.status]}>
                       {StatusEnum[ticket.status]}
                     </StatusTicket>
@@ -156,7 +168,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                         <>
                           <p>{item.name}</p>
                           <p>{item.dateItem}</p>
-                          <p>{item.value}</p>
+                          <p>{"R$ " + setupValor(item.value)}</p>
                           <a
                             href={fixBase64(item.imageString)}
                             target="_blank"
