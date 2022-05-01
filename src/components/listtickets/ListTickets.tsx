@@ -18,6 +18,7 @@ import {
   InputFind,
   LineItem,
   LineTicket,
+  LinkItem,
   StatusTicket,
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
@@ -156,24 +157,24 @@ const ListTickets = (state: RootState & AnyAction) => {
                         <p>{item.name}</p>
                         <p>{item.dateItem}</p>
                         <p>{'R$ ' + setupValor(item.value)}</p>
-                        <a
+                        <LinkItem
                           href={fixBase64(item.imageString)}
                           target="_blank"
                           rel="noreferrer"
                           download
                         >
                           Anexo
-                        </a>
+                        </LinkItem>
                         {userRole === 'ROLE_COLABORADOR' &&
                           ticket.status === 'ABERTO' && (
-                            <a
+                            <LinkItem
                               href="#!"
                               onClick={() =>
                                 navigate(`updateitem/${item.idItem}`)
                               }
                             >
                               Editar
-                            </a>
+                            </LinkItem>
                           )}
                       </LineItem>
                     ))}

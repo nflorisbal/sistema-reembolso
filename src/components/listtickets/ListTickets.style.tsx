@@ -71,5 +71,5 @@ export const StatusTicket = styled.p`
 `;
 
 export const LinkItem = styled.a`
-
+  width: fit-content;
 `;
