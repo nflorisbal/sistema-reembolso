@@ -1,6 +1,11 @@
 import { Block } from 'notiflix';
 import { AppDispatch } from '..';
+import { Notify } from 'notiflix';
 import api from '../../api';
+
+const SUCCESS_MSG_DELETE = 'Cadastro realizado com sucesso.';
+const ERROR_MSG_ACTION =
+  'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
 
 export const listTickets = async (
   dispatch: AppDispatch,
@@ -24,6 +29,7 @@ export const listTickets = async (
     dispatch(tickets);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.listTickets');
   }
@@ -51,6 +57,7 @@ export const listTicketsByName = async (
     dispatch(tickets);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.listTickets');
   }
@@ -62,8 +69,10 @@ export const deleteTicket = async (token: any, id: number) => {
       `/refund/?id=${id}`,
       (api.defaults.headers.common['Authorization'] = token)
     );
+    Notify.success(SUCCESS_MSG_DELETE);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.listTickets');
   }

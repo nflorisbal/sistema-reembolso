@@ -1,6 +1,9 @@
-import { Block } from 'notiflix';
+import { Block, Notify } from 'notiflix';
 import { AppDispatch } from '..';
 import api from '../../api';
+
+const ERROR_MSG_ACTION =
+  'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
 
 export const listAllUsers = async (
   dispatch: AppDispatch,
@@ -24,6 +27,7 @@ export const listAllUsers = async (
     dispatch(list);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.listUser');
   }
@@ -49,6 +53,7 @@ export const listUsersByName = async (
     dispatch(list);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.listUser');
   }

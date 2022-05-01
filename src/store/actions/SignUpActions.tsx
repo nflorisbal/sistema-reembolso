@@ -170,6 +170,7 @@ export const getUserById = async (
     dispatch(updatedUserAdmin);
   } catch (error) {
     console.log(error);
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Loading.remove();
   }
