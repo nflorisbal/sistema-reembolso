@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Block } from 'notiflix';
 import { SignUpDTO } from '../../models/SignUpDTO';
-import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
+import { createUser, createUserAdmin } from '../../store/actions/UserActions';
 import { RootState } from '../../store';
 import {
   LinkEyePassword,

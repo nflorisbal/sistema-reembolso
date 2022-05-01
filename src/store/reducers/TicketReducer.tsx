@@ -12,7 +12,7 @@ export const INITIAL_STATE_TICKET = {
   loading: true
 };
 
-const addTicketReducer = (
+const ticketReducer = (
   state: any = INITIAL_STATE_TICKET,
   action: AnyAction
 ) => {
@@ -35,4 +35,4 @@ const addTicketReducer = (
   }
 };
 
-export default addTicketReducer;
+export default ticketReducer;

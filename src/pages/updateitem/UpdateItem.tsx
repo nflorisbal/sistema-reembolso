@@ -25,7 +25,7 @@ import { DivButton } from '../signup/SignUp.style';
 import {
   getItemById,
   updateItemAction,
-} from '../../store/actions/AddTicketActions';
+} from '../../store/actions/TicketActions';
 import { Block } from 'notiflix';
 
 const UpdateItem = (state: RootState & AnyAction) => {

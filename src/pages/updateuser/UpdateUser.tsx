@@ -2,7 +2,7 @@ import {
   editingUser,
   getUserById,
   updateUserAdmin,
-} from '../../store/actions/SignUpActions';
+} from '../../store/actions/UserActions';
 import { RootState } from '../../store';
 import {
   LinkEyePassword,

@@ -10,7 +10,7 @@ export const INITIAL_STATE_SIGNUP = {
   image: undefined,
 };
 
-const signUpReducer = (
+const userReducer = (
   state: SignUpDTO | ConfigUserDTO = INITIAL_STATE_SIGNUP,
   action: AnyAction
 ) => {
@@ -48,4 +48,4 @@ const signUpReducer = (
   }
 };
 
-export default signUpReducer;
+export default userReducer;
