@@ -3,7 +3,7 @@ import { AppDispatch } from '..';
 import { Notify } from 'notiflix';
 import api from '../../api';
 
-const SUCCESS_MSG_DELETE = 'Cadastro realizado com sucesso.';
+const SUCCESS_MSG_DELETE = 'Ticket removido com sucesso.';
 const ERROR_MSG_ACTION =
   'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
 
