@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Block } from 'notiflix';
 import { SignUpDTO } from '../../models/SignUpDTO';
-import { IRole } from '../../models/AuthDTO';
 import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
 import { RootState } from '../../store';
 import {
@@ -32,6 +31,7 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
+import { checkAdmin } from '../../utils';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -51,13 +51,6 @@ const SignUp = (state: RootState & AnyAction) => {
   };
   //#endregion password
 
-  const checkAdmin = () => {
-    roles.map((role: IRole) => {
-      if (role.idRole === 1) {
-        setAdmin(true);
-      }
-    });
-  };
 
   //#region validação do yup
   const signupSchema = Yup.object().shape({
@@ -151,7 +144,7 @@ const SignUp = (state: RootState & AnyAction) => {
   };
 
   useEffect(() => {
-    checkAdmin();
+    checkAdmin(roles, setAdmin);
   }, []);
 
   return (

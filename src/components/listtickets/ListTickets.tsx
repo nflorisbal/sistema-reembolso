@@ -23,7 +23,7 @@ import {
 import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
-import { fixBase64 } from '../../utils';
+import { fixBase64, setupValor } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
 import { Theme } from '../../theme';
 import { useNavigate } from 'react-router-dom';
@@ -80,16 +80,6 @@ const ListTickets = (state: RootState & AnyAction) => {
       await updateStatusTicket(id, newStatus, token);
     }
     listTickets(dispatch, token, currentPage);
-  };
-
-  const setupValor = (value: number) => {
-    let valueString = value.toString();
-    if (valueString.includes('.')) {
-      valueString = valueString.replaceAll('.', ',');
-      return valueString;
-    } else {
-      return value;
-    }
   };
 
   return (

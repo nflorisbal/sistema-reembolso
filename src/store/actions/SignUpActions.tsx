@@ -48,7 +48,9 @@ export const createUserAdmin = async (
   formData.append('email', newUser.email);
   formData.append('password', newUser.password);
   formData.append('role', newUser.role);
-  formData.append('image', newUser.image as File);
+  if(newUser.image !== undefined){
+    formData.append('image', newUser.image as File);
+  }
 
   try {
     await api.post(
@@ -64,7 +66,7 @@ export const createUserAdmin = async (
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
   } finally {
-    Loading.remove();
+    Block.remove('.signup');
   }
 };
 
