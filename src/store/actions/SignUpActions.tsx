@@ -112,7 +112,6 @@ export const updateUserAdmin = async (
   id: string | undefined,
   navigate: Function
 ) => {
-  console.log(updatedUser, 'updated');
   const updatedUserData = new FormData();
 
   updatedUserData.append('name', updatedUser.name);
@@ -155,8 +154,9 @@ export const getUserById = async (
     );
     const updatedUserAdmin = { ...data, type: 'UPDATE_USER_ADMIN' };
     dispatch(updatedUserAdmin);
-    console.log(data);
   } catch (error) {
     console.log(error);
+  } finally {
+    Loading.remove();
   }
 };

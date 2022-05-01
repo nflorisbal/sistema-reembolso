@@ -28,14 +28,13 @@ export const DivItem = styled.div``;
 
 export const LineTicket = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
-  row-gap: 13px;
+  grid-template-columns: repeat(2, 0.4fr) 0.3fr 0.5fr 0.2fr;
   align-content: center;
   align-items: center;
   border-top: 1px solid ${Theme.color.neutralDark};
   padding: 10px;
 
-  &#header {
+  &.header {
     font-weight: bold;
     background-color: ${Theme.color.neutralPure};
   }
@@ -43,14 +42,14 @@ export const LineTicket = styled.div`
 
 export const LineItem = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 0.5fr) repeat(2, 0.2fr);
+  grid-template-columns: repeat(2, 0.4fr) 0.3fr 0.5fr 0.2fr;
   align-content: center;
   align-items: center;
   align-content: center;
   align-items: center;
   padding-left: 10px;
 
-  &#header {
+  &.header {
     font-weight: bold;
   }
 `;

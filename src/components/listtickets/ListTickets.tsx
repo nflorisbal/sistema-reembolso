@@ -23,17 +23,14 @@ import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
-import { Theme } from '../../theme';
-import ZeroTicket from '../zeroticket/ZeroTicket'
-import { useNavigate } from 'react-router-dom';
+import ZeroTicket from '../zeroticket/ZeroTicket';
 
-const MIN_LENGTH = 2;
+const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
-  const navigate = useNavigate()
 
   useEffect(() => {
     Block.circle('.listTickets');
@@ -47,7 +44,7 @@ const ListTickets = (state: RootState & AnyAction) => {
     if (value === '') {
       Block.circle('.listTickets');
       listTickets(dispatch, token, currentPage);
-    } else if (value.length > MIN_LENGTH) {
+    } else if (value.length > MIN_LENGTH_FOR_SEARCH_BAR) {
       Block.circle('.listTickets');
       listTicketsByName(dispatch, token, value);
     }
@@ -100,7 +97,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                 />
               </ContainerFind>
             )}
-            <LineTicket id="header">
+            <LineTicket className="header">
               <p>Usuário</p>
               <p>Título</p>
               <p>Total</p>
@@ -143,12 +140,11 @@ const ListTickets = (state: RootState & AnyAction) => {
                   )}
                 </LineTicket>
                 <DivItem>
-                  <LineItem id="header">
+                  <LineItem className="header">
                     <p>Item</p>
                     <p>Ocorreu em</p>
                     <p>Valor</p>
                     <p>Comprovante</p>
-                    <p>Ação</p>
                   </LineItem>
                   {ticket.items.map((item: any) => (
                     <LineItem key={`i-${item.idItem}`}>
@@ -164,9 +160,11 @@ const ListTickets = (state: RootState & AnyAction) => {
                         >
                           Anexo
                         </a>
-                        <a href="#!" onClick={() => console.log('editar')}>
-                          Editar
-                        </a>
+                        {userRole === 'ROLE_COLABORADOR' && (
+                          <a href="#!" onClick={() => console.log('editar')}>
+                            Editar
+                          </a>
+                        )}
                       </>
                     </LineItem>
                   ))}

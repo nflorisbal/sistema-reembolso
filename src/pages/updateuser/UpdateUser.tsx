@@ -33,6 +33,8 @@ import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import * as Yup from 'yup';
+import { hasToken } from '../../utils';
+import { Loading } from 'notiflix';
 
 const UpdateUser = (state: RootState & AnyAction) => {
   const { id } = useParams();
@@ -104,21 +106,36 @@ const UpdateUser = (state: RootState & AnyAction) => {
     },
     onSubmit: (
       values: SignUpDTO,
-      { setSubmitting }: FormikHelpers<SignUpDTO>
+      { setSubmitting, resetForm }: FormikHelpers<SignUpDTO>
     ) => {
       updateUserAdmin(values, dispatch, token, id, navigate);
       setSubmitting(false);
+      resetForm();
     },
     validationSchema: updateSchema,
   });
 
+  const setup = async (id: string) => {
+    await getUserById(id, dispatch, token);
+    setValuesBeforeUpdate();
+  };
+
   useEffect(() => {
     if (id) {
-      getUserById(id, dispatch, token);
-      setValuesBeforeUpdate();
+      Loading.circle();
+      setup(id);
+    } else {
+      navigate('/');
     }
     // eslint-disable-next-line
   }, [nameToUpdate]);
+
+  useEffect(() => {
+    if (!hasToken()) {
+      navigate('/login');
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <ContainerMain>
@@ -216,6 +233,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
             <InputDefault
               name="image"
               type="file"
+              onBlur={formik.handleBlur}
               onChange={(event) =>
                 formik.setFieldValue('image', event.target.files?.[0])
               }
@@ -241,7 +259,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
             </StyledSelect>
           </DivFlexColumn>
           <DivButton>
-            <ButtonDefault type="submit">Cadastrar</ButtonDefault>
+            <ButtonDefault type="submit">Atualizar</ButtonDefault>
           </DivButton>
         </StyledForm>
       </ContainerSignUp>
