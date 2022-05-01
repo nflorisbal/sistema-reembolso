@@ -64,3 +64,8 @@ export const DivPagButtons = styled.div`
   width: 100%;
   padding: ${Theme.padding};
 `;
+
+export const StatusTicket = styled.p`
+  color: ${({ color }) => color};
+  font-weight: bold;
+`;

@@ -18,6 +18,7 @@ import {
   InputFind,
   LineItem,
   LineTicket,
+  StatusTicket,
 } from './ListTickets.style';
 import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
@@ -109,9 +110,9 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <div>{ticket.name}</div>
                   <div>{ticket.title}</div>
                   <div>{ticket.value}</div>
-                  <p>
+                  <StatusTicket color={StatusColor[ticket.status]}>
                     {StatusEnum[ticket.status]}
-                  </p>
+                  </StatusTicket>
                   {userRole !== 'ROLE_COLABORADOR' &&
                   userRole !== 'ROLE_ADMIN' ? (
                     <div>

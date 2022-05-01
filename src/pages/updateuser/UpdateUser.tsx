@@ -60,7 +60,8 @@ const UpdateUser = (state: RootState & AnyAction) => {
   const setValuesBeforeUpdate = () => {
     formik.setFieldValue('name', nameToUpdate);
     formik.setFieldValue('email', emailToUpdate);
-    formik.setFieldValue('role', roleToUpdate[0]?.idRole);
+    if (roleToUpdate !== undefined)
+      formik.setFieldValue('role', roleToUpdate[0]?.idRole);
   };
 
   const configSelfSchema = Yup.object().shape({

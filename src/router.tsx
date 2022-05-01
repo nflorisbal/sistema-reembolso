@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import AddTicket from './pages/addticket/AddTicket';
-import ConfigUser from './pages/configuser/ConfigUser';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import NotFound from './pages/notfound/NotFound';
