@@ -60,13 +60,6 @@ const AddTicket = (state: RootState & AnyAction) => {
           dateItem: Yup.string()
             .required('Campo obrigatório.')
             .test('dateItem', 'Data inválida.', (value) => {
-              const now = moment().format('DD/MM/YYYY');
-              console.log(value);
-              console.log(now, 'agora');
-              console.log(
-                moment(value, 'DD/MM/YYYY').isSameOrBefore(moment()),
-                'checa'
-              );
               if (moment(value, 'DD/MM/YYYY').isSameOrBefore(moment())) {
                 return true;
               }
@@ -109,10 +102,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<TicketDTO>
     ) => {
       setTimeout(() => {
-        // alert(JSON.stringify(values, null, 2));
         sendNewTicket(values, dispatch, token, navigate);
-        console.log('aceito');
-
         setSubmitting(false);
       }, 500);
     },
@@ -127,15 +117,15 @@ const AddTicket = (state: RootState & AnyAction) => {
     return tmp;
   };
 
-  const setupValue = (value: any, index: any) => {
+  const setupValue = (value: string, field: string) => {
     if (value !== '') {
       const onlyNumbers = value.replace(/\D+/g, '');
       const money = parseInt(onlyNumbers.replace(/[\D]+/g, ''));
       if (!isNaN(money)) {
-        formik.setFieldValue(index, formatReal(money));
+        formik.setFieldValue(field, formatReal(money));
       }
     } else if (value === '') {
-      formik.setFieldValue(index, '');
+      formik.setFieldValue(field, '');
     }
   };
 

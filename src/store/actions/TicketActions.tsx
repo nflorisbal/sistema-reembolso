@@ -70,7 +70,8 @@ export const updateItemAction = async (
   item: any,
   token: any,
   id: any,
-  navigate: Function
+  navigate: Function, 
+  dispatch: AppDispatch
 ) => {
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
@@ -91,6 +92,8 @@ export const updateItemAction = async (
     );
     Notify.success(SUCCESS_MSG_UPDATE_ITEM);
     navigate('/');
+    const wipeItem = {type: 'WIPE_LIST'}
+    dispatch(wipeItem)
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
   } finally {
