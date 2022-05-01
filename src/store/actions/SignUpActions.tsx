@@ -1,4 +1,4 @@
-import { Loading, Notify } from 'notiflix';
+import { Block, Loading, Notify } from 'notiflix';
 import { handleLogin } from './AuthActions';
 import { AppDispatch } from '..';
 import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
@@ -17,18 +17,16 @@ export const createUser = async (
   formData.append('image', newUser.image as File);
 
   try {
-    await api.post('/user/saveUser', formData);
+    // await api.post('/user/saveUser', formData);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
-    Notify.success('Cadastro realizado com sucesso');
     setTimeout(() => {
       setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
-    }, 5000);
+      Block.remove('.signup');
+    }, 1000);
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
-  } finally {
-    Loading.remove();
   }
 };
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Block } from 'notiflix';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { IRole } from '../../models/AuthDTO';
 import { createUser, createUserAdmin } from '../../store/actions/SignUpActions';
@@ -31,7 +32,6 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
-import Notiflix, { Loading } from 'notiflix';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -52,8 +52,8 @@ const SignUp = (state: RootState & AnyAction) => {
   //#endregion password
 
   const checkAdmin = () => {
-    roles.map((cargo: IRole) => {
-      if (cargo.idRole === 1) {
+    roles.map((role: IRole) => {
+      if (role.idRole === 1) {
         setAdmin(true);
       }
     });
@@ -114,7 +114,7 @@ const SignUp = (state: RootState & AnyAction) => {
       values: SignUpDTO,
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      Loading.circle();
+      Block.circle('.signup');
       if (admin) {
         setupCreateUserAdmin(values);
       } else {
@@ -156,7 +156,7 @@ const SignUp = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <ContainerSignUp>
+      <ContainerSignUp className="signup">
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
