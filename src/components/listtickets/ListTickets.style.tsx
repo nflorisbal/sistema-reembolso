@@ -69,3 +69,7 @@ export const StatusTicket = styled.p`
   color: ${({ color }) => color};
   font-weight: bold;
 `;
+
+export const LinkItem = styled.a`
+
+`;
