@@ -29,7 +29,7 @@ const HeaderProfile = ({
         </UserName>
         <small>{email}</small>
         <UserActions>
-          <ActionLink to="/configuser">
+          <ActionLink to="/updateuser">
           <DivIcons>
           <div><GoGear /></div> <div>Perfil</div>
           </DivIcons>

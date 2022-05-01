@@ -34,7 +34,7 @@ export const sendNewTicket = async (
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
     setTimeout(() => {
       navigate('/');
-    }, 4000);
+    }, 3000);
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);
@@ -60,7 +60,7 @@ export const updateStatusTicket = async (
   }
 };
 
-export const updateItemAction = async (item:any, token:any, id:any) => {
+export const updateItemAction = async (item:any, token:any, id:any, navigate: Function) => {
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
   ticketDataUpdated.append('name', item.name);
@@ -79,6 +79,7 @@ export const updateItemAction = async (item:any, token:any, id:any) => {
       (api.defaults.headers.common['Authorization'] = token)
     );
     Notify.success('Ação realizada com sucesso');
+    navigate('/')
   } catch (error) {
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }

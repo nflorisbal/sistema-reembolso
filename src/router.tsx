@@ -27,7 +27,6 @@ const Router = () => {
         </Route>
         <Route path="/addticket" element={<AddTicket />} />
         <Route path="/tickets" element={<ListTicketsPage />} />
-        <Route path="/configuser" element={<ConfigUser />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,3 +1,5 @@
+import { IRole } from "./models/AuthDTO";
+
 export const hasToken = () => {
   return localStorage.getItem('token');
 };
@@ -28,4 +30,12 @@ export const fixBase64 = (file: string) => {
     const newBase64 = `data:application/pdf;base64, ${file}`;
     return newBase64;
   }
+};
+
+export const checkAdmin = (roles: any, setAdmin: Function) => {
+  roles.map((role: IRole) => {
+    if (role.idRole === 1) {
+     setAdmin(true)
+    }
+  });
 };
