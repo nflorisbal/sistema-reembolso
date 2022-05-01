@@ -30,7 +30,8 @@ import {
 const UpdateItem = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { dispatch, token, items, nameItem } = state;
+  const { dispatch, token, items, title} = state;
+  
 
   const updateTicketSchema = Yup.object().shape({
     value: Yup.string()
@@ -105,6 +106,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
     }
   };
 
+  console.log(items[0]?.name, "console name");
   const setValuesBeforeUpdate = () => {
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
@@ -118,7 +120,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
       getItemById(id, dispatch, token);
       setValuesBeforeUpdate();
     }
-  }, [items.length]);
+  }, [title]);
 
   return (
     <ContainerMain>
@@ -199,7 +201,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
 const mapStateToProps = (state: RootState) => ({
   token: state.auth.token,
   items: state.add.items,
-  nameItem: state.add.items.name,
+  title: state.add.title,
 });
 
 export default connect(mapStateToProps)(UpdateItem);
