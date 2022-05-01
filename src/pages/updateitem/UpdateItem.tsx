@@ -32,8 +32,6 @@ const UpdateItem = (state: RootState & AnyAction) => {
   const { id } = useParams();
   const { dispatch, token, items, nameItem } = state;
 
-  console.log(items);
-
   const updateTicketSchema = Yup.object().shape({
     value: Yup.string()
       .required('Campo obrigatório')

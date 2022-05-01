@@ -26,12 +26,14 @@ import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
 import { Theme } from '../../theme';
+import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const navigate = useNavigate();
   const userRole = roles[0]?.role;
 
   useEffect(() => {
@@ -99,7 +101,7 @@ const ListTickets = (state: RootState & AnyAction) => {
             )}
             {ticketsList.map((ticket: any) => (
               <div key={ticket.idRefund}>
-                <LineTicket className="header" >
+                <LineTicket className="header">
                   <p>Usuário</p>
                   <p>Título</p>
                   <p>Total</p>
@@ -164,7 +166,12 @@ const ListTickets = (state: RootState & AnyAction) => {
                             Anexo
                           </a>
                           {userRole === 'ROLE_COLABORADOR' && (
-                            <a href="#!" onClick={() => console.log('editar')}>
+                            <a
+                              href="#!"
+                              onClick={() =>
+                                navigate(`updateitem/${item.idItem}`)
+                              }
+                            >
                               Editar
                             </a>
                           )}
