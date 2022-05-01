@@ -1,4 +1,4 @@
-import { IRole } from "./models/AuthDTO";
+import { IRole } from './models/AuthDTO';
 
 export const hasToken = () => {
   return localStorage.getItem('token');
@@ -35,21 +35,19 @@ export const fixBase64 = (file: string) => {
 export const checkAdmin = (roles: any, setAdmin: Function) => {
   roles.map((role: IRole) => {
     if (role.idRole === 1) {
-     setAdmin(true)
+      setAdmin(true);
     }
   });
 };
 
 export const setupValor = (value: number) => {
-  console.log(value, "esse log")
-  if (value !== null && value !== 0) {
-    console.log(value, "valor passou")
-    let valueString = value.toString();
+  if (value) {
+    let valueString = value.toFixed(2);
     if (valueString.includes('.')) {
-      valueString = valueString.replaceAll('.', ',').toFixed(2);
+      valueString = valueString.replaceAll('.', ',')
       return valueString;
     } else {
       return value;
     }
   }
-}
+};
