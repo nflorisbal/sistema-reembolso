@@ -66,11 +66,7 @@ export const updateStatusTicket = async (
   }
 };
 
-<<<<<<< HEAD
 export const updateItemAction = async (item:any, token:any, id:any, navigate: Function) => {
-=======
-export const updateItemAction = async (item: any, token: any, id: any) => {
->>>>>>> 1b8f76243b44f07eb06f52e02a3bb0a46dcb4109
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
   ticketDataUpdated.append('name', item.name);
@@ -88,12 +84,8 @@ export const updateItemAction = async (item: any, token: any, id: any) => {
       ticketDataUpdated,
       (api.defaults.headers.common['Authorization'] = token)
     );
-<<<<<<< HEAD
     Notify.success('Ação realizada com sucesso');
     navigate('/')
-=======
-    Notify.success(SUCCESS_MSG_UPDATE_ITEM);
->>>>>>> 1b8f76243b44f07eb06f52e02a3bb0a46dcb4109
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
   }
