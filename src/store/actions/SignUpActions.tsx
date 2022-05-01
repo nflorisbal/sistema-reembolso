@@ -19,7 +19,9 @@ export const createUser = async (
   formData.append('name', newUser.name);
   formData.append('email', newUser.email);
   formData.append('password', newUser.password);
-  formData.append('image', newUser.image as File);
+  if (newUser.image !== undefined) {
+    formData.append('image', newUser.image as File);
+  }
 
   try {
     await api.post('/user/saveUser', formData);
@@ -83,7 +85,7 @@ const setupLoginAfterPost = (
 export const editingUser = async (
   user: ConfigUserDTO,
   dispatch: AppDispatch,
-  token: any, 
+  token: any,
   navigate: Function
 ) => {
   const updatedUser: any = new FormData();
@@ -106,12 +108,11 @@ export const editingUser = async (
     const updateStateUser = { ...user, type: 'SET_UPDATE' };
     dispatch(stateUser);
     dispatch(updateStateUser);
-    navigate("/")
+    navigate('/');
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
-  }finally {
+  } finally {
     Block.remove('.updateUser');
-
   }
 };
 
