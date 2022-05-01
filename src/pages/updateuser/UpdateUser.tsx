@@ -1,4 +1,5 @@
 import {
+  editingUser,
   getUserById,
   updateUserAdmin,
 } from '../../store/actions/SignUpActions';
@@ -31,17 +32,22 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
-import { SignUpDTO } from '../../models/SignUpDTO';
+import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
 import * as Yup from 'yup';
 import { hasToken } from '../../utils';
 import { Block, Loading } from 'notiflix';
+import { checkAdmin } from '../../utils';
+import { CredentialDTO } from '../../models/AuthDTO';
 
 const UpdateUser = (state: RootState & AnyAction) => {
   const { id } = useParams();
-  const { dispatch, token, nameToUpdate, emailToUpdate, roleToUpdate } = state;
+  const { dispatch, token, nameToUpdate, emailToUpdate, roleToUpdate, roles, name, email } =
+    state;
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [admin, setAdmin] = useState<boolean | void>(false);
+  const [schema, setSchema] = useState<any>()
 
   const handleShowHidePassword = () => {
     setShowPassword(!showPassword);
@@ -58,7 +64,37 @@ const UpdateUser = (state: RootState & AnyAction) => {
       formik.setFieldValue('role', roleToUpdate[0]?.idRole);
   };
 
-  const updateSchema = Yup.object().shape({
+  const configSelfSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(8, 'Mínimo de 8 caracteres.')
+      .max(18, 'Máximo de 18 caracteres.')
+      .matches(/^(?=.*[A-Z])/, 'Precisa conter uma letra maiúscula.')
+      .matches(/^(?=.*[a-z])/, 'Precisa conter uma letra minúscula.')
+      .matches(/^(?=.*[0-9])/, 'Precisa conter um número.')
+      .matches(
+        /^(?=.*[$*&@#])/,
+        'Sua senha precisa conter um caractere especial.'
+      ),
+    confirmPassword: Yup.string().test(
+      'Passwords',
+      'Senhas fornecidas não são iguais',
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
+    image: Yup.mixed().test(
+      'image',
+      'O arquivo deve ter o tamanho máximo de 800kb (Extensões suportadas png/jpeg)',
+      (value) => {
+        if (value !== undefined && value !== null) {
+          return value.size <= 800000 && value.type.includes('image');
+        }
+        return true;
+      }
+    ),
+  });
+
+  const updateSchemaAdmin = Yup.object().shape({
     email: Yup.string()
       .required('Campo obrigatório.')
       .matches(/[\w.]+@dbccompany\.com\.br$/gi, 'Use seu e-mail institucional.')
@@ -110,10 +146,20 @@ const UpdateUser = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       Block.circle('.updateUser');
+      if(admin){
       updateUserAdmin(values, dispatch, token, id, navigate);
+      }else{
+        const changedUser: ConfigUserDTO | CredentialDTO = {
+          ...values,
+          name: name,
+          email: email,
+          roleEntities: roles,
+        };
+        editingUser(changedUser, dispatch, token, navigate);
+      }
       setSubmitting(false);
     },
-    validationSchema: updateSchema,
+    validationSchema: schema,
   });
 
   const setup = async (id: string) => {
@@ -125,8 +171,12 @@ const UpdateUser = (state: RootState & AnyAction) => {
     if (id) {
       Loading.circle();
       setup(id);
-    } else {
-      navigate('/');
+    } 
+    checkAdmin(roles, setAdmin);
+    if(admin){
+      setSchema(updateSchemaAdmin)
+    }else{
+      setSchema(configSelfSchema)
     }
     // eslint-disable-next-line
   }, [nameToUpdate]);
@@ -146,20 +196,24 @@ const UpdateUser = (state: RootState & AnyAction) => {
         </LinkBack>
         <PageTitle>Atualizar Usuário</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
-          <DivFlexColumn>
-            <StyledLabel htmlFor="name">Nome:</StyledLabel>
-            <InputDefault
-              id="name"
-              name="name"
-              placeholder="Digite seu nome completo"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            {formik.errors.name && formik.touched.name ? (
-              <DivError>{formik.errors.name}</DivError>
-            ) : null}
-          </DivFlexColumn>
+          <>
+          {admin && (
+            <>
+              <DivFlexColumn>
+                <StyledLabel htmlFor="name">Nome:</StyledLabel>
+                <InputDefault
+                  id="name"
+                  name="name"
+                  placeholder="Digite seu nome completo"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.name && formik.touched.name ? (
+                  <DivError>{formik.errors.name}</DivError>
+                ) : null}
+              </DivFlexColumn>
+          
 
           <DivFlexColumn>
             <StyledLabel htmlFor="email">Email:</StyledLabel>
@@ -176,6 +230,8 @@ const UpdateUser = (state: RootState & AnyAction) => {
               <DivError>{formik.errors.email}</DivError>
             ) : null}
           </DivFlexColumn>
+          </>
+          )}
 
           <DivFlexLink>
             <StyledLabel htmlFor="password">Senha:</StyledLabel>
@@ -243,8 +299,10 @@ const UpdateUser = (state: RootState & AnyAction) => {
               <DivError>{formik.errors.image}</DivError>
             ) : null}
           </DivFlexColumn>
-          <DivFlexColumn>
-            <StyledLabel htmlFor="role">
+         
+           {admin && 
+            <DivFlexColumn>
+           <StyledLabel htmlFor="role">
               Selecione o tipo de usuário
             </StyledLabel>
             <StyledSelect
@@ -258,10 +316,12 @@ const UpdateUser = (state: RootState & AnyAction) => {
               <option value="2">Financeiro</option>
               <option value="1">Administrador</option>
             </StyledSelect>
-          </DivFlexColumn>
+            </DivFlexColumn>}
+          
           <DivButton>
             <ButtonDefault type="submit">Atualizar</ButtonDefault>
           </DivButton>
+          </>
         </StyledForm>
       </ContainerSignUp>
     </ContainerMain>
@@ -271,6 +331,8 @@ const UpdateUser = (state: RootState & AnyAction) => {
 const mapStateToProps = (state: RootState) => ({
   roles: state.auth.roles,
   token: state.auth.token,
+  name: state.auth.name,
+  email: state.auth.email,
   nameToUpdate: state.signup.name,
   roleToUpdate: state.signup.role,
   emailToUpdate: state.signup.email,

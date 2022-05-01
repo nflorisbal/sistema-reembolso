@@ -75,7 +75,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
       image: '',
     },
     onSubmit: (values) => {
-      updateItemAction(values, token, id);
+      updateItemAction(values, token, id, navigate);
     },
     validationSchema: updateTicketSchema,
   });

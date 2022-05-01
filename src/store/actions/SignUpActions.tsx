@@ -82,7 +82,8 @@ const setupLoginAfterPost = (
 export const editingUser = async (
   user: ConfigUserDTO,
   dispatch: AppDispatch,
-  token: any
+  token: any, 
+  navigate: Function
 ) => {
   const updatedUser: any = new FormData();
 
@@ -104,8 +105,12 @@ export const editingUser = async (
     const updateStateUser = { ...user, type: 'SET_UPDATE' };
     dispatch(stateUser);
     dispatch(updateStateUser);
+    navigate("/")
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
+  }finally {
+    Block.remove('.updateUser');
+
   }
 };
 
