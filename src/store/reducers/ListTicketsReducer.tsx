@@ -3,21 +3,7 @@ import { ArrayTicketDTO } from '../../models/TicketDTO';
 
 export const INITIAL_STATE_GET_TICKET: ArrayTicketDTO = {
   ticketsList: [
-    {
-      date: '',
-      idRefund: 0,
-      status: '',
-      title: '',
-      value: 0,
-      items: [
-        {
-          dateItem: '',
-          name: '',
-          value: '',
-          image: '',
-        },
-      ],
-    },
+   
   ],
   loadingTickets: true,
   totalPages: 1,
