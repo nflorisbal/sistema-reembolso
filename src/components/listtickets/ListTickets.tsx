@@ -23,7 +23,9 @@ import Pagination from '../pagination/Pagination';
 import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
-import ZeroTicket from '../zeroticket/ZeroTicket';
+import { Theme } from '../../theme';
+import ZeroTicket from '../zeroticket/ZeroTicket'
+import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH = 2;
 
@@ -31,6 +33,7 @@ const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
   const userRole = roles[0]?.role;
+  const navigate = useNavigate()
 
   useEffect(() => {
     Block.circle('.listTickets');

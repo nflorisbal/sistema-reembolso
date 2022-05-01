@@ -60,12 +60,17 @@ export const updateStatusTicket = async (
   }
 };
 
-export const updateItem = async (item:any, token:any, id:any) => {
+export const updateItemAction = async (item:any, token:any, id:any) => {
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
-  ticketDataUpdated.append('image', item.image as File);
   ticketDataUpdated.append('name', item.name);
-  let newValue = item.value.replaceAll('.', '').replaceAll(',', '.');
+  ticketDataUpdated.append('idItem', id);
+  console.log(item.value, "string")
+  console.log(item.image, "image")
+  if(item.image !== undefined && item.image !== ""){
+    ticketDataUpdated.append('image', item.image as File);
+  }
+  let newValue = item.value.toString().replaceAll('.', '').replaceAll(',', '.');
   ticketDataUpdated.append('value', newValue);
   try {
     await api.post(
@@ -78,3 +83,14 @@ export const updateItem = async (item:any, token:any, id:any) => {
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
   }
 };
+
+export const getItemById = async (id: string, dispatch: AppDispatch, token: any) =>{
+
+  try {
+    const { data } = await api.get(`/item/${id}`, (api.defaults.headers.common['Authorization'] = token));
+    const itemToUpdate = {items: [data], type: 'UPDATE_TICKET' };
+    dispatch(itemToUpdate);
+  } catch (error) {
+    console.log(error)
+  }
+}
