@@ -171,14 +171,16 @@ const ListTickets = (state: RootState & AnyAction) => {
                         </LinkItem>
                         {userRole === 'ROLE_COLABORADOR' &&
                           ticket.status === 'ABERTO' && (
-                            <LinkItem
-                              href="#!"
-                              onClick={() =>
-                                navigate(`updateitem/${item.idItem}`)
-                              }
-                            >
-                              Editar
-                            </LinkItem>
+                            <div>
+                              <ButtonAction
+                                color={Theme.color.primaryPure}
+                                onClick={() =>
+                                  navigate(`updateitem/${item.idItem}`)
+                                }
+                              >
+                                Editar
+                              </ButtonAction>
+                            </div>
                           )}
                       </LineItem>
                     ))}
