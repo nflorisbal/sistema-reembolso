@@ -105,6 +105,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                 <LineTicket className="header">
                   <p>Usuário</p>
                   <p>Título</p>
+                  <p>Solicitado em</p>
                   <p>Total</p>
                   <p>Status</p>
                   <p>Ações</p>
@@ -113,6 +114,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <LineTicket>
                     <div>{ticket.name}</div>
                     <div>{ticket.title}</div>
+                    <div>{ticket.date}</div>
                     <div>{'R$ ' + setupValor(ticket.value)}</div>
                     <StatusTicket color={StatusColor[ticket.status]}>
                       {StatusEnum[ticket.status]}
@@ -147,6 +149,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   </LineTicket>
                   <DivItem>
                     <LineItem className="header">
+                      <p></p>
                       <p>Item</p>
                       <p>Ocorreu em</p>
                       <p>Valor</p>
@@ -154,6 +157,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                     </LineItem>
                     {ticket.items.map((item: any) => (
                       <LineItem key={`i-${item.idItem}`}>
+                        <p></p>
                         <p>{item.name}</p>
                         <p>{item.dateItem}</p>
                         <p>{'R$ ' + setupValor(item.value)}</p>

@@ -28,7 +28,7 @@ export const DivItem = styled.div``;
 
 export const LineTicket = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 0.4fr) 0.3fr 0.5fr 0.2fr;
+  grid-template-columns: repeat(3, 0.5fr) 0.3fr 0.4fr 0.3fr;
   align-content: center;
   align-items: center;
   border-top: 1px solid ${Theme.color.neutralDark};
@@ -42,7 +42,7 @@ export const LineTicket = styled.div`
 
 export const LineItem = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 0.4fr) 0.3fr 0.5fr 0.2fr;
+  grid-template-columns: repeat(3, 0.5fr) 0.3fr 0.4fr 0.3fr;
   align-content: center;
   align-items: center;
   align-content: center;
