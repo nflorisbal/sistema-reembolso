@@ -40,16 +40,16 @@ export const checkAdmin = (roles: any, setAdmin: Function) => {
   });
 };
 
-export const setupValor = (value:number) =>{
-  if(value !== null){
-  let valueString = value.toString()
-  console.log(valueString)
-  if(valueString.includes(".")){
-    valueString = valueString.replaceAll(".", ",")
-    console.log(valueString)
-    return valueString
-  }else{
-    return value
+export const setupValor = (value: number) => {
+  if (value !== null) {
+    let valueString = value.toFixed(2);
+    console.log(valueString);
+    if (valueString.includes('.')) {
+      valueString = valueString.replaceAll('.', ',');
+      console.log(valueString);
+      return valueString;
+    } else {
+      return value;
+    }
   }
-}
 }

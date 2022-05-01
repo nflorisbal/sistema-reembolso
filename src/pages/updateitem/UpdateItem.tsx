@@ -74,6 +74,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
       image: '',
     },
     onSubmit: (values) => {
+      Block.circle('.addTicket');
       updateItemAction(values, token, id, navigate);
     },
     validationSchema: updateTicketSchema,
@@ -124,10 +125,10 @@ const UpdateItem = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <ContainerAddTicket className="addTicket">
-        <LinkBack to="/">
+      <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
+      <ContainerAddTicket className="addTicket">
         <PageTitle>Atualizar Item</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
           <DivFlexColumn>

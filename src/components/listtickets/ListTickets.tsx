@@ -82,7 +82,6 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
   };
 
-
   return (
     <ContainerMain>
       <ContainerListTicket className="listTickets">
@@ -113,7 +112,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <LineTicket>
                     <div>{ticket.name}</div>
                     <div>{ticket.title}</div>
-                    <div>{"R$ " + setupValor(ticket.value)}</div>
+                    <div>{'R$ ' + setupValor(ticket.value)}</div>
                     <StatusTicket color={StatusColor[ticket.status]}>
                       {StatusEnum[ticket.status]}
                     </StatusTicket>
@@ -154,30 +153,28 @@ const ListTickets = (state: RootState & AnyAction) => {
                     </LineItem>
                     {ticket.items.map((item: any) => (
                       <LineItem key={`i-${item.idItem}`}>
-                        <>
-                          <p>{item.name}</p>
-                          <p>{item.dateItem}</p>
-                          <p>{"R$ " + setupValor(item.value)}</p>
-                          <a
-                            href={fixBase64(item.imageString)}
-                            target="_blank"
-                            rel="noreferrer"
-                            download
-                          >
-                            Anexo
-                          </a>
-                          {userRole === 'ROLE_COLABORADOR' &&
-                            ticket.status === 'ABERTO' && (
-                              <a
-                                href="#!"
-                                onClick={() =>
-                                  navigate(`updateitem/${item.idItem}`)
-                                }
-                              >
-                                Editar
-                              </a>
-                            )}
-                        </>
+                        <p>{item.name}</p>
+                        <p>{item.dateItem}</p>
+                        <p>{'R$ ' + setupValor(item.value)}</p>
+                        <a
+                          href={fixBase64(item.imageString)}
+                          target="_blank"
+                          rel="noreferrer"
+                          download
+                        >
+                          Anexo
+                        </a>
+                        {userRole === 'ROLE_COLABORADOR' &&
+                          ticket.status === 'ABERTO' && (
+                            <a
+                              href="#!"
+                              onClick={() =>
+                                navigate(`updateitem/${item.idItem}`)
+                              }
+                            >
+                              Editar
+                            </a>
+                          )}
                       </LineItem>
                     ))}
                   </DivItem>

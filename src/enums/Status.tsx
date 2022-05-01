@@ -2,7 +2,7 @@ import { Theme } from "../theme";
 
 export enum StatusEnum {
   ABERTO = 'Aberto' as any,
-  FECHADO = 'Fechado' as any,
+  FECHADO = 'Pago' as any,
   APROVADOG = 'Aprovado Gestor' as any,
   REPROVADOG = 'Reprovado Gestor' as any,
   REPROVADOF = 'Reprovado Financeiro' as any,
