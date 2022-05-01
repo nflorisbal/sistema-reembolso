@@ -92,7 +92,9 @@ export const editingUser = async (
   updatedUser.append('name', user.name);
   updatedUser.append('email', user.email);
   updatedUser.append('password', user.password);
-  updatedUser.append('image', user.image as File);
+  if(user.image !== undefined){
+    updatedUser.append('image', user.image as File);
+  }
 
   try {
     const { data } = await api.post(
