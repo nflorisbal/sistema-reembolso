@@ -1,4 +1,4 @@
-import { legacy_createStore, compose } from 'redux';
+import { legacy_createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootReducer from './reducers';
@@ -12,16 +12,7 @@ const persistConfig = {
 
 const pReducer = persistReducer(persistConfig, rootReducer);
 
-//#region Redux DevTools
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//#endregion Redux DevTools
-
-export const store = legacy_createStore(pReducer, composeEnhancers());
+export const store = legacy_createStore(pReducer);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
