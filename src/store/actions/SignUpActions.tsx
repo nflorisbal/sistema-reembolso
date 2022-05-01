@@ -27,13 +27,12 @@ export const createUser = async (
     await api.post('/user/saveUser', formData);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
-    setTimeout(() => {
-      setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
-      Block.remove('.signup');
-    }, 1000);
+    setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
   } catch (error) {
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
+  } finally {
+    Block.remove('.signup');
   }
 };
 

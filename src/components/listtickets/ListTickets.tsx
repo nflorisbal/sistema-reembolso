@@ -26,12 +26,14 @@ import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
 import { Theme } from '../../theme';
+import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 
 const ListTickets = (state: RootState & AnyAction) => {
   const { ticketsList, dispatch, token, roles, totalPages } = state;
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const navigate = useNavigate();
   const userRole = roles[0]?.role;
 
   useEffect(() => {
@@ -97,81 +99,88 @@ const ListTickets = (state: RootState & AnyAction) => {
                 />
               </ContainerFind>
             )}
-            <LineTicket className="header">
-              <p>Usuário</p>
-              <p>Título</p>
-              <p>Total</p>
-              <p>Status</p>
-              <p>Ações</p>
-            </LineTicket>
             {ticketsList.map((ticket: any) => (
-              <DivTicket key={ticket.idRefund}>
-                <LineTicket>
-                  <div>{ticket.name}</div>
-                  <div>{ticket.title}</div>
-                  <div>{ticket.value}</div>
-                  <StatusTicket color={StatusColor[ticket.status]}>
-                    {StatusEnum[ticket.status]}
-                  </StatusTicket>
-                  {userRole !== 'ROLE_COLABORADOR' &&
-                  userRole !== 'ROLE_ADMIN' ? (
-                    <div>
-                      <ButtonAction
-                        color={Theme.color.positiveAction}
-                        onClick={() => setupAprovar(ticket.idRefund)}
-                      >
-                        Aprovar
-                      </ButtonAction>
-                      <ButtonAction
-                        color={Theme.color.negativeAction}
-                        onClick={() => setupReprovar(ticket.idRefund)}
-                      >
-                        Reprovar
-                      </ButtonAction>
-                    </div>
-                  ) : (
-                    <div>
-                      <ButtonAction
-                        color={Theme.color.negativeAction}
-                        onClick={() => handleDelete(ticket.idRefund)}
-                        disabled={ticket.status !== 'ABERTO'}
-                      >
-                        Excluir
-                      </ButtonAction>
-                    </div>
-                  )}
+              <div key={ticket.idRefund}>
+                <LineTicket className="header">
+                  <p>Usuário</p>
+                  <p>Título</p>
+                  <p>Total</p>
+                  <p>Status</p>
+                  <p>Ações</p>
                 </LineTicket>
-                <DivItem>
-                  <LineItem className="header">
-                    <p>Item</p>
-                    <p>Ocorreu em</p>
-                    <p>Valor</p>
-                    <p>Comprovante</p>
-                  </LineItem>
-                  {ticket.items.map((item: any) => (
-                    <LineItem key={`i-${item.idItem}`}>
-                      <>
-                        <p>{item.name}</p>
-                        <p>{item.dateItem}</p>
-                        <p>{item.value}</p>
-                        <a
-                          href={fixBase64(item.imageString)}
-                          target="_blank"
-                          rel="noreferrer"
-                          download
+                <DivTicket>
+                  <LineTicket>
+                    <div>{ticket.name}</div>
+                    <div>{ticket.title}</div>
+                    <div>{ticket.value}</div>
+                    <StatusTicket color={StatusColor[ticket.status]}>
+                      {StatusEnum[ticket.status]}
+                    </StatusTicket>
+                    {userRole !== 'ROLE_COLABORADOR' &&
+                    userRole !== 'ROLE_ADMIN' ? (
+                      <div>
+                        <ButtonAction
+                          color={Theme.color.positiveAction}
+                          onClick={() => setupAprovar(ticket.idRefund)}
                         >
-                          Anexo
-                        </a>
-                        {userRole === 'ROLE_COLABORADOR' && (
-                          <a href="#!" onClick={() => console.log('editar')}>
-                            Editar
-                          </a>
-                        )}
-                      </>
+                          Aprovar
+                        </ButtonAction>
+                        <ButtonAction
+                          color={Theme.color.negativeAction}
+                          onClick={() => setupReprovar(ticket.idRefund)}
+                        >
+                          Reprovar
+                        </ButtonAction>
+                      </div>
+                    ) : (
+                      <div>
+                        <ButtonAction
+                          color={Theme.color.negativeAction}
+                          onClick={() => handleDelete(ticket.idRefund)}
+                          disabled={ticket.status !== 'ABERTO'}
+                        >
+                          Excluir
+                        </ButtonAction>
+                      </div>
+                    )}
+                  </LineTicket>
+                  <DivItem>
+                    <LineItem className="header">
+                      <p>Item</p>
+                      <p>Ocorreu em</p>
+                      <p>Valor</p>
+                      <p>Comprovante</p>
                     </LineItem>
-                  ))}
-                </DivItem>
-              </DivTicket>
+                    {ticket.items.map((item: any) => (
+                      <LineItem key={`i-${item.idItem}`}>
+                        <>
+                          <p>{item.name}</p>
+                          <p>{item.dateItem}</p>
+                          <p>{item.value}</p>
+                          <a
+                            href={fixBase64(item.imageString)}
+                            target="_blank"
+                            rel="noreferrer"
+                            download
+                          >
+                            Anexo
+                          </a>
+                          {userRole === 'ROLE_COLABORADOR' && (
+                            <a
+                              href="#!"
+                              onClick={() =>
+                                navigate(`updateitem/${item.idItem}`)
+                              }
+                            >
+                              Editar
+                            </a>
+                          )}
+                        </>
+                      </LineItem>
+                    ))}
+                  </DivItem>
+                </DivTicket>
+              </div>
             ))}
             <DivPagButtons>
               <Pagination
