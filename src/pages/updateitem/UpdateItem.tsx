@@ -45,11 +45,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
     dateItem: Yup.string()
       .required('Campo obrigatório')
       .test('dateItem', 'Data inválida.', (value) => {
-        const now = moment().format('DD/MM/YYYY');
-        if (moment(value, 'DD/MM/YYYY').isSameOrBefore(moment())) {
-          return true;
-        }
-        return false;
+        return moment(value, 'DD/MM/YYYY').isSameOrBefore(moment());
       }),
     image: Yup.mixed().test(
       'sizeType',
