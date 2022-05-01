@@ -31,7 +31,7 @@ import { Block } from 'notiflix';
 const UpdateItem = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { dispatch, token, items, loading } = state;
+  const { dispatch, token, items } = state;
 
   const updateTicketSchema = Yup.object().shape({
     value: Yup.string()
@@ -74,7 +74,6 @@ const UpdateItem = (state: RootState & AnyAction) => {
       image: '',
     },
     onSubmit: (values) => {
-
       updateItemAction(values, token, id, navigate);
     },
     validationSchema: updateTicketSchema,
@@ -114,7 +113,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
       getItemById(id, dispatch, token);
       setValuesBeforeUpdate();
     }
-  }, [loading]);
+  }, [items[0]?.name]);
 
   useEffect(() => {
     if (!hasToken()) {
