@@ -103,31 +103,29 @@ const UpdateItem = (state: RootState & AnyAction) => {
   const setValuesBeforeUpdate = () => {
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
-      formik.setFieldValue('value', item.value.toString().replaceAll(".", ","));
+      formik.setFieldValue('value', item.value.toString().replaceAll('.', ','));
       formik.setFieldValue('dateItem', item.dateItem);
     });
   };
 
   useEffect(() => {
-    if (id) {
-      Block.circle('.addTicket');
-      getItemById(id, dispatch, token);
-      setValuesBeforeUpdate();
-    }
-  }, [items[0]?.name]);
-
-  useEffect(() => {
-    if (!hasToken()) {
+    if (hasToken()) {
+      if (id) {
+        Block.circle('.addTicket');
+        getItemById(id, dispatch, token);
+        setValuesBeforeUpdate();
+      }
+    } else {
       navigate('/login');
     }
     // eslint-disable-next-line
-  }, []);
+  }, [items[0]?.name]);
 
   return (
     <ContainerMain>
       <LinkBack to="/">
-          <AiOutlineArrowLeft />
-        </LinkBack>
+        <AiOutlineArrowLeft />
+      </LinkBack>
       <ContainerAddTicket className="addTicket">
         <PageTitle>Atualizar Item</PageTitle>
         <StyledForm onSubmit={formik.handleSubmit}>
