@@ -5,7 +5,7 @@ import { Notify, Block } from 'notiflix';
 
 const SUCCESS_MSG_UPDATE_TICKET = 'Ticket atualizado com sucesso.';
 const SUCCESS_MSG_UPDATE_ITEM = 'Item atualizado com sucesso.';
-const SUCCESS_MSG_CREATE = 'Cadastro realizado com sucesso.';
+const SUCCESS_MSG_CREATE_TICKET = 'Ticket criado com sucesso.';
 const ERROR_MSG_ACTION =
   'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
 
@@ -23,7 +23,7 @@ export const sendNewTicket = async (
       sendTitle,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    Notify.success('Pedido realizado com sucesso');
+
     ticket.items.forEach(async (item) => {
       const ticketData = new FormData();
       ticketData.append('dateItem', item.dateItem);
@@ -38,12 +38,16 @@ export const sendNewTicket = async (
       );
     });
     const stateTicket = { ...ticket, type: 'ADD_TICKET' };
+    Notify.success(SUCCESS_MSG_CREATE_TICKET);
     setTimeout(() => {
+      Block.remove('.addTicketContainer');
       navigate('/');
-    }, 3000);
+    }, 1000);
+
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);
+    Block.remove('.addTicketContainer');
     Notify.failure(ERROR_MSG_ACTION);
   }
 };
@@ -70,7 +74,7 @@ export const updateItemAction = async (
   item: any,
   token: any,
   id: any,
-  navigate: Function, 
+  navigate: Function,
   dispatch: AppDispatch
 ) => {
   const ticketDataUpdated = new FormData();
@@ -83,7 +87,7 @@ export const updateItemAction = async (
   }
   let newValue = item.value.toString().replaceAll('.', '').replaceAll(',', '.');
   ticketDataUpdated.append('value', newValue);
-  
+
   try {
     await api.post(
       `/item/updateItem/${id}`,
@@ -92,8 +96,8 @@ export const updateItemAction = async (
     );
     Notify.success(SUCCESS_MSG_UPDATE_ITEM);
     navigate('/');
-    const wipeItem = {type: 'WIPE_LIST'}
-    dispatch(wipeItem)
+    const wipeItem = { type: 'WIPE_LIST' };
+    dispatch(wipeItem);
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
   } finally {

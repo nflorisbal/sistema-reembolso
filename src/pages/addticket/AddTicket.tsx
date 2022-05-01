@@ -36,6 +36,7 @@ import {
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/TicketActions';
 import moment from 'moment';
+import { Block } from 'notiflix';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;
@@ -102,6 +103,7 @@ const AddTicket = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<TicketDTO>
     ) => {
       setTimeout(() => {
+        Block.circle('.addTicketContainer');
         sendNewTicket(values, dispatch, token, navigate);
         setSubmitting(false);
       }, 500);
@@ -138,7 +140,7 @@ const AddTicket = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <ContainerAddTicket>
+      <ContainerAddTicket className="addTicketContainer">
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
