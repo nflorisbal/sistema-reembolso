@@ -109,7 +109,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
       { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
       Block.circle('.updateUser');
-      updateUserAdmin(values, dispatch, token, id);
+      updateUserAdmin(values, dispatch, token, id, navigate);
       setSubmitting(false);
     },
     validationSchema: updateSchema,

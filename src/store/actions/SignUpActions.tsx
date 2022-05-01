@@ -4,6 +4,11 @@ import { AppDispatch } from '..';
 import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
 import api from '../../api';
 
+const SUCCESS_MSG_UPDATE = 'Cadastro atualizado com sucesso.';
+const SUCCESS_MSG_CREATE = 'Cadastro realizado com sucesso.';
+const ERROR_MSG_ACTION =
+  'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
+
 export const createUser = async (
   newUser: SignUpDTO,
   dispatch: AppDispatch,
@@ -26,7 +31,7 @@ export const createUser = async (
     }, 1000);
   } catch (error) {
     console.log(error);
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   }
 };
 
@@ -52,11 +57,11 @@ export const createUserAdmin = async (
     );
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
-    Notify.success('Cadastro realizado com sucesso');
+    Notify.success(SUCCESS_MSG_CREATE);
     resetForm();
   } catch (error) {
     console.log(error);
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Loading.remove();
   }
@@ -95,13 +100,13 @@ export const editingUser = async (
     );
 
     user.image = data.image;
-    Notify.success('Cadastro atualizado com sucesso');
+    Notify.success(SUCCESS_MSG_UPDATE);
     const stateUser = { ...user, type: 'UPDATE_USER' };
     const updateStateUser = { ...user, type: 'SET_UPDATE' };
     dispatch(stateUser);
     dispatch(updateStateUser);
   } catch (error) {
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   }
 };
 
@@ -110,6 +115,7 @@ export const updateUserAdmin = async (
   dispatch: AppDispatch,
   token: any,
   id: string | undefined,
+  navigate: Function
 ) => {
   const updatedUserData = new FormData();
 
@@ -129,12 +135,13 @@ export const updateUserAdmin = async (
       updatedUserData,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    Notify.success('Cadastro atualizado com sucesso');
+    Notify.success(SUCCESS_MSG_UPDATE);
     const actionUpdatedUser = { ...updatedUser, type: 'UPDATE_USER_ADMIN' };
     dispatch(actionUpdatedUser);
+    navigate('/');
   } catch (error) {
     console.log(error);
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.updateUser');
   }

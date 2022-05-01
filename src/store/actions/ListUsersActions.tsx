@@ -53,4 +53,3 @@ export const listUsersByName = async (
     Block.remove('.listUser');
   }
 };
-

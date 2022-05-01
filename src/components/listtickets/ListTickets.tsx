@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
-import StatusEnum from '../../enums/Status';
+import { StatusEnum, StatusColor } from '../../enums/Status';
 import { RootState } from '../../store';
 import {
   deleteTicket,
@@ -24,6 +24,7 @@ import { ButtonAction, ContainerMain, PageTitle } from '../../global.styles';
 import { updateStatusTicket } from '../../store/actions/AddTicketActions';
 import { fixBase64 } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
+import { Theme } from '../../theme';
 
 const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 
@@ -37,8 +38,6 @@ const ListTickets = (state: RootState & AnyAction) => {
     listTickets(dispatch, token, currentPage);
     // eslint-disable-next-line
   }, [currentPage]);
-
-  console.log(ticketsList);
 
   const handleSearch = (value: string) => {
     if (value === '') {
@@ -110,18 +109,20 @@ const ListTickets = (state: RootState & AnyAction) => {
                   <div>{ticket.name}</div>
                   <div>{ticket.title}</div>
                   <div>{ticket.value}</div>
-                  <div>{StatusEnum[ticket.status]}</div>
+                  <p>
+                    {StatusEnum[ticket.status]}
+                  </p>
                   {userRole !== 'ROLE_COLABORADOR' &&
                   userRole !== 'ROLE_ADMIN' ? (
                     <div>
                       <ButtonAction
-                        color="#29CC97"
+                        color={Theme.color.positiveAction}
                         onClick={() => setupAprovar(ticket.idRefund)}
                       >
                         Aprovar
                       </ButtonAction>
                       <ButtonAction
-                        color="#F12B2C"
+                        color={Theme.color.negativeAction}
                         onClick={() => setupReprovar(ticket.idRefund)}
                       >
                         Reprovar
@@ -130,7 +131,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                   ) : (
                     <div>
                       <ButtonAction
-                        color="#F12B2C"
+                        color={Theme.color.negativeAction}
                         onClick={() => handleDelete(ticket.idRefund)}
                         disabled={ticket.status !== 'ABERTO'}
                       >

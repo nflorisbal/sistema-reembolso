@@ -86,7 +86,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
     },
     onSubmit: (
       values: ConfigUserDTO,
-      { setSubmitting }: FormikHelpers<ConfigUserDTO>
+      { setSubmitting, resetForm }: FormikHelpers<ConfigUserDTO>
     ) => {
       const changedUser: ConfigUserDTO | CredentialDTO = {
         ...values,
@@ -182,7 +182,7 @@ const ConfigUser = (state: CredentialDTO & AnyAction) => {
             ) : null}
           </DivFlexColumn>
           <DivButton>
-            <ButtonDefault type="submit">Enviar</ButtonDefault>
+            <ButtonDefault type="submit">Atualizar</ButtonDefault>
           </DivButton>
         </StyledForm>
       </ContainerSignUp>

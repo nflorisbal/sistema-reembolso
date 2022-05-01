@@ -14,6 +14,8 @@ export const Theme = {
     neutralDark: '#e0e0e0',
     neutralGrayLight: '#a6a6a6',
     neutralGrayDark: '#595959',
+    negativeAction: '#F12B2C',
+    positiveAction: '#29CC97',
   },
 
   defaultFontSize: '16px',
