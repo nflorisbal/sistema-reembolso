@@ -75,7 +75,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
     },
     onSubmit: (values) => {
       Block.circle('.addTicket');
-      updateItemAction(values, token, id, navigate);
+      updateItemAction(values, token, id, navigate, dispatch);
     },
     validationSchema: updateTicketSchema,
   });
@@ -103,7 +103,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
   const setValuesBeforeUpdate = () => {
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
-      formik.setFieldValue('value', item.value.toString());
+      formik.setFieldValue('value', item.value.toString().replaceAll(".", ","));
       formik.setFieldValue('dateItem', item.dateItem);
     });
   };

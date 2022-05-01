@@ -30,6 +30,9 @@ const ticketReducer = (
         items: action.items,
         loading: false
       };
+      case 'WIPE_LIST':
+      state = INITIAL_STATE_TICKET;
+      return state;
     default:
       return state;
   }
