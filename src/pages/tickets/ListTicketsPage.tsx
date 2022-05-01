@@ -18,7 +18,7 @@ const ListTicketsPage = (state: ArrayTicketDTO & DispatchProp) => {
     // eslint-disable-next-line
   }, []);
 
-  return <>{ticketsList.length ? <ListTickets /> : <ZeroTicket />}</>;
+  return  <ListTickets />;
 };
 
 const mapStateToProps = (state: RootState) => ({
