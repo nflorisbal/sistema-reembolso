@@ -9,9 +9,9 @@ export enum StatusEnum {
 }
 
 export enum StatusColor {
-  ABERTO = `${Theme.color.highlightPure}` as any,
-  FECHADO = `${Theme.color.secondaryDark}` as any,
-  APROVADOG = `${Theme.color.highlightPure}` as any,
+  ABERTO = `${Theme.color.primaryPure}` as any,
+  FECHADO = `${Theme.color.primaryDark}` as any,
+  APROVADOG = `${Theme.color.secondaryPure}` as any,
   REPROVADOG = `${Theme.color.negativeAction}` as any,
   REPROVADOF = `${Theme.color.negativeAction}` as any,
 };

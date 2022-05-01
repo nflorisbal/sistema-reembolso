@@ -54,7 +54,8 @@ const UpdateUser = (state: RootState & AnyAction) => {
   const setValuesBeforeUpdate = () => {
     formik.setFieldValue('name', nameToUpdate);
     formik.setFieldValue('email', emailToUpdate);
-    formik.setFieldValue('role', roleToUpdate[0]?.idRole);
+    if (roleToUpdate !== undefined)
+      formik.setFieldValue('role', roleToUpdate[0]?.idRole);
   };
 
   const updateSchema = Yup.object().shape({
@@ -139,7 +140,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <ContainerSignUp className='updateUser'>
+      <ContainerSignUp className="updateUser">
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>

@@ -3,6 +3,12 @@ import api from '../../api';
 import { newStatusDTO, TicketDTO } from '../../models/TicketDTO';
 import { Notify } from 'notiflix';
 
+const SUCCESS_MSG_UPDATE_TICKET = 'Ticket atualizado com sucesso.';
+const SUCCESS_MSG_UPDATE_ITEM = 'Item atualizado com sucesso.';
+const SUCCESS_MSG_CREATE = 'Cadastro realizado com sucesso.';
+const ERROR_MSG_ACTION =
+  'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
+
 export const sendNewTicket = async (
   ticket: TicketDTO,
   dispatch: AppDispatch,
@@ -60,14 +66,14 @@ export const updateStatusTicket = async (
   }
 };
 
-export const updateItemAction = async (item:any, token:any, id:any) => {
+export const updateItemAction = async (item: any, token: any, id: any) => {
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
   ticketDataUpdated.append('name', item.name);
   ticketDataUpdated.append('idItem', id);
-  console.log(item.value, "string")
-  console.log(item.image, "image")
-  if(item.image !== undefined && item.image !== ""){
+  console.log(item.value, 'string');
+  console.log(item.image, 'image');
+  if (item.image !== undefined && item.image !== '') {
     ticketDataUpdated.append('image', item.image as File);
   }
   let newValue = item.value.toString().replaceAll('.', '').replaceAll(',', '.');
@@ -78,19 +84,25 @@ export const updateItemAction = async (item:any, token:any, id:any) => {
       ticketDataUpdated,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    Notify.success('Ação realizada com sucesso');
+    Notify.success(SUCCESS_MSG_UPDATE_ITEM);
   } catch (error) {
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   }
 };
 
-export const getItemById = async (id: string, dispatch: AppDispatch, token: any) =>{
-
+export const getItemById = async (
+  id: string,
+  dispatch: AppDispatch,
+  token: any
+) => {
   try {
-    const { data } = await api.get(`/item/${id}`, (api.defaults.headers.common['Authorization'] = token));
-    const itemToUpdate = {items: [data], type: 'UPDATE_TICKET' };
+    const { data } = await api.get(
+      `/item/${id}`,
+      (api.defaults.headers.common['Authorization'] = token)
+    );
+    const itemToUpdate = { items: [data], type: 'UPDATE_TICKET' };
     dispatch(itemToUpdate);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
