@@ -31,8 +31,7 @@ import { Block } from 'notiflix';
 const UpdateItem = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { dispatch, token, items, loading} = state;
-  
+  const { dispatch, token, items, loading } = state;
 
   const updateTicketSchema = Yup.object().shape({
     value: Yup.string()
@@ -75,17 +74,11 @@ const UpdateItem = (state: RootState & AnyAction) => {
       image: '',
     },
     onSubmit: (values) => {
+
       updateItemAction(values, token, id, navigate);
     },
     validationSchema: updateTicketSchema,
   });
-
-  useEffect(() => {
-    if (!hasToken()) {
-      navigate('/login');
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const formatReal = (int: any) => {
     let tmp = int + '';
@@ -107,7 +100,6 @@ const UpdateItem = (state: RootState & AnyAction) => {
     }
   };
 
-  console.log(items[0]?.name, "console name");
   const setValuesBeforeUpdate = () => {
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
@@ -124,9 +116,16 @@ const UpdateItem = (state: RootState & AnyAction) => {
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (!hasToken()) {
+      navigate('/login');
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <ContainerMain>
-      <ContainerAddTicket className='addTicket'>
+      <ContainerAddTicket className="addTicket">
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
@@ -192,7 +191,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
             ) : null}
           </DivFlexColumn>
           <DivButton>
-            <ButtonDefault type="submit">Enviar</ButtonDefault>
+            <ButtonDefault type="submit">Atualizar</ButtonDefault>
           </DivButton>
         </StyledForm>
       </ContainerAddTicket>

@@ -44,7 +44,7 @@ export const sendNewTicket = async (
     dispatch(stateTicket);
   } catch (error) {
     console.log(error);
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   }
 };
 
@@ -62,32 +62,39 @@ export const updateStatusTicket = async (
     Notify.success('Ação realizada com sucesso');
   } catch (error) {
     console.log(error);
-    Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+    Notify.failure(ERROR_MSG_ACTION);
   }
 };
 
-export const updateItemAction = async (item:any, token:any, id:any, navigate: Function) => {
+export const updateItemAction = async (
+  item: any,
+  token: any,
+  id: any,
+  navigate: Function
+) => {
   const ticketDataUpdated = new FormData();
   ticketDataUpdated.append('dateItem', item.dateItem);
   ticketDataUpdated.append('name', item.name);
   ticketDataUpdated.append('idItem', id);
-  console.log(item.value, 'string');
-  console.log(item.image, 'image');
+
   if (item.image !== undefined && item.image !== '') {
     ticketDataUpdated.append('image', item.image as File);
   }
   let newValue = item.value.toString().replaceAll('.', '').replaceAll(',', '.');
   ticketDataUpdated.append('value', newValue);
+  
   try {
     await api.post(
       `/item/updateItem/${id}`,
       ticketDataUpdated,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    Notify.success('Ação realizada com sucesso');
-    navigate('/')
+    Notify.success(SUCCESS_MSG_UPDATE_ITEM);
+    navigate('/');
   } catch (error) {
     Notify.failure(ERROR_MSG_ACTION);
+  } finally {
+    Block.remove('.addTicket');
   }
 };
 
@@ -105,7 +112,7 @@ export const getItemById = async (
     dispatch(itemToUpdate);
   } catch (error) {
     console.log(error);
-  }finally{
-    Block.circle('.addTicket');
+  } finally {
+    Block.remove('.addTicket');
   }
 };
