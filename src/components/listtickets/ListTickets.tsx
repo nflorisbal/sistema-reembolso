@@ -84,10 +84,8 @@ const ListTickets = (state: RootState & AnyAction) => {
 
   const setupValor = (value:number) =>{
     let valueString = value.toString()
-    console.log(valueString)
     if(valueString.includes(".")){
       valueString = valueString.replaceAll(".", ",")
-      console.log(valueString)
       return valueString
     }else{
       return value

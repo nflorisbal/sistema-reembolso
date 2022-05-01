@@ -164,7 +164,7 @@ export const LinkBack = styled(Link)`
   top: 15px;
   left: 15px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 40px;
   color: ${Theme.color.neutralPure};
 `;
 
