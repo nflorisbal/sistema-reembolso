@@ -40,14 +40,13 @@ export const checkAdmin = (roles: any, setAdmin: Function) => {
   });
 };
 
-export const setupValor = (value: number | string) => {
+export const setupValor = (value: number) => {
   console.log(value, "esse log")
-
-  if (value !== null && value !== 0 && value !== "") {
+  if (value !== null && value !== 0) {
     console.log(value, "valor passou")
-    let valueString = value.toFixed(2);
+    let valueString = value.toString();
     if (valueString.includes('.')) {
-      valueString = valueString.replaceAll('.', ',');
+      valueString = valueString.replaceAll('.', ',').toFixed(2);
       return valueString;
     } else {
       return value;
