@@ -165,7 +165,7 @@ const ListTickets = (state: RootState & AnyAction) => {
                           >
                             Anexo
                           </a>
-                          {userRole === 'ROLE_COLABORADOR' && (
+                          {userRole === 'ROLE_COLABORADOR' && ticket.status === 'ABERTO' && (
                             <a
                               href="#!"
                               onClick={() =>
