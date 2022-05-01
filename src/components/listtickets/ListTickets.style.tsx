@@ -32,7 +32,7 @@ export const LineTicket = styled.div`
   align-content: center;
   align-items: center;
   border-top: 1px solid ${Theme.color.neutralDark};
-  padding: 10px;
+  padding: 10px 0 10px 10px;
 
   &.header {
     font-weight: bold;

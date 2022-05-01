@@ -66,7 +66,7 @@ export const createUserAdmin = async (
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
   } finally {
-    Loading.remove();
+    Block.remove('.signup');
   }
 };
 
