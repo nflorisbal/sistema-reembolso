@@ -47,7 +47,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [admin, setAdmin] = useState<boolean | void>(false);
-  const [schema, setSchema] = useState<any>()
+  const [schema, setSchema] = useState<Object>()
 
   const handleShowHidePassword = () => {
     setShowPassword(!showPassword);
