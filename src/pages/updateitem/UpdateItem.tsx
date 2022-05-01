@@ -97,6 +97,8 @@ const UpdateItem = (state: RootState & AnyAction) => {
   };
 
   const setValuesBeforeUpdate = () => {
+    console.log(items);
+    
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
       formik.setFieldValue('value', item.value.toString().replaceAll('.', ','));

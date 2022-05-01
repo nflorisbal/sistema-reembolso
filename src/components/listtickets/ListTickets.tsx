@@ -44,11 +44,10 @@ const ListTickets = (state: RootState & AnyAction) => {
   }, [currentPage]);
 
   const handleSearch = (value: string) => {
+    Block.circle('.listTickets');
     if (value === '') {
-      Block.circle('.listTickets');
       listTickets(dispatch, token, currentPage);
     } else if (value.length > MIN_LENGTH_FOR_SEARCH_BAR) {
-      Block.circle('.listTickets');
       listTicketsByName(dispatch, token, value);
     }
   };

@@ -73,7 +73,5 @@ export const deleteTicket = async (token: any, id: number) => {
   } catch (error) {
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
-  } finally {
-    Block.remove('.listTickets');
-  }
+  } 
 };
