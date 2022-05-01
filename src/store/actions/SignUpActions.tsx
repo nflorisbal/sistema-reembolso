@@ -110,7 +110,6 @@ export const updateUserAdmin = async (
   dispatch: AppDispatch,
   token: any,
   id: string | undefined,
-  navigate: Function
 ) => {
   const updatedUserData = new FormData();
 
@@ -133,12 +132,11 @@ export const updateUserAdmin = async (
     Notify.success('Cadastro atualizado com sucesso');
     const actionUpdatedUser = { ...updatedUser, type: 'UPDATE_USER_ADMIN' };
     dispatch(actionUpdatedUser);
-    setTimeout(() => {
-      navigate('/');
-    }, 2000);
   } catch (error) {
     console.log(error);
     Notify.failure('Houve algum erro. Revise os dados e tente novamente.');
+  } finally {
+    Block.remove('.updateUser');
   }
 };
 

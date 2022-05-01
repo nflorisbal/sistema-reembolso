@@ -34,7 +34,7 @@ import { AnyAction } from 'redux';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import * as Yup from 'yup';
 import { hasToken } from '../../utils';
-import { Loading } from 'notiflix';
+import { Block, Loading } from 'notiflix';
 
 const UpdateUser = (state: RootState & AnyAction) => {
   const { id } = useParams();
@@ -106,11 +106,11 @@ const UpdateUser = (state: RootState & AnyAction) => {
     },
     onSubmit: (
       values: SignUpDTO,
-      { setSubmitting, resetForm }: FormikHelpers<SignUpDTO>
+      { setSubmitting }: FormikHelpers<SignUpDTO>
     ) => {
-      updateUserAdmin(values, dispatch, token, id, navigate);
+      Block.circle('.updateUser');
+      updateUserAdmin(values, dispatch, token, id);
       setSubmitting(false);
-      resetForm();
     },
     validationSchema: updateSchema,
   });
@@ -139,7 +139,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
 
   return (
     <ContainerMain>
-      <ContainerSignUp>
+      <ContainerSignUp className='updateUser'>
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>

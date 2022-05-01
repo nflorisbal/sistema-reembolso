@@ -187,3 +187,14 @@ Notiflix.Block.init({
   svgColor: Theme.color.primaryPure,
   backgroundColor: 'rgba(224, 224, 224, 0.5)',
 });
+
+Notiflix.Notify.init({
+  fontFamily: 'Poppins',
+  fontSize: `${Theme.defaultFontSize}`,
+  position: 'center-top',
+  distance: '150px',
+  width: '300px',
+  showOnlyTheLastOne: true,
+  cssAnimationStyle: 'from-top',
+  timeout: 3000,
+});
