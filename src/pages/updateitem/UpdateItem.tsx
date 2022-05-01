@@ -26,11 +26,12 @@ import {
   getItemById,
   updateItemAction,
 } from '../../store/actions/AddTicketActions';
+import { Block } from 'notiflix';
 
 const UpdateItem = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { dispatch, token, items, title} = state;
+  const { dispatch, token, items, loading} = state;
   
 
   const updateTicketSchema = Yup.object().shape({
@@ -117,14 +118,15 @@ const UpdateItem = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     if (id) {
+      Block.circle('.addTicket');
       getItemById(id, dispatch, token);
       setValuesBeforeUpdate();
     }
-  }, [title]);
+  }, [loading]);
 
   return (
     <ContainerMain>
-      <ContainerAddTicket>
+      <ContainerAddTicket className='addTicket'>
         <LinkBack to="/">
           <AiOutlineArrowLeft />
         </LinkBack>
@@ -202,6 +204,7 @@ const mapStateToProps = (state: RootState) => ({
   token: state.auth.token,
   items: state.add.items,
   title: state.add.title,
+  loading: state.add.loading,
 });
 
 export default connect(mapStateToProps)(UpdateItem);

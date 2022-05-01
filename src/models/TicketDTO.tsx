@@ -8,6 +8,7 @@ export interface TicketDTO {
     dateItem: string;
     value: string;
   }[];
+  loading?: boolean;
 }
 
 export interface GetTicketDTO extends TicketDTO {

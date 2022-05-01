@@ -9,6 +9,7 @@ export const INITIAL_STATE_TICKET = {
       value: '',
     },
   ],
+  loading: true
 };
 
 const addTicketReducer = (
@@ -26,6 +27,7 @@ const addTicketReducer = (
       return {
         ...state,
         items: action.items,
+        loading: false
       };
     default:
       return state;
