@@ -177,7 +177,7 @@ export const ImgProfile = styled.img`
   outline: 3px solid ${Theme.color.neutralDark};
 `;
 
-// global style  para os loadings
+// global style  do notiflix
 Notiflix.Loading.init({
   svgColor: Theme.color.primaryPure,
   backgroundColor: 'rgba(224, 224, 224, 0.5)',

@@ -1,5 +1,4 @@
 import { AnyAction } from 'redux';
-import { TicketDTO } from '../../models/TicketDTO';
 
 export const INITIAL_STATE_TICKET = {
   title: '',
@@ -21,16 +20,16 @@ const addTicketReducer = (
       return {
         ...state,
         title: action.title,
-        items: action.items
+        items: action.items,
       };
-      case 'UPDATE_TICKET':
-        return {
-          ...state,
-          items: action.items
-        };
+    case 'UPDATE_TICKET':
+      return {
+        ...state,
+        items: action.items,
+      };
     default:
       return state;
   }
 };
 
-export default addTicketReducer
+export default addTicketReducer;

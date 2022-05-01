@@ -1,4 +1,4 @@
-import { IRole } from "./AuthDTO";
+import { IRole } from './AuthDTO';
 
 export interface SignUpDTO {
   name: string;
@@ -14,12 +14,12 @@ export interface IRoleNumber {
   role?: number;
 }
 
-export interface ConfigUserDTO{
+export interface ConfigUserDTO {
   password: string;
   confirmPassword?: string;
   image?: File | undefined;
   name?: string;
   roleEntities?: Array<IRole>;
   email?: string;
-  role?: string
+  role?: string;
 }

@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Theme } from '../../theme';
-import { GoGear } from 'react-icons/go';
-import { HiOutlineLogout } from 'react-icons/hi';
 
 export const UserProfile = styled.div`
   display: flex;
@@ -38,4 +36,4 @@ export const DivIcons = styled.div`
   gap: 2px;
   align-items: center;
   justify-content: center;
-`
+`;

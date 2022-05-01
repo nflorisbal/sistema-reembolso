@@ -4,7 +4,6 @@ import { Theme } from '../../theme';
 export const ContainerAddTicket = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: ${Theme.borderRadius};

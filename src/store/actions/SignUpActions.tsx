@@ -17,7 +17,7 @@ export const createUser = async (
   formData.append('image', newUser.image as File);
 
   try {
-    // await api.post('/user/saveUser', formData);
+    await api.post('/user/saveUser', formData);
     const stateNewUser = { ...newUser, type: 'CREATE_USER' };
     dispatch(stateNewUser);
     setTimeout(() => {

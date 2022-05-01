@@ -24,6 +24,6 @@ export interface ArrayTicketDTO {
   totalElements: number;
 }
 
-export interface newStatusDTO{
-  status: number
+export interface newStatusDTO {
+  status: number;
 }

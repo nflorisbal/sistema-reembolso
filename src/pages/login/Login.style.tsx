@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { ContainerSmall } from '../../global.styles';
 import { Theme } from '../../theme';
 
-export const ContainerLogin = styled(ContainerSmall)`
-  
-`;
+export const ContainerLogin = styled(ContainerSmall)``;
 
 export const Title = styled.h4`
   text-align: center;

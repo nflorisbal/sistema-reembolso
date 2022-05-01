@@ -1,6 +1,4 @@
 import {
-  createUser,
-  createUserAdmin,
   getUserById,
   updateUserAdmin,
 } from '../../store/actions/SignUpActions';
@@ -38,15 +36,7 @@ import * as Yup from 'yup';
 
 const UpdateUser = (state: RootState & AnyAction) => {
   const { id } = useParams();
-  const {
-    dispatch,
-    roles,
-    token,
-    nameToUpdate,
-    emailToUpdate,
-    imageToUpdate,
-    roleToUpdate,
-  } = state;
+  const { dispatch, token, nameToUpdate, emailToUpdate, roleToUpdate } = state;
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -127,6 +117,7 @@ const UpdateUser = (state: RootState & AnyAction) => {
       getUserById(id, dispatch, token);
       setValuesBeforeUpdate();
     }
+    // eslint-disable-next-line
   }, [nameToUpdate]);
 
   return (

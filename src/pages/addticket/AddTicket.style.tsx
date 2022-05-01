@@ -4,7 +4,6 @@ import { Theme } from '../../theme';
 export const ContainerAddTicket = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   background-color: ${Theme.color.neutralLight};
   border: 1px solid ${Theme.color.neutralDark};
   border-radius: ${Theme.borderRadius};
@@ -12,7 +11,6 @@ export const ContainerAddTicket = styled.div`
   padding: 0 ${Theme.padding};
   margin: ${Theme.margin};
   width: 440px;
-  
 `;
 
 export const DivFlexItem = styled.div`
@@ -22,10 +20,10 @@ export const DivFlexItem = styled.div`
 `;
 
 export const AnotherItem = styled.a`
-    color: ${Theme.color.primaryDark};
-    cursor: pointer;
-    text-decoration: none;
-`
+  color: ${Theme.color.primaryDark};
+  cursor: pointer;
+  text-decoration: none;
+`;
 export const DivFlexItemContainer = styled.div`
   display: flex;
   flex-direction: column;

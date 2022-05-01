@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import InputMask from 'react-input-mask';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import {
@@ -28,7 +28,6 @@ import {
   StyledLabel,
   InputDefault,
   DivFlexColumn,
-  DivFlex,
   PageTitle,
   LinkBack,
   DivError,
