@@ -1,7 +1,7 @@
 import { AppDispatch } from '..';
 import api from '../../api';
 import { newStatusDTO, TicketDTO } from '../../models/TicketDTO';
-import { Notify } from 'notiflix';
+import { Notify, Block } from 'notiflix';
 
 const SUCCESS_MSG_UPDATE_TICKET = 'Ticket atualizado com sucesso.';
 const SUCCESS_MSG_UPDATE_ITEM = 'Item atualizado com sucesso.';
@@ -105,5 +105,7 @@ export const getItemById = async (
     dispatch(itemToUpdate);
   } catch (error) {
     console.log(error);
+  }finally{
+    Block.circle('.addTicket');
   }
 };
