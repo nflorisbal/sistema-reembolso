@@ -1,4 +1,5 @@
 import { Block, Loading, Notify } from 'notiflix';
+import { AxiosError } from 'axios';
 import { handleLogin } from './AuthActions';
 import { AppDispatch } from '..';
 import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
@@ -8,6 +9,7 @@ const SUCCESS_MSG_UPDATE = 'Cadastro atualizado com sucesso.';
 const SUCCESS_MSG_CREATE = 'Cadastro realizado com sucesso.';
 const ERROR_MSG_ACTION =
   'Erro ao processar sua solicitação. Revise os dados e tente novamente.';
+const WARNING_MSG_CREATE_USER_EMAIL = 'E-mail já cadastrado no sistema.';
 
 export const createUser = async (
   newUser: SignUpDTO,
@@ -30,7 +32,10 @@ export const createUser = async (
     setupLoginAfterPost(newUser, dispatch, navigate, setStatus);
   } catch (error) {
     console.log(error);
-    Notify.failure(ERROR_MSG_ACTION);
+    const { response } = error as AxiosError;
+    response?.status === 400
+      ? Notify.warning(WARNING_MSG_CREATE_USER_EMAIL)
+      : Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.signup');
   }
@@ -48,7 +53,7 @@ export const createUserAdmin = async (
   formData.append('email', newUser.email);
   formData.append('password', newUser.password);
   formData.append('role', newUser.role);
-  if(newUser.image !== undefined){
+  if (newUser.image !== undefined) {
     formData.append('image', newUser.image as File);
   }
 
@@ -64,7 +69,10 @@ export const createUserAdmin = async (
     resetForm();
   } catch (error) {
     console.log(error);
-    Notify.failure(ERROR_MSG_ACTION);
+    const { response } = error as AxiosError;
+    response?.status === 400
+      ? Notify.warning(WARNING_MSG_CREATE_USER_EMAIL)
+      : Notify.failure(ERROR_MSG_ACTION);
   } finally {
     Block.remove('.signup');
   }
@@ -94,7 +102,7 @@ export const editingUser = async (
   updatedUser.append('name', user.name);
   updatedUser.append('email', user.email);
   updatedUser.append('password', user.password);
-  if(user.image !== undefined){
+  if (user.image !== undefined) {
     updatedUser.append('image', user.image as File);
   }
 
