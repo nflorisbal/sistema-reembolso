@@ -63,7 +63,7 @@ export const updateStatusTicket = async (
       newStatus,
       (api.defaults.headers.common['Authorization'] = token)
     );
-    Notify.success('Ação realizada com sucesso');
+    Notify.success(SUCCESS_MSG_UPDATE_TICKET);
   } catch (error) {
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
