@@ -31,7 +31,7 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
-import { checkAdmin } from '../../utils';
+import { checkAdmin, hasToken } from '../../utils';
 
 const SignUp = (state: RootState & AnyAction) => {
   const { dispatch, roles, token } = state;
@@ -148,7 +148,7 @@ const SignUp = (state: RootState & AnyAction) => {
   }, []);
 
   return (
-    <ContainerMain>
+    <ContainerMain height={hasToken() ? '100%' : '100vh'}>
       <ContainerSignUp className="signup">
         <LinkBack to="/">
           <AiOutlineArrowLeft />
