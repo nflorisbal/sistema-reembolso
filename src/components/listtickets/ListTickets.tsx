@@ -165,16 +165,17 @@ const ListTickets = (state: RootState & AnyAction) => {
                           >
                             Anexo
                           </a>
-                          {userRole === 'ROLE_COLABORADOR' && ticket.status === 'ABERTO' && (
-                            <a
-                              href="#!"
-                              onClick={() =>
-                                navigate(`updateitem/${item.idItem}`)
-                              }
-                            >
-                              Editar
-                            </a>
-                          )}
+                          {userRole === 'ROLE_COLABORADOR' &&
+                            ticket.status === 'ABERTO' && (
+                              <a
+                                href="#!"
+                                onClick={() =>
+                                  navigate(`updateitem/${item.idItem}`)
+                                }
+                              >
+                                Editar
+                              </a>
+                            )}
                         </>
                       </LineItem>
                     ))}
