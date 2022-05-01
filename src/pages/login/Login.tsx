@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { handleLogin } from '../../store/actions/AuthActions';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import {
   ContainerLogin,
@@ -21,6 +20,7 @@ import {
   ContainerMain,
   InputDefault,
 } from '../../global.styles';
+import { handleLogin } from '../../store/actions/AuthActions';
 import { hasToken } from '../../utils';
 import { ImageLogo } from '../../components/logo/Logo.style';
 

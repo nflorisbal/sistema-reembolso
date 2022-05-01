@@ -1,8 +1,8 @@
 import { AppDispatch } from '..';
 import { AxiosError } from 'axios';
+import { Loading } from 'notiflix';
 import { AuthDTO } from '../../models/AuthDTO';
 import api from '../../api';
-import { Loading } from 'notiflix';
 
 export const handleLogin = async (
   credentials: AuthDTO,

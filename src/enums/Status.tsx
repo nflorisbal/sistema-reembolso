@@ -1,4 +1,4 @@
-import { Theme } from "../theme";
+import { Theme } from '../theme';
 
 export enum StatusEnum {
   ABERTO = 'Aberto' as any,
@@ -14,4 +14,4 @@ export enum StatusColor {
   APROVADOG = `${Theme.color.primaryPure}` as any,
   REPROVADOG = `${Theme.color.negativeAction}` as any,
   REPROVADOF = `${Theme.color.negativeAction}` as any,
-};
+}

@@ -7,7 +7,7 @@ import {
   UserActions,
   UserName,
   UserProfile,
-  DivIcons
+  DivIcons,
 } from './HeaderProfile.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
@@ -30,13 +30,19 @@ const HeaderProfile = ({
         <small>{email}</small>
         <UserActions>
           <ActionLink to="/updateuser">
-          <DivIcons>
-          <div><GoGear /></div> <div>Perfil</div>
-          </DivIcons>
+            <DivIcons>
+              <div>
+                <GoGear />
+              </div>{' '}
+              <div>Perfil</div>
+            </DivIcons>
           </ActionLink>
           <ActionLink to="/login" onClick={() => handleLogout(dispatch)}>
-          <DivIcons>
-            <div><HiOutlineLogout /></div> <div>Sair</div>
+            <DivIcons>
+              <div>
+                <HiOutlineLogout />
+              </div>{' '}
+              <div>Sair</div>
             </DivIcons>
           </ActionLink>
         </UserActions>

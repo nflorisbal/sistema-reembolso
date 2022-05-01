@@ -1,6 +1,5 @@
-import { Block } from 'notiflix';
+import { Block, Notify } from 'notiflix';
 import { AppDispatch } from '..';
-import { Notify } from 'notiflix';
 import api from '../../api';
 
 const SUCCESS_MSG_DELETE = 'Ticket removido com sucesso.';
@@ -73,5 +72,5 @@ export const deleteTicket = async (token: any, id: number) => {
   } catch (error) {
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
-  } 
+  }
 };

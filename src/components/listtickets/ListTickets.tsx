@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
+import { useNavigate } from 'react-router-dom';
 import { StatusEnum, StatusColor } from '../../enums/Status';
 import { RootState } from '../../store';
 import {
@@ -27,7 +28,6 @@ import { updateStatusTicket } from '../../store/actions/TicketActions';
 import { fixBase64, setupValor } from '../../utils';
 import ZeroTicket from '../zeroticket/ZeroTicket';
 import { Theme } from '../../theme';
-import { useNavigate } from 'react-router-dom';
 
 const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 

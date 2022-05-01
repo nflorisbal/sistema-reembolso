@@ -9,7 +9,7 @@ export const INITIAL_STATE_TICKET = {
       value: '',
     },
   ],
-  loading: true
+  loading: true,
 };
 
 const ticketReducer = (
@@ -22,15 +22,15 @@ const ticketReducer = (
         ...state,
         title: action.title,
         items: action.items,
-        loading: true
+        loading: true,
       };
     case 'UPDATE_TICKET':
       return {
         ...state,
         items: action.items,
-        loading: false
+        loading: false,
       };
-      case 'WIPE_LIST':
+    case 'WIPE_LIST':
       state = INITIAL_STATE_TICKET;
       return state;
     default:

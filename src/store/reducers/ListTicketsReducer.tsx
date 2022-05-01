@@ -2,9 +2,7 @@ import { AnyAction } from 'redux';
 import { ArrayTicketDTO } from '../../models/TicketDTO';
 
 export const INITIAL_STATE_GET_TICKET: ArrayTicketDTO = {
-  ticketsList: [
-   
-  ],
+  ticketsList: [],
   loadingTickets: true,
   totalPages: 1,
   totalElements: 0,

@@ -1,12 +1,12 @@
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ContainerHeader, ContainerMenu } from './Header.style';
 import { CredentialDTO } from '../../models/AuthDTO';
 import { RootState } from '../../store';
 import Menu from '../menu/Menu';
 import HeaderProfile from '../headerprofile/HeaderProfile';
 import { ImageLogo } from '../logo/Logo.style';
-import { Link } from 'react-router-dom';
 
 const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
   return (
@@ -14,7 +14,9 @@ const Header = ({ isLogged }: CredentialDTO & AnyAction) => {
       {isLogged ? (
         <ContainerHeader>
           <ContainerMenu>
-            <Link to="/"><ImageLogo width="170px" /></Link>
+            <Link to="/">
+              <ImageLogo width="170px" />
+            </Link>
             <Menu />
           </ContainerMenu>
           <ContainerMenu>

@@ -4,6 +4,10 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AnyAction } from 'redux';
+import moment from 'moment';
+import InputMask from 'react-input-mask';
+import * as Yup from 'yup';
+import { Block } from 'notiflix';
 import {
   ButtonDefault,
   ContainerMain,
@@ -18,15 +22,12 @@ import {
 import { RootState } from '../../store';
 import { hasToken } from '../../utils';
 import { ContainerAddTicket } from './UpdateItem.style';
-import moment from 'moment';
-import InputMask from 'react-input-mask';
-import * as Yup from 'yup';
+
 import { DivButton } from '../signup/SignUp.style';
 import {
   getItemById,
   updateItemAction,
 } from '../../store/actions/TicketActions';
-import { Block } from 'notiflix';
 
 const UpdateItem = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const UpdateItem = (state: RootState & AnyAction) => {
 
   const setValuesBeforeUpdate = () => {
     console.log(items);
-    
+
     items.map((item: any) => {
       formik.setFieldValue('name', item.name);
       formik.setFieldValue('value', item.value.toString().replaceAll('.', ','));

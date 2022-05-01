@@ -6,6 +6,8 @@ import {
   FormikProvider,
   ErrorMessage,
 } from 'formik';
+import moment from 'moment';
+import { Block } from 'notiflix';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { useNavigate } from 'react-router-dom';
@@ -35,8 +37,6 @@ import {
 } from '../../global.styles';
 import { RootState } from '../../store';
 import { sendNewTicket } from '../../store/actions/TicketActions';
-import moment from 'moment';
-import { Block } from 'notiflix';
 
 const AddTicket = (state: RootState & AnyAction) => {
   const { token, dispatch } = state;

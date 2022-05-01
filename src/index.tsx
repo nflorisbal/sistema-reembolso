@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
-import Router from './router';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import Router from './router';
 import { store, persistor } from './store';
 import { GlobalStyle } from './global.styles';
 

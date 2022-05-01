@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { Block } from 'notiflix';
+import { useNavigate } from 'react-router-dom';
 import {
   ContainerFind,
   ContainerListUsers,
@@ -25,9 +26,8 @@ import {
 import DefaultProfileImg from '../../images/profile_default.png';
 import Pagination from '../pagination/Pagination';
 import { Theme } from '../../theme';
-import { useNavigate } from 'react-router-dom';
 
-const MIN_LENGTH = 2;
+const MIN_LENGTH_FOR_SEARCH_BAR = 2;
 
 const ListAllUsers = (state: RootState & AnyAction) => {
   const { dispatch, users, token, totalPages } = state;
@@ -35,11 +35,10 @@ const ListAllUsers = (state: RootState & AnyAction) => {
   const navigate = useNavigate();
 
   const handleSearch = (value: string) => {
+    Block.circle('.listUser');
     if (value === '') {
-      Block.circle('.listUser');
       listAllUsers(dispatch, token, currentPage);
-    } else if (value.length > MIN_LENGTH) {
-      Block.circle('.listUser');
+    } else if (value.length > MIN_LENGTH_FOR_SEARCH_BAR) {
       listUsersByName(dispatch, token, value);
     }
   };

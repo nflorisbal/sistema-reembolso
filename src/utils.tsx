@@ -44,7 +44,7 @@ export const setupValor = (value: number) => {
   if (value) {
     let valueString = value.toFixed(2);
     if (valueString.includes('.')) {
-      valueString = valueString.replaceAll('.', ',')
+      valueString = valueString.replaceAll('.', ',');
       return valueString;
     } else {
       return value;

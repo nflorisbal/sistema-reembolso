@@ -5,6 +5,11 @@ import { AnyAction } from 'redux';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Block } from 'notiflix';
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import { SignUpDTO } from '../../models/SignUpDTO';
 import { createUser, createUserAdmin } from '../../store/actions/UserActions';
 import { RootState } from '../../store';
@@ -14,11 +19,6 @@ import {
   DivButton,
   StyledSelect,
 } from './SignUp.style';
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineArrowLeft,
-} from 'react-icons/ai';
 import {
   ContainerMain,
   DivFlexColumn,
@@ -50,7 +50,6 @@ const SignUp = (state: RootState & AnyAction) => {
     setShowConfirmPassword(!showConfirmPassword);
   };
   //#endregion password
-
 
   //#region validação do yup
   const signupSchema = Yup.object().shape({
@@ -145,6 +144,7 @@ const SignUp = (state: RootState & AnyAction) => {
 
   useEffect(() => {
     checkAdmin(roles, setAdmin);
+    // eslint-disable-next-line
   }, []);
 
   return (

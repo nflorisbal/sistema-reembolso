@@ -1,3 +1,15 @@
+import * as Yup from 'yup';
+import { useFormik, FormikHelpers } from 'formik';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
+import { Block, Loading } from 'notiflix';
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import {
   editingUser,
   getUserById,
@@ -11,11 +23,6 @@ import {
   StyledSelect,
 } from '../signup/SignUp.style';
 import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineArrowLeft,
-} from 'react-icons/ai';
-import {
   ContainerMain,
   DivFlexColumn,
   InputDefault,
@@ -27,15 +34,8 @@ import {
   LinkBack,
   DivError,
 } from '../../global.styles';
-import { useFormik, FormikHelpers } from 'formik';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { AnyAction } from 'redux';
 import { ConfigUserDTO, SignUpDTO } from '../../models/SignUpDTO';
-import * as Yup from 'yup';
 import { hasToken } from '../../utils';
-import { Block, Loading } from 'notiflix';
 import { checkAdmin } from '../../utils';
 import { CredentialDTO } from '../../models/AuthDTO';
 

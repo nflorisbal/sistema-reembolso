@@ -13,7 +13,7 @@ const ListTicketsPage = () => {
     // eslint-disable-next-line
   }, []);
 
-  return  <ListTickets />;
+  return <ListTickets />;
 };
 
 export default ListTicketsPage;
