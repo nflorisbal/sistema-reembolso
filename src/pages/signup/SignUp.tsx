@@ -100,7 +100,7 @@ const SignUp = (state: RootState & AnyAction) => {
       email: '',
       password: '',
       confirmPassword: '',
-      role: '',
+      role: '4',
     },
     onSubmit: (
       values: SignUpDTO,

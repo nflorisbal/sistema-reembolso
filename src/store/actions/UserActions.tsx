@@ -52,7 +52,10 @@ export const createUserAdmin = async (
   formData.append('name', newUser.name);
   formData.append('email', newUser.email);
   formData.append('password', newUser.password);
+  console.log(newUser.role, "role")
+  if (newUser.role !== "" || newUser.role ){
   formData.append('role', newUser.role);
+  }
   if (newUser.image !== undefined) {
     formData.append('image', newUser.image as File);
   }
