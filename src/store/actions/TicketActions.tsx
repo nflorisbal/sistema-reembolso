@@ -67,6 +67,8 @@ export const updateStatusTicket = async (
   } catch (error) {
     console.log(error);
     Notify.failure(ERROR_MSG_ACTION);
+  } finally {
+    Block.remove('.listTickets');
   }
 };
 

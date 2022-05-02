@@ -59,6 +59,7 @@ const ListTickets = (state: RootState & AnyAction) => {
   };
 
   const setupAprovar = async (id: number) => {
+    Block.circle('.listTickets');
     if (userRole === 'ROLE_GESTOR') {
       const newStatus = { status: 1 };
       await updateStatusTicket(id, newStatus, token);
@@ -71,6 +72,7 @@ const ListTickets = (state: RootState & AnyAction) => {
   };
 
   const setupReprovar = async (id: number) => {
+    Block.circle('.listTickets');
     if (userRole === 'ROLE_GESTOR') {
       const newStatus = { status: 2 };
       await updateStatusTicket(id, newStatus, token);
